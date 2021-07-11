@@ -1,0 +1,72 @@
+image:
+  name: registry.gitlab.com/famedly/containers/flutter-dockerimages:stable
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+stages:
+- coverage
+- release
+- deploy
+
+code_analyze:
+  stage: coverage
+  script: [./scripts/code_analyze.sh]
+
+test:
+  stage: coverage
+  script: [flutter test]
+
+build_web:
+  stage: coverage
+  image: registry.gitlab.com/famedly/containers/flutter-dockerimages:beta
+  script: [./scripts/build-web.sh]
+  artifacts:
+    paths:
+      - build/web/
+
+build_android_debug:
+  stage: coverage
+  script: [./scripts/build-android-debug.sh]
+  artifacts:
+    when: on_success
+    paths:
+      - build/app/outputs/apk/debug/app-debug.apk
+  except:
+    - main
+    - tags
+
+build_android_apk:
+  stage: coverage
+  before_script: [./scripts/prepare-android-release.sh]
+  script: [./scripts/build-android-apk.sh]
+  artifacts:
+    when: on_success
+    paths:
+      - build/android/app-release.apk
+  only:
+    - main
+    - tags
+
+build_android_appbundle:
+  stage: coverage
+  before_script: [./scripts/prepare-android-release.sh]
+  script: [./scripts/release-playstore-beta.sh]
+  artifacts:
+    when: on_success
+    paths:
+      - build/android/app-release.aab
+  resource_group: playstore_release
+  only:
+    - main
+
+pages:
+  stage: deploy
+  image: ruby:latest
+  script:
+    - mv build/web/ public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
