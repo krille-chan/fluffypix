@@ -1,3 +1,6 @@
 {
-    "helloWorld": "Hello world"
+    "helloWorld": "Hello world",
+    "pickACommunity": "Pick a community",
+    "oopsSomethingWentWrong": "Oops... something went wrong!",
+    "search": "Search"
 }
