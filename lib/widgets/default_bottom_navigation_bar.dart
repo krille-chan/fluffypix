@@ -45,11 +45,6 @@ class DefaultBottomBarController extends State<DefaultBottomBar> {
   Widget build(BuildContext context) => BottomNavigationBar(
         currentIndex: widget.currentIndex,
         onTap: onTap,
-        type: BottomNavigationBarType.fixed,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Colors.black,
         items: [
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.home),

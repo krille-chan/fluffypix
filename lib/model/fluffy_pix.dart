@@ -5,6 +5,7 @@ import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/config/instances_api_token.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
@@ -55,6 +56,18 @@ class FluffyPix {
   }
 
   Widget builder(BuildContext context, Widget? child) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
+          systemNavigationBarIconBrightness:
+              Theme.of(context).brightness == Brightness.light
+                  ? Brightness.dark
+                  : Brightness.light,
+        ),
+      );
+    });
     return Provider(create: (_) => this, child: child ?? Container());
   }
 

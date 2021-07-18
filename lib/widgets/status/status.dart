@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/model/status.dart';
+import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'text_status_content.dart';
 
 class StatusWidget extends StatelessWidget {
   final Status status;
@@ -24,7 +23,7 @@ class StatusWidget extends StatelessWidget {
           ),
           trailing: Text(status.createdAt),
         ),
-        TextStatusContent(status: status),
+        StatusContent(status: status),
         Row(
           children: [
             IconButton(

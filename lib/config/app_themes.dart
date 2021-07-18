@@ -24,6 +24,13 @@ abstract class AppThemes {
         TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
       },
     ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      type: BottomNavigationBarType.fixed,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      selectedItemColor: AppConfigs.primaryColor,
+      unselectedItemColor: Colors.black,
+    ),
     primaryColor: AppConfigs.primaryColor,
     colorScheme: ThemeData.light().colorScheme.copyWith(
           primary: AppConfigs.primaryColor,

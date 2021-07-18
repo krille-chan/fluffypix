@@ -1,6 +1,7 @@
 import 'account.dart';
 import 'application.dart';
 import 'card.dart';
+import 'media_attachment.dart';
 
 class Status {
   final String id;
@@ -24,7 +25,7 @@ class Status {
   final Object? reblog;
   final Application? application;
   final Account account;
-  final List<Object> mediaAttachments;
+  final List<MediaAttachment> mediaAttachments;
   final List<Object> mentions;
   final List<Object> tags;
   final List<Object> emojis;
@@ -85,7 +86,10 @@ class Status {
             ? null
             : Application.fromJson(json['application']),
         account: Account.fromJson(json['account']),
-        mediaAttachments: List<Object>.from(json['media_attachments']),
+        mediaAttachments:
+            List<Map<String, dynamic>>.from(json['media_attachments'])
+                .map((json) => MediaAttachment.fromJson(json))
+                .toList(),
         mentions: List<Object>.from(json['mentions']),
         tags: List<Object>.from(json['tags']),
         emojis: List<Object>.from(json['emojis']),
