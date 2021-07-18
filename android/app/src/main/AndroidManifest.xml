@@ -3,6 +3,8 @@
    <application
         android:label="fluffypix"
         android:icon="@mipmap/ic_launcher">
+        <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
