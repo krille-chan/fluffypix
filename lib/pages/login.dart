@@ -10,6 +10,7 @@ import 'package:fluffypix/model/public_instance.dart';
 import 'package:fluffypix/pages/views/login_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -52,7 +53,7 @@ class LoginPageController extends State<LoginPage> {
   void loginAction(String domain) async {
     browser ??= ChromeSafariBrowser();
     _createApplicationResponse = await FluffyPix.of(context)
-        .connectToInstance(domain, (uri) => browser!.open(url: uri));
+        .connectToInstance(domain, (url) => launch(url.toString()));
   }
 
   void _loginWithRedirectUrl(String? url) async {
