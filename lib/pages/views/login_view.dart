@@ -4,9 +4,9 @@ import 'package:fluffypix/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
-class LoginView extends StatelessWidget {
-  final LoginController controller;
-  const LoginView(this.controller, {Key? key}) : super(key: key);
+class LoginPageView extends StatelessWidget {
+  final LoginPageController controller;
+  const LoginPageView(this.controller, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,8 @@ class LoginView extends StatelessWidget {
                           style: TextStyle(color: Colors.grey[100]),
                         ),
                         trailing: ElevatedButton(
-                          onPressed: () => null,
+                          onPressed: () =>
+                              controller.loginAction(instances[i].name),
                           child: Text('Login'),
                         ),
                       ),
