@@ -35,7 +35,7 @@ build_android_apk_debug:
     when: on_success
     paths:
       - build/app/outputs/apk/debug/app-release.apk
-  only:
+  except:
     - main
     - tags
 
