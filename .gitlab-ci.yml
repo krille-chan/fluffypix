@@ -25,7 +25,7 @@ build_web:
     paths:
       - build/web/
 
-build_android_apk:
+build_android_apk_debug:
   stage: coverage
   #before_script: [./scripts/prepare-android-release.sh]
   script:
