@@ -9,7 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'create_application_response.dart';
 import 'obtain_token_response.dart';
@@ -97,7 +96,8 @@ class FluffyPix {
         'scopes': 'read+write+follow+push',
       });
 
-  Future<CreateApplicationResponse> connectToInstance(String domain) async {
+  Future<CreateApplicationResponse> connectToInstance(
+      String domain, Function(Uri) launch) async {
     instance = Uri.https(domain, '/');
     debugPrint('Create Application on $instance...');
     final createApplicationResponse = await createApplication(
@@ -109,7 +109,8 @@ class FluffyPix {
       createApplicationResponse.clientId,
     );
     debugPrint('Open OAuth Uri $oAuthUri...');
-    await launch(oAuthUri.toString());
+    launch(oAuthUri);
+
     return createApplicationResponse;
   }
 

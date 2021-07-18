@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:uni_links/uni_links.dart';
 
 import 'package:fluffypix/model/create_application_response.dart';
@@ -21,6 +22,7 @@ class LoginPageController extends State<LoginPage> {
   Future<List<PublicInstance>>? publicInstancesFuture;
   CreateApplicationResponse? _createApplicationResponse;
   StreamSubscription? _intentDataStreamSubscription;
+  ChromeSafariBrowser? browser;
 
   @override
   void initState() {
@@ -48,8 +50,9 @@ class LoginPageController extends State<LoginPage> {
   }
 
   void loginAction(String domain) async {
-    _createApplicationResponse =
-        await FluffyPix.of(context).connectToInstance(domain);
+    browser ??= ChromeSafariBrowser();
+    _createApplicationResponse = await FluffyPix.of(context)
+        .connectToInstance(domain, (uri) => browser!.open(url: uri));
   }
 
   void _loginWithRedirectUrl(String? url) async {
