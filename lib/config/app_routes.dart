@@ -19,15 +19,24 @@ class AppRoutes {
     final parts = route.split('/');
     switch (parts[1]) {
       case '':
-        return MaterialPageRoute(
+        return _fadeRoute(
             builder: (_) => fluffyPix.isLogged ? HomePage() : LoginPage());
       case 'notifications':
-        return MaterialPageRoute(builder: (_) => NotificationsPage());
+        return _fadeRoute(builder: (_) => NotificationsPage());
       case 'search':
-        return MaterialPageRoute(builder: (_) => SearchPage());
+        return _fadeRoute(builder: (_) => SearchPage());
       case 'settings':
         return MaterialPageRoute(builder: (_) => SettingsPage());
     }
     return MaterialPageRoute(builder: (_) => PageNotFoundRouteView());
+  }
+
+  Route _fadeRoute({required Widget Function(BuildContext) builder}) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => builder(context),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return child;
+      },
+    );
   }
 }

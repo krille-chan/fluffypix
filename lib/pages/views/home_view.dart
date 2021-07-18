@@ -16,14 +16,13 @@ class HomePageView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.settings_outlined),
+          icon: Icon(CupertinoIcons.settings),
           onPressed: controller.settingsAction,
         ),
-        centerTitle: true,
         title: Text(AppConfigs.applicationName),
         actions: [
           IconButton(
-            icon: Icon(Icons.mail_outlined),
+            icon: Icon(CupertinoIcons.chat_bubble_2),
             onPressed: () => null,
           ),
         ],

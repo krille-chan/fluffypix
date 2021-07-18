@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 abstract class AppConfigs {
   static const String applicationName = 'FluffyPix';
   static const double borderRadius = 12.0;
@@ -6,4 +8,7 @@ abstract class AppConfigs {
   static const String loginRedirectUri = 'fluffypix://login';
   static const Duration defaultTimeout = Duration(seconds: 30);
   static const String privacyUrl = '';
+  static const Color primaryColor = Color(0xFF5625BA);
+  static const Color primaryColorLight = Color(0xFFCCBDEA);
+  static const Color secondaryColor = Color(0xFF41a2bc);
 }

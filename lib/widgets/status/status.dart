@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/model/status.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'text_status_content.dart';
@@ -13,24 +14,37 @@ class StatusWidget extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              CircleAvatar(
-                backgroundImage:
-                    CachedNetworkImageProvider(status.account.avatar),
-              ),
-              SizedBox(width: 8),
-              Text(status.account.displayName),
-              Spacer(),
-              PopupMenuButton(
-                itemBuilder: (_) => [],
-              ),
-            ],
+        ListTile(
+          leading: CircleAvatar(
+            backgroundImage: CachedNetworkImageProvider(status.account.avatar),
           ),
+          title: Text(
+            status.account.displayName,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          trailing: Text(status.createdAt),
         ),
         TextStatusContent(status: status),
+        Row(
+          children: [
+            IconButton(
+              icon: Icon(CupertinoIcons.heart),
+              onPressed: () => null,
+            ),
+            IconButton(
+              icon: Icon(CupertinoIcons.chat_bubble),
+              onPressed: () => null,
+            ),
+            IconButton(
+              icon: Icon(CupertinoIcons.share),
+              onPressed: () => null,
+            ),
+            Spacer(),
+            PopupMenuButton(
+              itemBuilder: (_) => [],
+            ),
+          ],
+        ),
         Divider(height: 1, thickness: 1),
       ],
     );

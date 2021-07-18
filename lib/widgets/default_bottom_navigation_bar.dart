@@ -48,36 +48,27 @@ class DefaultBottomBarController extends State<DefaultBottomBar> {
         type: BottomNavigationBarType.fixed,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        selectedItemColor: Colors.black,
+        selectedItemColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.black,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(
-                widget.currentIndex == 0 ? Icons.home : Icons.home_outlined),
+            icon: Icon(CupertinoIcons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(widget.currentIndex == 1
-                ? Icons.search
-                : Icons.search_outlined),
+            icon: Icon(CupertinoIcons.search),
             label: 'Search',
           ),
           BottomNavigationBarItem(
-            icon: Icon(widget.currentIndex == 2
-                ? Icons.add_box
-                : Icons.add_box_outlined),
+            icon: Icon(CupertinoIcons.add_circled),
             label: 'Compose',
           ),
           BottomNavigationBarItem(
-            icon: Icon(widget.currentIndex == 3
-                ? Icons.favorite
-                : Icons.favorite_border_outlined),
+            icon: Icon(CupertinoIcons.heart),
             label: 'Notifications',
           ),
           BottomNavigationBarItem(
-            icon: Icon(widget.currentIndex == 4
-                ? Icons.account_circle
-                : Icons.account_circle_outlined),
+            icon: Icon(CupertinoIcons.profile_circled),
             label: 'Account',
           ),
         ],
