@@ -56,6 +56,7 @@ class LoginPageController extends State<LoginPage> {
   }
 
   void _loginWithRedirectUrl(String? url) async {
+    await browser?.close();
     final createApplicationResponse = _createApplicationResponse;
     if (url == null || createApplicationResponse == null) return;
     debugPrint('RECEIVED: $url');
