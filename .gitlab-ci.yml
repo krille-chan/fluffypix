@@ -8,7 +8,9 @@ stages:
 
 code_analyze:
   stage: coverage
-  script: [./scripts/code_analyze.sh]
+  script:
+    - flutter format lib/ test/ --set-exit-if-changed
+    - flutter analyze
 
 test:
   stage: coverage
@@ -16,46 +18,40 @@ test:
 
 build_web:
   stage: coverage
-  image: registry.gitlab.com/famedly/containers/flutter-dockerimages:beta
-  script: [./scripts/build-web.sh]
+  script:
+    - flutter pub get
+    - flutter build web --release --verbose
   artifacts:
     paths:
       - build/web/
 
-build_android_debug:
+build_android_apk:
   stage: coverage
-  script: [./scripts/build-android-debug.sh]
+  #before_script: [./scripts/prepare-android-release.sh]
+  script:
+    - flutter pub get
+    - flutter build apk
   artifacts:
     when: on_success
     paths:
-      - build/app/outputs/apk/debug/app-debug.apk
-  except:
+      - build/app/outputs/apk/debug/app-release.apk
+  only:
     - main
     - tags
 
 build_android_apk:
   stage: coverage
-  before_script: [./scripts/prepare-android-release.sh]
-  script: [./scripts/build-android-apk.sh]
+  #before_script: [./scripts/prepare-android-release.sh]
+  script:
+    - flutter pub get
+    - flutter build apk --release
   artifacts:
     when: on_success
     paths:
-      - build/android/app-release.apk
+      - build/app/outputs/apk/release/app-release.apk
   only:
     - main
     - tags
-
-build_android_appbundle:
-  stage: coverage
-  before_script: [./scripts/prepare-android-release.sh]
-  script: [./scripts/release-playstore-beta.sh]
-  artifacts:
-    when: on_success
-    paths:
-      - build/android/app-release.aab
-  resource_group: playstore_release
-  only:
-    - main
 
 pages:
   stage: deploy
