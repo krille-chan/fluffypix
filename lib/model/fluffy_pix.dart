@@ -97,7 +97,7 @@ class FluffyPix {
       });
 
   Future<CreateApplicationResponse> connectToInstance(
-      String domain, Function(Uri) launch) async {
+      String domain, void Function(Uri) launch) async {
     instance = Uri.https(domain, '/');
     debugPrint('Create Application on $instance...');
     final createApplicationResponse = await createApplication(
