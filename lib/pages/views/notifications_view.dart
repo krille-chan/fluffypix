@@ -12,15 +12,15 @@ class NotificationsPageView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Notifications'),
+        title: const Text('Notifications'),
         actions: [
           IconButton(
-            icon: Icon(Icons.account_circle_outlined),
-            onPressed: () => null,
+            icon: const Icon(Icons.account_circle_outlined),
+            onPressed: () {},
           )
         ],
       ),
-      bottomNavigationBar: DefaultBottomBar(currentIndex: 3),
+      bottomNavigationBar: const DefaultBottomBar(currentIndex: 3),
     );
   }
 }

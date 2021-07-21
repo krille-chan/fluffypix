@@ -45,7 +45,7 @@ class DefaultBottomBarController extends State<DefaultBottomBar> {
   Widget build(BuildContext context) => BottomNavigationBar(
         currentIndex: widget.currentIndex,
         onTap: onTap,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.home),
             label: 'Home',

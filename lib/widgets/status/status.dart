@@ -20,7 +20,7 @@ class StatusWidget extends StatelessWidget {
           ),
           title: Text(
             status.account.displayName,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           trailing: Text(status.createdAt.localizedTimeShort(context)),
         ),
@@ -28,24 +28,24 @@ class StatusWidget extends StatelessWidget {
         Row(
           children: [
             IconButton(
-              icon: Icon(CupertinoIcons.heart),
-              onPressed: () => null,
+              icon: const Icon(CupertinoIcons.heart),
+              onPressed: () {},
             ),
             IconButton(
-              icon: Icon(CupertinoIcons.chat_bubble),
-              onPressed: () => null,
+              icon: const Icon(CupertinoIcons.chat_bubble),
+              onPressed: () {},
             ),
             IconButton(
-              icon: Icon(CupertinoIcons.share),
-              onPressed: () => null,
+              icon: const Icon(CupertinoIcons.share),
+              onPressed: () {},
             ),
-            Spacer(),
+            const Spacer(),
             PopupMenuButton(
               itemBuilder: (_) => [],
             ),
           ],
         ),
-        Divider(height: 1, thickness: 1),
+        const Divider(height: 1, thickness: 1),
       ],
     );
   }

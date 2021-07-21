@@ -14,21 +14,22 @@ class AppRoutes {
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
     final route = settings.name;
     if (route == null) {
-      return MaterialPageRoute(builder: (_) => PageNotFoundRouteView());
+      return MaterialPageRoute(builder: (_) => const PageNotFoundRouteView());
     }
     final parts = route.split('/');
     switch (parts[1]) {
       case '':
         return _fadeRoute(
-            builder: (_) => fluffyPix.isLogged ? HomePage() : LoginPage());
+            builder: (_) =>
+                fluffyPix.isLogged ? const HomePage() : const LoginPage());
       case 'notifications':
-        return _fadeRoute(builder: (_) => NotificationsPage());
+        return _fadeRoute(builder: (_) => const NotificationsPage());
       case 'search':
-        return _fadeRoute(builder: (_) => SearchPage());
+        return _fadeRoute(builder: (_) => const SearchPage());
       case 'settings':
-        return MaterialPageRoute(builder: (_) => SettingsPage());
+        return MaterialPageRoute(builder: (_) => const SettingsPage());
     }
-    return MaterialPageRoute(builder: (_) => PageNotFoundRouteView());
+    return MaterialPageRoute(builder: (_) => const PageNotFoundRouteView());
   }
 
   Route _fadeRoute({required Widget Function(BuildContext) builder}) {

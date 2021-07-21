@@ -11,7 +11,7 @@ class TextStatusContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(minHeight: 300),
+      constraints: const BoxConstraints(minHeight: 300),
       padding: const EdgeInsets.all(12.0),
       color: AppConfigs.primaryColor.withOpacity(0.1),
       child: Center(
@@ -21,7 +21,7 @@ class TextStatusContent extends StatelessWidget {
             context,
             status.content,
             linksCallback: (link) => launch(link),
-            defaultTextStyle: TextStyle(fontSize: 18),
+            defaultTextStyle: const TextStyle(fontSize: 18),
           ),
         ),
       ),

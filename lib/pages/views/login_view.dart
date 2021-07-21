@@ -27,7 +27,7 @@ class LoginPageView extends StatelessWidget {
                 snapshot.connectionState == ConnectionState.waiting;
             final instances = snapshot.data;
             if (instances == null) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
             return Column(
               children: [
@@ -39,7 +39,7 @@ class LoginPageView extends StatelessWidget {
                       onSubmitted: isLoading ? null : controller.searchQuery,
                       decoration: InputDecoration(
                         suffixIcon: isLoading
-                            ? SizedBox(
+                            ? const SizedBox(
                                 width: 12,
                                 height: 12,
                                 child: Center(
@@ -47,7 +47,7 @@ class LoginPageView extends StatelessWidget {
                                         strokeWidth: 1)),
                               )
                             : IconButton(
-                                icon: Icon(Icons.send_outlined),
+                                icon: const Icon(Icons.send_outlined),
                                 onPressed: controller.searchQuery,
                               ),
                         hintText: L10n.of(context)!.search,
@@ -58,7 +58,7 @@ class LoginPageView extends StatelessWidget {
                 Expanded(
                   child: ListView.separated(
                     separatorBuilder: (_, __) =>
-                        Divider(height: 1, color: Colors.black),
+                        const Divider(height: 1, color: Colors.black),
                     itemCount: instances.length,
                     itemBuilder: (context, i) => Container(
                       height: 256,
@@ -77,7 +77,7 @@ class LoginPageView extends StatelessWidget {
                         child: ListTile(
                           title: Text(
                             instances[i].name,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -89,7 +89,7 @@ class LoginPageView extends StatelessWidget {
                           trailing: ElevatedButton(
                             onPressed: () =>
                                 controller.loginAction(instances[i].name),
-                            child: Text('Login'),
+                            child: const Text('Login'),
                           ),
                         ),
                       ),

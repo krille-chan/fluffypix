@@ -12,15 +12,15 @@ class SearchPageView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Search'),
+        title: const Text('Search'),
         actions: [
           IconButton(
-            icon: Icon(Icons.account_circle_outlined),
-            onPressed: () => null,
+            icon: const Icon(Icons.account_circle_outlined),
+            onPressed: () {},
           )
         ],
       ),
-      bottomNavigationBar: DefaultBottomBar(currentIndex: 1),
+      bottomNavigationBar: const DefaultBottomBar(currentIndex: 1),
     );
   }
 }

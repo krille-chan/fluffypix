@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:http/testing.dart';
 
 import 'dart:convert';
@@ -32,7 +33,7 @@ class MockHttpClient extends MockClient {
           dynamic res = {};
           var statusCode = 200;
 
-          print('\$method request to $action with Data: $data');
+          debugPrint('\$method request to $action with Data: $data');
 
           return Response.bytes(utf8.encode(json.encode(res)), statusCode);
         });

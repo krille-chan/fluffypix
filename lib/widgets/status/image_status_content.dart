@@ -9,7 +9,6 @@ class ImageStatusContent extends StatelessWidget {
   const ImageStatusContent({Key? key, required this.status}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print(status.mediaAttachments.first.toJson());
     final attachment = status.mediaAttachments.first;
     final imageUrl =
         attachment.previewUrl?.toString() ?? attachment.url?.toString();

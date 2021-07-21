@@ -15,7 +15,7 @@ import 'obtain_token_response.dart';
 import 'public_instance.dart';
 import 'status.dart';
 
-enum RequestType { GET, POST, PUT, DELETE }
+enum RequestType { get, post, put, delete }
 
 class FluffyPix {
   final Client _client;
@@ -149,7 +149,7 @@ class FluffyPix {
     }
     final instance = this.instance!;
     dynamic json;
-    (!(data is String)) ? json = jsonEncode(data) : json = data;
+    (data is! String) ? json = jsonEncode(data) : json = data;
     if (data is List<int> || action.startsWith('/media/r0/upload')) json = data;
 
     final url = instance.resolveUri(Uri(
@@ -158,7 +158,7 @@ class FluffyPix {
     ));
 
     final headers = <String, String>{};
-    if (type == RequestType.PUT || type == RequestType.POST) {
+    if (type == RequestType.put || type == RequestType.post) {
       headers['Content-Type'] = contentType;
     }
     final accessToken = accessTokenCredentials?.accessToken;
@@ -169,22 +169,22 @@ class FluffyPix {
     Response resp;
     var jsonResp = <String, dynamic>{};
     switch (type) {
-      case RequestType.GET:
+      case RequestType.get:
         resp = await _client.get(url, headers: headers).timeout(
               AppConfigs.defaultTimeout,
             );
         break;
-      case RequestType.POST:
+      case RequestType.post:
         resp = await _client.post(url, body: json, headers: headers).timeout(
               AppConfigs.defaultTimeout,
             );
         break;
-      case RequestType.PUT:
+      case RequestType.put:
         resp = await _client.put(url, body: json, headers: headers).timeout(
               AppConfigs.defaultTimeout,
             );
         break;
-      case RequestType.DELETE:
+      case RequestType.delete:
         resp = await _client.delete(url, headers: headers).timeout(
               AppConfigs.defaultTimeout,
             );
@@ -201,7 +201,7 @@ class FluffyPix {
     }
     var jsonString = String.fromCharCodes(respBody.runes);
     if (jsonString.startsWith('[') && jsonString.endsWith(']')) {
-      jsonString = '\{"chunk":$jsonString\}';
+      jsonString = '{"chunk":$jsonString}';
     }
     jsonResp = jsonDecode(jsonString)
         as Map<String, dynamic>; // May throw FormatException
@@ -239,7 +239,7 @@ class FluffyPix {
     String? scopes,
     String? website,
   }) =>
-      request(RequestType.POST, '/api/v1/apps', data: {
+      request(RequestType.post, '/api/v1/apps', data: {
         'client_name': clientName,
         'redirect_uris': redirectUris,
         if (scopes != null) 'scopes': scopes,
@@ -247,7 +247,7 @@ class FluffyPix {
       }).then((json) => CreateApplicationResponse.fromJson(json));
 
   Future<List<Status>> requestHomeTimeline() =>
-      request(RequestType.GET, '/api/v1/timelines/home').then(
+      request(RequestType.get, '/api/v1/timelines/home').then(
         (json) =>
             (json['chunk'] as List).map((j) => Status.fromJson(j)).toList(),
       );
@@ -260,7 +260,7 @@ class FluffyPix {
     String? code,
     String? grantType,
   }) =>
-      request(RequestType.POST, '/oauth/token', data: {
+      request(RequestType.post, '/oauth/token', data: {
         'client_id': clientId,
         'client_secret': clientSecret,
         'redirect_uri': redirectUri,

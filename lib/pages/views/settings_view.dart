@@ -10,12 +10,12 @@ class SettingsPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: const Text('Settings'),
       ),
       body: ListView(
         children: [
           ListTile(
-            title: Text('Logout'),
+            title: const Text('Logout'),
             onTap: controller.logout,
           ),
         ],

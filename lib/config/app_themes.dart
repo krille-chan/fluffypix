@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 abstract class AppThemes {
   static final ThemeData light = ThemeData.light().copyWith(
-    inputDecorationTheme: InputDecorationTheme(
+    inputDecorationTheme: const InputDecorationTheme(
       fillColor: Colors.white,
       filled: true,
       contentPadding: EdgeInsets.symmetric(horizontal: 12),
@@ -14,7 +14,7 @@ abstract class AppThemes {
         borderSide: BorderSide(color: Colors.black, width: 1),
       ),
     ),
-    pageTransitionsTheme: PageTransitionsTheme(
+    pageTransitionsTheme: const PageTransitionsTheme(
       builders: {
         TargetPlatform.fuchsia: CupertinoPageTransitionsBuilder(),
         TargetPlatform.android: CupertinoPageTransitionsBuilder(),
@@ -25,7 +25,7 @@ abstract class AppThemes {
       },
     ),
     backgroundColor: Colors.white,
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: false,
       showUnselectedLabels: false,
@@ -38,7 +38,7 @@ abstract class AppThemes {
           secondary: AppConfigs.primaryColor,
           secondaryVariant: AppConfigs.secondaryColor,
         ),
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       centerTitle: true,
       brightness: Brightness.light,
       color: Colors.white,

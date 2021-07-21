@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'settings.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
   @override
   HomePageController createState() => HomePageController();
 }
@@ -21,7 +22,7 @@ class HomePageController extends State<HomePage> {
 
   void settingsAction() => Navigator.of(context).push(
         CupertinoPageRoute(
-          builder: (_) => SettingsPage(),
+          builder: (_) => const SettingsPage(),
         ),
       );
 

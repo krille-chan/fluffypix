@@ -16,14 +16,14 @@ class HomePageView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(CupertinoIcons.settings),
+          icon: const Icon(CupertinoIcons.settings),
           onPressed: controller.settingsAction,
         ),
-        title: Text(AppConfigs.applicationName),
+        title: const Text(AppConfigs.applicationName),
         actions: [
           IconButton(
-            icon: Icon(CupertinoIcons.chat_bubble_2),
-            onPressed: () => null,
+            icon: const Icon(CupertinoIcons.chat_bubble_2),
+            onPressed: () {},
           ),
         ],
       ),
@@ -32,7 +32,7 @@ class HomePageView extends StatelessWidget {
         builder: (context, snapshot) {
           final statuses = snapshot.data;
           if (statuses == null) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           return ListView.builder(
             itemCount: statuses.length,
@@ -40,7 +40,7 @@ class HomePageView extends StatelessWidget {
           );
         },
       ),
-      bottomNavigationBar: DefaultBottomBar(currentIndex: 0),
+      bottomNavigationBar: const DefaultBottomBar(currentIndex: 0),
     );
   }
 }
