@@ -27,7 +27,7 @@ build_web:
 
 build_android_apk_debug:
   stage: coverage
-  #before_script: [./scripts/prepare-android-release.sh]
+  before_script: [./scripts/prepare-android-release.sh]
   script:
     - flutter pub get
     - flutter build apk
@@ -41,7 +41,7 @@ build_android_apk_debug:
 
 build_android_apk:
   stage: coverage
-  #before_script: [./scripts/prepare-android-release.sh]
+  before_script: [./scripts/prepare-android-release.sh]
   script:
     - flutter pub get
     - flutter build apk --release
