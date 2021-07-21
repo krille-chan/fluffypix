@@ -15,77 +15,90 @@ class LoginPageView extends StatelessWidget {
         centerTitle: true,
         title: Text(L10n.of(context)!.pickACommunity),
       ),
-      body: Column(
-        children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: TextField(
-                onChanged: controller.searchQuery,
-                decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.search_outlined),
-                  hintText: L10n.of(context)!.search,
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: FutureBuilder<List<PublicInstance>>(
-              future: controller.publicInstancesFuture,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text(L10n.of(context)!.oopsSomethingWentWrong),
-                  );
-                }
-                final instances = snapshot.data;
-                if (instances == null) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                return ListView.separated(
-                  separatorBuilder: (_, __) =>
-                      Divider(height: 1, color: Colors.black),
-                  itemCount: instances.length,
-                  itemBuilder: (context, i) => Container(
-                    height: 256,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: CachedNetworkImageProvider(
-                          instances[i].thumbnail ??
-                              'https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_960_720.png',
-                        ),
-                        fit: BoxFit.cover,
+      body: FutureBuilder<List<PublicInstance>>(
+          future: controller.publicInstancesFuture,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(L10n.of(context)!.oopsSomethingWentWrong),
+              );
+            }
+            final isLoading =
+                snapshot.connectionState == ConnectionState.waiting;
+            final instances = snapshot.data;
+            if (instances == null) {
+              return Center(child: CircularProgressIndicator());
+            }
+            return Column(
+              children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: TextField(
+                      controller: controller.searchController,
+                      onSubmitted: isLoading ? null : controller.searchQuery,
+                      decoration: InputDecoration(
+                        suffixIcon: isLoading
+                            ? SizedBox(
+                                width: 12,
+                                height: 12,
+                                child: Center(
+                                    child: CircularProgressIndicator(
+                                        strokeWidth: 1)),
+                              )
+                            : IconButton(
+                                icon: Icon(Icons.send_outlined),
+                                onPressed: controller.searchQuery,
+                              ),
+                        hintText: L10n.of(context)!.search,
                       ),
                     ),
-                    alignment: Alignment.bottomCenter,
-                    child: Material(
-                      color: Colors.black.withOpacity(0.5),
-                      child: ListTile(
-                        title: Text(
-                          instances[i].name,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.separated(
+                    separatorBuilder: (_, __) =>
+                        Divider(height: 1, color: Colors.black),
+                    itemCount: instances.length,
+                    itemBuilder: (context, i) => Container(
+                      height: 256,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: CachedNetworkImageProvider(
+                            instances[i].thumbnail ??
+                                'https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_960_720.png',
                           ),
+                          fit: BoxFit.cover,
                         ),
-                        subtitle: Text(
-                          instances[i].shortDescription ?? '',
-                          style: TextStyle(color: Colors.grey[100]),
-                        ),
-                        trailing: ElevatedButton(
-                          onPressed: () =>
-                              controller.loginAction(instances[i].name),
-                          child: Text('Login'),
+                      ),
+                      alignment: Alignment.bottomCenter,
+                      child: Material(
+                        color: Colors.black.withOpacity(0.5),
+                        child: ListTile(
+                          title: Text(
+                            instances[i].name,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          subtitle: Text(
+                            instances[i].shortDescription ?? '',
+                            style: TextStyle(color: Colors.grey[100]),
+                          ),
+                          trailing: ElevatedButton(
+                            onPressed: () =>
+                                controller.loginAction(instances[i].name),
+                            child: Text('Login'),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+                ),
+              ],
+            );
+          }),
     );
   }
 }

@@ -19,6 +19,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageController extends State<LoginPage> {
+  final TextEditingController searchController = TextEditingController();
   Future<List<PublicInstance>>? publicInstancesFuture;
   CreateApplicationResponse? _createApplicationResponse;
   StreamSubscription? _intentDataStreamSubscription;
@@ -36,6 +37,20 @@ class LoginPageController extends State<LoginPage> {
     _intentDataStreamSubscription?.cancel();
   }
 
+  Future<List<PublicInstance>> _requestInstances(String query) async {
+    final instances = await FluffyPix.of(context).requestInstances(query);
+    if (query.isNotEmpty &&
+        !instances.any((instance) => instance.name == query)) {
+      instances.add(
+        PublicInstance(
+          id: query,
+          name: query,
+        ),
+      );
+    }
+    return instances;
+  }
+
   void _initReceiveUri() {
     if (kIsWeb || !(Platform.isIOS || Platform.isAndroid)) return;
     // For receiving shared Uris
@@ -43,9 +58,9 @@ class LoginPageController extends State<LoginPage> {
     getInitialLink().then(_loginWithRedirectUrl);
   }
 
-  void searchQuery(String? query) {
+  void searchQuery([_]) {
     setState(() {
-      publicInstancesFuture = FluffyPix.of(context).requestInstances(query);
+      publicInstancesFuture = _requestInstances(searchController.text);
     });
   }
 

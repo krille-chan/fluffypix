@@ -17,29 +17,50 @@ class PublicInstance {
   final String? shortDescription;
   final String? fullDescription;
 
-  PublicInstance.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        name = json['name'],
-        addedAt =
+  PublicInstance({
+    required this.id,
+    required this.name,
+    this.addedAt,
+    this.updatedAt,
+    this.checkedAt,
+    this.uptime,
+    this.dead,
+    this.version,
+    this.users,
+    this.statuses,
+    this.connections,
+    this.openRegistrations,
+    this.thumbnail,
+    this.email,
+    this.admin,
+    this.shortDescription,
+    this.fullDescription,
+  });
+
+  factory PublicInstance.fromJson(Map<String, dynamic> json) => PublicInstance(
+        id: json['id'],
+        name: json['name'],
+        addedAt:
             json['added_at'] != null ? DateTime.parse(json['added_at']) : null,
-        updatedAt = json['updated_at'] != null
+        updatedAt: json['updated_at'] != null
             ? DateTime.parse(json['updated_at'])
             : null,
-        checkedAt = json['checked_at'] != null
+        checkedAt: json['checked_at'] != null
             ? DateTime.parse(json['checked_at'])
             : null,
-        uptime = json['uptime'],
-        dead = json['dead'],
-        version = json['version'],
-        users = json['users'],
-        statuses = json['statuses'],
-        connections = json['connections'],
-        openRegistrations = json['open_registrations'],
-        thumbnail = json['thumbnail'],
-        email = json['email'],
-        admin = json['admin'],
-        shortDescription =
+        uptime: json['uptime'],
+        dead: json['dead'],
+        version: json['version'],
+        users: json['users'],
+        statuses: json['statuses'],
+        connections: json['connections'],
+        openRegistrations: json['open_registrations'],
+        thumbnail: json['thumbnail'],
+        email: json['email'],
+        admin: json['admin'],
+        shortDescription:
             json['info'] != null ? json['info']['short_description'] : null,
-        fullDescription =
-            json['info'] != null ? json['info']['long_description'] : null;
+        fullDescription:
+            json['info'] != null ? json['info']['long_description'] : null,
+      );
 }
