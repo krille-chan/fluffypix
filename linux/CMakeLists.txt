@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
 set(BINARY_NAME "fluffypix")
-set(APPLICATION_ID "com.example.fluffypix")
+set(APPLICATION_ID "io.fluffypix.app")
 
 cmake_policy(SET CMP0063 NEW)
 
