@@ -3,6 +3,7 @@ import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../utils/date_time_extension.dart';
 
 class StatusWidget extends StatelessWidget {
   final Status status;
@@ -21,7 +22,7 @@ class StatusWidget extends StatelessWidget {
             status.account.displayName,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          trailing: Text(status.createdAt),
+          trailing: Text(status.createdAt.localizedTimeShort(context)),
         ),
         StatusContent(status: status),
         Row(

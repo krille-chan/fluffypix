@@ -5,7 +5,7 @@ import 'media_attachment.dart';
 
 class Status {
   final String id;
-  final String createdAt;
+  final DateTime createdAt;
   final String? inReplyToId;
   final String? inReplyToAccountId;
   final bool sensitive;
@@ -64,7 +64,7 @@ class Status {
 
   factory Status.fromJson(Map<String, dynamic> json) => Status(
         id: json['id'],
-        createdAt: json['created_at'],
+        createdAt: DateTime.parse(json['created_at']),
         inReplyToId: json['in_reply_to_id'],
         inReplyToAccountId: json['in_reply_to_account_id'],
         sensitive: json['sensitive'],
@@ -99,7 +99,7 @@ class Status {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'created_at': createdAt,
+        'created_at': createdAt.toIso8601String(),
         if (inReplyToId != null) 'in_reply_to_id': inReplyToId,
         if (inReplyToAccountId != null)
           'in_reply_to_account_id': inReplyToAccountId,

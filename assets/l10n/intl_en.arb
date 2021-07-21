@@ -2,5 +2,37 @@
     "helloWorld": "Hello world",
     "pickACommunity": "Pick a community",
     "oopsSomethingWentWrong": "Oops... something went wrong!",
-    "search": "Search"
+    "search": "Search",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "dateAndTimeOfDay": "{date}, {timeOfDay}",
+    "@dateAndTimeOfDay": {
+        "type": "text",
+        "placeholders": {
+        "date": {},
+        "timeOfDay": {}
+        }
+    },
+    "dateWithoutYear": "{month}-{day}",
+    "@dateWithoutYear": {
+        "type": "text",
+        "placeholders": {
+        "month": {},
+        "day": {}
+        }
+    },
+    "dateWithYear": "{year}-{month}-{day}",
+    "@dateWithYear": {
+        "type": "text",
+        "placeholders": {
+        "year": {},
+        "month": {},
+        "day": {}
+        }
+    }
 }
