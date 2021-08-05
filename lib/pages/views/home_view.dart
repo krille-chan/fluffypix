@@ -4,6 +4,7 @@ import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
 import 'package:fluffypix/widgets/status/status.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../home.dart';
 
@@ -27,18 +28,15 @@ class HomePageView extends StatelessWidget {
           ),
         ],
       ),
-      body: FutureBuilder<List<Status>>(
-        future: controller.timelineRequest,
-        builder: (context, snapshot) {
-          final statuses = snapshot.data;
-          if (statuses == null) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return ListView.builder(
-            itemCount: statuses.length,
-            itemBuilder: (context, i) => StatusWidget(status: statuses[i]),
-          );
-        },
+      body: SmartRefresher(
+        controller: controller.refreshController,
+        enablePullDown: true,
+        onRefresh: controller.refresh,
+        child: ListView.builder(
+          itemCount: controller.timeline.length,
+          itemBuilder: (context, i) =>
+              StatusWidget(status: controller.timeline[i]),
+        ),
       ),
       bottomNavigationBar: const DefaultBottomBar(currentIndex: 0),
     );

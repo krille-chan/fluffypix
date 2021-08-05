@@ -30,7 +30,7 @@ class Status {
   final List<Object> tags;
   final List<Object> emojis;
   final Card? card;
-  final String? poll;
+  final Map? poll;
 
   const Status({
     required this.id,

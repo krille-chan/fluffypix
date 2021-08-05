@@ -94,7 +94,7 @@ class LoginPageController extends State<LoginPage> {
           okLabel: L10n.of(context)!.login,
           cancelLabel: L10n.of(context)!.cancel,
           textFields: [
-            const DialogTextField(hintText: L10n.of(context)!.enterCode),
+            DialogTextField(hintText: L10n.of(context)!.enterCode),
           ],
         );
         if (code == null || code.isEmpty) return;
