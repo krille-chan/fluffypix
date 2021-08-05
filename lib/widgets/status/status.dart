@@ -6,6 +6,7 @@ import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_html_css/simple_html_css.dart';
 import '../../utils/date_time_extension.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
@@ -227,7 +228,10 @@ class _StatusWidgetState extends State<StatusWidget> {
         ),
         for (final reply in widget.replies)
           ListTile(
-            title: Text('${reply.account.displayName}: ${reply.content}'),
+            title: RichText(
+              text: HTML.toTextSpan(context,
+                  '<b>${reply.account.displayName.isNotEmpty ? reply.account.displayName : reply.account.username}</b>: ${reply.content}'),
+            ),
           ),
         const Divider(height: 1, thickness: 1),
       ],
