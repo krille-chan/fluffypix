@@ -57,7 +57,6 @@ class LoginPageController extends State<LoginPage> {
     if (kIsWeb || !(Platform.isIOS || Platform.isAndroid)) return;
     // For receiving shared Uris
     _intentDataStreamSubscription = linkStream.listen(_loginWithRedirectUrl);
-    getInitialLink().then(_loginWithRedirectUrl);
   }
 
   Timer? _cooldown;

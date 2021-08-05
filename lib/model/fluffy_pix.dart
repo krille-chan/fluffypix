@@ -77,7 +77,7 @@ class FluffyPix {
 
   Future<void> _save() => _box.put(AppConfigs.hiveBoxAccountKey, toJson());
 
-  String get _redirectUri => !kIsWeb && Platform.isAndroid
+  String get _redirectUri => !kIsWeb && (Platform.isAndroid || Platform.isIOS)
       ? AppConfigs.loginRedirectUri
       : _noRedirectUri;
 
