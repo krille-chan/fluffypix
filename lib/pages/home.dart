@@ -39,6 +39,12 @@ class HomePageController extends State<HomePage> {
     }
   }
 
+  void onUpdateStatus(Status status) {
+    setState(() {
+      timeline[timeline.indexWhere((s) => s.id == status.id)] = status;
+    });
+  }
+
   void loadMore() async {
     try {
       final statuses = await FluffyPix.of(context)

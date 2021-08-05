@@ -93,7 +93,7 @@ class FluffyPix {
         'client_id': clientId,
         'redirect_uri': _redirectUri,
         'response_type': 'code',
-        'scopes': 'read+write+follow+push',
+        'scopes': 'read write follow push',
       });
 
   Future<CreateApplicationResponse> connectToInstance(
@@ -103,6 +103,7 @@ class FluffyPix {
     final createApplicationResponse = await createApplication(
       AppConfigs.applicationName,
       _redirectUri,
+      scopes: 'read write follow push',
     );
     final oAuthUri = getOAuthUri(
       domain,
@@ -126,6 +127,7 @@ class FluffyPix {
       _redirectUri,
       code: code,
       grantType: 'authorization_code',
+      scope: 'read write follow push',
     );
     debugPrint('Store access token...');
     return _save();
@@ -272,4 +274,24 @@ class FluffyPix {
       }).then(
         (json) => AccessTokenCredentials.fromJson(json),
       );
+
+  Future<Status> favoriteStatus(String statusId) => request(
+        RequestType.post,
+        '/api/v1/statuses/${Uri.encodeComponent(statusId)}/favourite',
+      ).then((json) => Status.fromJson(json));
+
+  Future<Status> unfavoriteStatus(String statusId) => request(
+        RequestType.post,
+        '/api/v1/statuses/${Uri.encodeComponent(statusId)}/unfavourite',
+      ).then((json) => Status.fromJson(json));
+
+  Future<Status> boostStatus(String statusId) => request(
+        RequestType.post,
+        '/api/v1/statuses/${Uri.encodeComponent(statusId)}/reblog',
+      ).then((json) => Status.fromJson(json));
+
+  Future<Status> unboostStatus(String statusId) => request(
+        RequestType.post,
+        '/api/v1/statuses/${Uri.encodeComponent(statusId)}/unreblog',
+      ).then((json) => Status.fromJson(json));
 }

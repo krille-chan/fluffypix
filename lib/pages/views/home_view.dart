@@ -36,8 +36,10 @@ class HomePageView extends StatelessWidget {
         child: ListView.builder(
           controller: controller.scrollController,
           itemCount: controller.timeline.length,
-          itemBuilder: (context, i) =>
-              StatusWidget(status: controller.timeline[i]),
+          itemBuilder: (context, i) => StatusWidget(
+            status: controller.timeline[i],
+            onUpdate: controller.onUpdateStatus,
+          ),
         ),
       ),
       bottomNavigationBar: DefaultBottomBar(
