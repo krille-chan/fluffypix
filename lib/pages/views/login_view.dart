@@ -1,6 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/model/public_instance.dart';
 import 'package:fluffypix/pages/login.dart';
+import 'package:fluffypix/widgets/instance_list_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -73,38 +73,9 @@ class LoginPageView extends StatelessWidget {
                         separatorBuilder: (_, __) =>
                             const Divider(height: 1, color: Colors.black),
                         itemCount: instances.length,
-                        itemBuilder: (context, i) => Container(
-                          height: 256,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: CachedNetworkImageProvider(
-                                instances[i].thumbnail ??
-                                    'https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_960_720.png',
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          alignment: Alignment.bottomCenter,
-                          child: Material(
-                            color: Colors.white.withOpacity(0.9),
-                            child: ListTile(
-                              title: Text(
-                                instances[i].name,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              subtitle: Text(
-                                '${L10n.of(context)!.members}: ${instances[i].users ?? L10n.of(context)!.unknown}\n${instances[i].shortDescription ?? instances[i].fullDescription ?? ''}',
-                                maxLines: 3,
-                              ),
-                              trailing: ElevatedButton(
-                                onPressed: () =>
-                                    controller.loginAction(instances[i].name),
-                                child: const Text('Login'),
-                              ),
-                            ),
-                          ),
+                        itemBuilder: (context, i) => InstanceListItem(
+                          instance: instances[i],
+                          controller: controller,
                         ),
                       ),
                     ),
