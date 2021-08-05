@@ -3,16 +3,23 @@ import 'package:flutter/material.dart';
 
 class DefaultBottomBar extends StatefulWidget {
   final int currentIndex;
+  final void Function()? onCurrentIndexTab;
 
-  const DefaultBottomBar({Key? key, required this.currentIndex})
-      : super(key: key);
+  const DefaultBottomBar({
+    Key? key,
+    required this.currentIndex,
+    this.onCurrentIndexTab,
+  }) : super(key: key);
   @override
   DefaultBottomBarController createState() => DefaultBottomBarController();
 }
 
 class DefaultBottomBarController extends State<DefaultBottomBar> {
   void onTap(int index) {
-    if (index == widget.currentIndex) return;
+    if (index == widget.currentIndex) {
+      widget.onCurrentIndexTab?.call();
+      return;
+    }
 
     if (index == 0) {
       Navigator.of(context).popUntil((r) => r.isFirst);

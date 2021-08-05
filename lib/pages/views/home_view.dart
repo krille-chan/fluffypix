@@ -1,5 +1,4 @@
 import 'package:fluffypix/config/app_configs.dart';
-import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
 import 'package:fluffypix/widgets/status/status.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,14 +30,23 @@ class HomePageView extends StatelessWidget {
       body: SmartRefresher(
         controller: controller.refreshController,
         enablePullDown: true,
+        enablePullUp: controller.timeline.isNotEmpty,
         onRefresh: controller.refresh,
+        onLoading: controller.loadMore,
         child: ListView.builder(
+          controller: controller.scrollController,
           itemCount: controller.timeline.length,
           itemBuilder: (context, i) =>
               StatusWidget(status: controller.timeline[i]),
         ),
       ),
-      bottomNavigationBar: const DefaultBottomBar(currentIndex: 0),
+      bottomNavigationBar: DefaultBottomBar(
+          currentIndex: 0,
+          onCurrentIndexTab: () => controller.scrollController.animateTo(
+                0,
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.ease,
+              )),
     );
   }
 }

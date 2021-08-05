@@ -23,21 +23,32 @@ enum HomePagePopupMenuButtonAction {
 class HomePageController extends State<HomePage> {
   List<Status> timeline = [];
   final refreshController = RefreshController(initialRefresh: false);
+  final scrollController = ScrollController();
 
   void refresh() async {
-    print('Refresh timeline');
     try {
       timeline = await FluffyPix.of(context).requestHomeTimeline();
       setState(() {});
       refreshController.refreshCompleted();
-    } catch (e, s) {
+    } catch (_) {
       refreshController.refreshFailed();
       if (timeline.isEmpty) {
-        print('Failed to refresh. Try again in 3 seconds...');
-        print(e);
-        print(s);
         Timer(const Duration(seconds: 3), refreshController.requestRefresh);
       }
+      rethrow;
+    }
+  }
+
+  void loadMore() async {
+    try {
+      final statuses = await FluffyPix.of(context)
+          .requestHomeTimeline(maxId: timeline.last.id);
+      timeline.addAll(statuses);
+      setState(() {});
+      refreshController.loadComplete();
+    } catch (_) {
+      refreshController.loadFailed();
+      rethrow;
     }
   }
 
