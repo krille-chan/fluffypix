@@ -93,7 +93,7 @@ class FluffyPix {
         'client_id': clientId,
         'redirect_uri': _redirectUri,
         'response_type': 'code',
-        'scopes': 'read write follow push',
+        'scope': 'read write follow push',
       });
 
   Future<CreateApplicationResponse> connectToInstance(
@@ -104,6 +104,7 @@ class FluffyPix {
       AppConfigs.applicationName,
       _redirectUri,
       scopes: 'read write follow push',
+      website: AppConfigs.applicationWebsite,
     );
     final oAuthUri = getOAuthUri(
       domain,
@@ -167,6 +168,8 @@ class FluffyPix {
     if (accessToken != null) {
       headers['Authorization'] = 'Bearer $accessToken';
     }
+
+    //print('${type.toString()} ${url.toString()} $json');
 
     Response resp;
     var jsonResp = <String, dynamic>{};

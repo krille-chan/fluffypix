@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 abstract class AppConfigs {
   static const String applicationName = 'FluffyPix';
+  static const String applicationWebsite =
+      'https://gitlab.com/KrilleFear/fluffypix';
   static const double borderRadius = 12.0;
   static const String hiveBoxName = 'fluffypix_box';
   static const String hiveBoxAccountKey = 'fluffypix_box_account';
