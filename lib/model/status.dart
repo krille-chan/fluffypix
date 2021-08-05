@@ -17,10 +17,10 @@ class Status {
   final int repliesCount;
   final int reblogsCount;
   final int favouritesCount;
-  final bool favourited;
-  final bool reblogged;
-  final bool muted;
-  final bool bookmarked;
+  final bool? favourited;
+  final bool? reblogged;
+  final bool? muted;
+  final bool? bookmarked;
   final String content;
   final Object? reblog;
   final Application? application;
@@ -46,10 +46,10 @@ class Status {
     required this.repliesCount,
     required this.reblogsCount,
     required this.favouritesCount,
-    required this.favourited,
-    required this.reblogged,
-    required this.muted,
-    required this.bookmarked,
+    this.favourited,
+    this.reblogged,
+    this.muted,
+    this.bookmarked,
     required this.content,
     required this.reblog,
     required this.application,

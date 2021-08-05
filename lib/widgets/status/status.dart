@@ -31,7 +31,7 @@ class _StatusWidgetState extends State<StatusWidget> {
   void favoriteAction() async {
     setState(() => _favoriteLoading = true);
     try {
-      final status = await (widget.status.favourited
+      final status = await (widget.status.favourited ?? false
           ? FluffyPix.of(context).unfavoriteStatus(widget.status.id)
           : FluffyPix.of(context).favoriteStatus(widget.status.id));
       widget.onUpdate(status);
@@ -50,7 +50,7 @@ class _StatusWidgetState extends State<StatusWidget> {
   void shareAction() async {
     setState(() => _shareLoading = true);
     try {
-      final status = await (widget.status.reblogged
+      final status = await (widget.status.reblogged ?? false
           ? FluffyPix.of(context).unboostStatus(widget.status.id)
           : FluffyPix.of(context).boostStatus(widget.status.id));
       widget.onUpdate(status);
@@ -109,10 +109,12 @@ class _StatusWidgetState extends State<StatusWidget> {
                       showBadge: widget.status.favouritesCount > 0,
                       child: IconButton(
                         icon: Icon(
-                          widget.status.favourited
+                          widget.status.favourited ?? false
                               ? CupertinoIcons.heart_fill
                               : CupertinoIcons.heart,
-                          color: widget.status.favourited ? Colors.red : null,
+                          color: widget.status.favourited ?? false
+                              ? Colors.red
+                              : null,
                         ),
                         onPressed: favoriteAction,
                       ),
@@ -151,11 +153,12 @@ class _StatusWidgetState extends State<StatusWidget> {
                       position: badgePosition,
                       child: IconButton(
                         icon: Icon(
-                            widget.status.reblogged
+                            widget.status.reblogged ?? false
                                 ? CupertinoIcons.share_solid
                                 : CupertinoIcons.share,
-                            color:
-                                widget.status.reblogged ? Colors.green : null),
+                            color: widget.status.reblogged ?? false
+                                ? Colors.green
+                                : null),
                         onPressed: shareAction,
                       ),
                     ),
