@@ -83,7 +83,7 @@ class FluffyPix {
 
   static const String _noRedirectUri = 'urn:ietf:wg:oauth:2.0:oob';
 
-  bool get automaticRedirectUriAvailable => _redirectUri == _noRedirectUri;
+  bool get automaticRedirectUriAvailable => _redirectUri != _noRedirectUri;
 
   Uri getOAuthUri(
     String domain,
