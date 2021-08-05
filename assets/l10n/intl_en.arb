@@ -11,6 +11,9 @@
     "saturday": "Saturday",
     "sunday": "Sunday",
     "unknown": "Unknown",
+    "enterCode": "Enter code",
+    "login": "login",
+    "cancel": "cancel",
     "members": "Members",
     "dateAndTimeOfDay": "{date}, {timeOfDay}",
     "@dateAndTimeOfDay": {

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:uni_links/uni_links.dart';
 
@@ -11,6 +12,7 @@ import 'package:fluffypix/pages/views/login_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -80,9 +82,24 @@ class LoginPageController extends State<LoginPage> {
   void loginAction(String domain) async {
     browser ??= ChromeSafariBrowser();
     _createApplicationResponse =
-        await FluffyPix.of(context).connectToInstance(domain, (url) {
-      browser ??= ChromeSafariBrowser();
-      browser!.open(url: url);
+        await FluffyPix.of(context).connectToInstance(domain, (url) async {
+      if (FluffyPix.of(context).automaticRedirectUriAvailable) {
+        browser ??= ChromeSafariBrowser();
+        browser!.open(url: url);
+      } else {
+        launch(url.toString());
+        final code = await showTextInputDialog(
+          context: context,
+          title: L10n.of(context)!.enterCode,
+          okLabel: L10n.of(context)!.login,
+          cancelLabel: L10n.of(context)!.cancel,
+          textFields: [
+            const DialogTextField(hintText: L10n.of(context)!.enterCode),
+          ],
+        );
+        if (code == null || code.isEmpty) return;
+        _loginWithCode(code.single);
+      }
     });
   }
 
@@ -96,6 +113,12 @@ class LoginPageController extends State<LoginPage> {
     if (code == null) {
       throw Exception('Invalid URI');
     }
+    _loginWithCode(code);
+  }
+
+  void _loginWithCode(String code) async {
+    final createApplicationResponse = _createApplicationResponse;
+    if (createApplicationResponse == null) return;
     await FluffyPix.of(context).login(code, createApplicationResponse);
     await Navigator.of(context).pushNamedAndRemoveUntil('/', (r) => false);
   }
