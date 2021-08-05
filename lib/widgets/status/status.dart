@@ -10,12 +10,14 @@ import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 class StatusWidget extends StatefulWidget {
   final Status status;
+  final List<Status> replies;
   final void Function(Status status) onUpdate;
 
   const StatusWidget({
     Key? key,
     required this.status,
     required this.onUpdate,
+    this.replies = const [],
   }) : super(key: key);
 
   @override
@@ -164,6 +166,10 @@ class _StatusWidgetState extends State<StatusWidget> {
             ],
           ),
         ),
+        for (final reply in widget.replies)
+          ListTile(
+            title: Text('${reply.account.displayName}: ${reply.content}'),
+          ),
         const Divider(height: 1, thickness: 1),
       ],
     );

@@ -22,9 +22,12 @@ class ImageStatusContent extends StatelessWidget {
           fit: BoxFit.cover,
         ),
         if (attachment.description != null)
-          ListTile(
-              title: Text(
-                  '${status.account.displayName}: ${attachment.description}')),
+          Container(
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
+            child: Text(
+                '${status.account.displayName}: ${attachment.description}'),
+          ),
       ],
     );
   }
