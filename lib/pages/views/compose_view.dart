@@ -1,3 +1,5 @@
+
+
 import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -53,13 +55,44 @@ class ComposePageView extends StatelessWidget {
                     contentPadding: const EdgeInsets.all(12),
                   ),
                 ),
+                if (controller.media.isNotEmpty) ...{
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    height: 128,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: controller.media.length,
+                      itemBuilder: (context, i) => Stack(
+                        children: [
+                          Image.memory(
+                            controller.media[i],
+                            height: 128,
+                            fit: BoxFit.contain,
+                          ),
+                          FloatingActionButton(
+                            mini: true,
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                            child: const Icon(Icons.close),
+                            onPressed: () => controller.removeMedia(i),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                },
                 const SizedBox(height: 12),
                 SizedBox(
                   height: 64,
                   child: OutlinedButton.icon(
-                    onPressed: controller.addMedia,
-                    icon: const Icon(CupertinoIcons.camera),
-                    label: Text(L10n.of(context)!.addMedia),
+                    onPressed:
+                        controller.loadingPhoto ? null : controller.addMedia,
+                    icon: controller.loadingPhoto
+                        ? const CupertinoActivityIndicator()
+                        : const Icon(CupertinoIcons.camera),
+                    label: Text(controller.loadingPhoto
+                        ? L10n.of(context)!.loading
+                        : L10n.of(context)!.addMedia),
                   ),
                 ),
                 ListTile(

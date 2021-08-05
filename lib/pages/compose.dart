@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:fluffypix/model/account.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
@@ -24,20 +26,27 @@ class ComposePageController extends State<ComposePage> {
   bool sensitive = false;
   StatusVisibility visibility = StatusVisibility.public;
   bool loading = false;
-  List<XFile> media = [];
+  bool loadingPhoto = false;
+  List<Uint8List> media = [];
 
   void toggleSensitive([_]) => setState(() => sensitive = !sensitive);
 
   void addMedia() async {
-    final media = await ImagePicker().pickImage(
+    setState(() => loadingPhoto = true);
+    final pick = await ImagePicker().pickImage(
       source: ImageSource.camera,
       maxHeight: 2048,
       maxWidth: 2048,
       preferredCameraDevice: CameraDevice.front,
     );
-    if (media == null) return;
-    setState(() => this.media.add(media));
+    if (pick != null) {
+      final bytes = await pick.readAsBytes();
+      setState(() => media.add(bytes));
+    }
+    setState(() => loadingPhoto = false);
   }
+
+  void removeMedia(int i) => setState(() => media.removeAt(i));
 
   @override
   void initState() {

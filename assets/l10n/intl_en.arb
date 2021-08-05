@@ -15,6 +15,7 @@
     "login": "Login",
     "cancel": "Cancel",
     "reset": "Reset",
+    "loading": "Loading...",
     "nsfw": "NSFW",
     "newPostPublished": "New post has been published",
     "visibility": "Visibility",
