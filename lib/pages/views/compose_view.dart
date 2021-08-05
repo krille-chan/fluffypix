@@ -1,5 +1,3 @@
-
-
 import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,29 +55,17 @@ class ComposePageView extends StatelessWidget {
                 ),
                 if (controller.media.isNotEmpty) ...{
                   const SizedBox(height: 12),
-                  SizedBox(
-                    height: 128,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: controller.media.length,
-                      itemBuilder: (context, i) => Stack(
-                        children: [
-                          Image.memory(
-                            controller.media[i],
-                            height: 128,
-                            fit: BoxFit.contain,
+                  controller.media.length == 1
+                      ? _PickedImage(controller, 0)
+                      : SizedBox(
+                          height: 256,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.media.length,
+                            itemBuilder: (context, i) =>
+                                _PickedImage(controller, i),
                           ),
-                          FloatingActionButton(
-                            mini: true,
-                            backgroundColor: Colors.white,
-                            foregroundColor: Colors.black,
-                            child: const Icon(Icons.close),
-                            onPressed: () => controller.removeMedia(i),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                        ),
                 },
                 const SizedBox(height: 12),
                 SizedBox(
@@ -115,6 +101,31 @@ class ComposePageView extends StatelessWidget {
               ],
             ),
       bottomNavigationBar: const DefaultBottomBar(currentIndex: 2),
+    );
+  }
+}
+
+class _PickedImage extends StatelessWidget {
+  final ComposePageController controller;
+  final int i;
+  const _PickedImage(this.controller, this.i, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Image.memory(
+          controller.media[i],
+          fit: BoxFit.cover,
+        ),
+        FloatingActionButton(
+          mini: true,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          child: const Icon(Icons.close),
+          onPressed: () => controller.removeMedia(i),
+        ),
+      ],
     );
   }
 }
