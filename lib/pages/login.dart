@@ -79,28 +79,38 @@ class LoginPageController extends State<LoginPage> {
         forceSafariVC: true, forceWebView: true);
   }
 
-  void loginAction(String domain) async {
+  Future<void> loginAction(String domain) async {
     browser ??= ChromeSafariBrowser();
-    _createApplicationResponse =
-        await FluffyPix.of(context).connectToInstance(domain, (url) async {
-      if (FluffyPix.of(context).automaticRedirectUriAvailable) {
-        browser ??= ChromeSafariBrowser();
-        browser!.open(url: url);
-      } else {
-        launch(url.toString());
-        final code = await showTextInputDialog(
-          context: context,
-          title: L10n.of(context)!.enterCode,
-          okLabel: L10n.of(context)!.login,
-          cancelLabel: L10n.of(context)!.cancel,
-          textFields: [
-            DialogTextField(hintText: L10n.of(context)!.enterCode),
-          ],
-        );
-        if (code == null || code.isEmpty) return;
-        _loginWithCode(code.single);
-      }
-    });
+    try {
+      _createApplicationResponse =
+          await FluffyPix.of(context).connectToInstance(domain, (url) async {
+        if (FluffyPix.of(context).automaticRedirectUriAvailable) {
+          browser ??= ChromeSafariBrowser();
+          browser!.open(url: url);
+        } else {
+          launch(url.toString());
+          final code = await showTextInputDialog(
+            context: context,
+            title: L10n.of(context)!.enterCode,
+            okLabel: L10n.of(context)!.login,
+            cancelLabel: L10n.of(context)!.cancel,
+            textFields: [
+              DialogTextField(hintText: L10n.of(context)!.enterCode),
+            ],
+          );
+          if (code == null || code.isEmpty) return;
+          _loginWithCode(code.single);
+        }
+      });
+    } catch (_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(L10n.of(context)!.oopsSomethingWentWrong),
+        ),
+      );
+      rethrow;
+    }
+    return;
   }
 
   void _loginWithRedirectUrl(String? url) async {

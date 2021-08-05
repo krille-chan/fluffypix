@@ -28,7 +28,7 @@ class LoginPageView extends StatelessWidget {
                 snapshot.connectionState == ConnectionState.waiting;
             final instances = snapshot.data;
             if (instances == null) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: CupertinoActivityIndicator());
             }
             return Column(
               children: [
@@ -46,8 +46,8 @@ class LoginPageView extends StatelessWidget {
                                 width: 12,
                                 height: 12,
                                 child: Center(
-                                    child: CircularProgressIndicator(
-                                        strokeWidth: 1)),
+                                  child: CupertinoActivityIndicator(),
+                                ),
                               )
                             : IconButton(
                                 icon: const Icon(CupertinoIcons.search),

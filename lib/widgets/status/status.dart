@@ -93,8 +93,8 @@ class _StatusWidgetState extends State<StatusWidget> {
             children: [
               _favoriteLoading
                   ? const Padding(
-                      padding: EdgeInsets.all(6),
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                      padding: EdgeInsets.all(14),
+                      child: CupertinoActivityIndicator(),
                     )
                   : Badge(
                       badgeContent: Text(
@@ -135,8 +135,8 @@ class _StatusWidgetState extends State<StatusWidget> {
               ),
               _shareLoading
                   ? const Padding(
-                      padding: EdgeInsets.all(6),
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                      padding: EdgeInsets.all(14),
+                      child: CupertinoActivityIndicator(),
                     )
                   : Badge(
                       badgeContent: Text(

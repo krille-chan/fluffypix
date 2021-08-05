@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/model/public_instance.dart';
 import 'package:fluffypix/pages/login.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
@@ -17,6 +18,14 @@ class InstanceListItem extends StatefulWidget {
 
 class _InstanceListItemState extends State<InstanceListItem> {
   bool _expanded = false;
+  bool _loginLoading = false;
+
+  void _loginAction() async {
+    setState(() => _loginLoading = true);
+    await widget.controller.loginAction(widget.instance.name);
+    setState(() => _loginLoading = false);
+  }
+
   @override
   Widget build(BuildContext context) {
     final description = _expanded
@@ -53,9 +62,10 @@ class _InstanceListItemState extends State<InstanceListItem> {
               maxLines: _expanded ? 10 : 3,
             ),
             trailing: ElevatedButton(
-              onPressed: () =>
-                  widget.controller.loginAction(widget.instance.name),
-              child: const Text('Login'),
+              onPressed: _loginLoading ? null : _loginAction,
+              child: _loginLoading
+                  ? const CupertinoActivityIndicator()
+                  : const Text('Login'),
             ),
           ),
         ),
