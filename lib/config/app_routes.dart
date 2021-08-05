@@ -1,4 +1,5 @@
 import 'package:fluffypix/model/fluffy_pix.dart';
+import 'package:fluffypix/pages/compose.dart';
 import 'package:fluffypix/pages/home.dart';
 import 'package:fluffypix/pages/login.dart';
 import 'package:fluffypix/pages/notifications.dart';
@@ -26,6 +27,8 @@ class AppRoutes {
         return _fadeRoute(builder: (_) => const NotificationsPage());
       case 'search':
         return _fadeRoute(builder: (_) => const SearchPage());
+      case 'compose':
+        return _fadeRoute(builder: (_) => const ComposePage());
       case 'settings':
         return MaterialPageRoute(builder: (_) => const SettingsPage());
     }

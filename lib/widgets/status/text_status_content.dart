@@ -11,9 +11,9 @@ class TextStatusContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(minHeight: 300),
+      constraints: const BoxConstraints(minHeight: 256),
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      color: AppConfigs.primaryColor.withOpacity(0.1),
+      color: AppConfigs.primaryColor.withOpacity(0.05),
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(12.0),

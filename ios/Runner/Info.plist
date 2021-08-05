@@ -54,5 +54,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Open the camera and take a videos with sound to share them with your friends on FluffyPix</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Open the camera and take a picture to share them with your friends on FluffyPix</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Open photos from your gallery and share them with your friends on FluffyPix</string>
 </dict>
 </plist>

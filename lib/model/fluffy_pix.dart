@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/config/instances_api_token.dart';
+import 'package:fluffypix/model/status_visibility.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -296,5 +297,25 @@ class FluffyPix {
   Future<Status> unboostStatus(String statusId) => request(
         RequestType.post,
         '/api/v1/statuses/${Uri.encodeComponent(statusId)}/unreblog',
+      ).then((json) => Status.fromJson(json));
+
+  Future<Status> publishNewStatus({
+    String? status,
+    List<String>? mediaIds,
+    String? inReplyTo,
+    bool? sensitive,
+    StatusVisibility? visibility,
+  }) =>
+      request(
+        RequestType.post,
+        '/api/v1/statuses',
+        data: {
+          if (status != null) 'status': status,
+          if (mediaIds != null) 'media_ids': mediaIds,
+          if (inReplyTo != null) 'in_reply_to_id': inReplyTo,
+          if (sensitive != null) 'sensitive': sensitive,
+          if (visibility != null)
+            'visibility': visibility.toString().split('.').last,
+        },
       ).then((json) => Status.fromJson(json));
 }

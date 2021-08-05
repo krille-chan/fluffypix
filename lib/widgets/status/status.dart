@@ -70,6 +70,9 @@ class _StatusWidgetState extends State<StatusWidget> {
   Widget build(BuildContext context) {
     const badgeTextStyle = TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
     final badgePosition = BadgePosition.topEnd(top: 0, end: 0);
+    final displayName = widget.status.account.displayName.isEmpty
+        ? widget.status.account.username
+        : widget.status.account.displayName;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -81,9 +84,10 @@ class _StatusWidgetState extends State<StatusWidget> {
                 CachedNetworkImageProvider(widget.status.account.avatar),
           ),
           title: Text(
-            widget.status.account.displayName,
+            displayName,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
+          subtitle: Text('@${widget.status.account.acct}'),
           trailing: Text(widget.status.createdAt.localizedTimeShort(context)),
         ),
         StatusContent(status: widget.status),
