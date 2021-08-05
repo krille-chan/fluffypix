@@ -11,6 +11,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
+import 'account.dart';
 import 'create_application_response.dart';
 import 'obtain_token_response.dart';
 import 'public_instance.dart';
@@ -25,6 +26,7 @@ class FluffyPix {
 
   Uri? instance;
   AccessTokenCredentials? accessTokenCredentials;
+  Account? ownAccount;
 
   bool get isLogged => accessTokenCredentials != null && instance != null;
 
@@ -51,6 +53,9 @@ class FluffyPix {
         ? AccessTokenCredentials.fromJson(
             Map<String, dynamic>.from(json['access_token_credentials']))
         : null;
+    ownAccount = json['own_account'] != null
+        ? Account.fromJson(Map<String, dynamic>.from(json['own_account']))
+        : null;
     instance =
         json.containsKey('instance') ? Uri.parse(json['instance']) : null;
   }
@@ -73,6 +78,7 @@ class FluffyPix {
 
   Map<String, dynamic> toJson() => {
         'access_token_credentials': accessTokenCredentials?.toJson(),
+        'own_account': ownAccount?.toJson(),
         'instance': instance?.toString(),
       };
 
@@ -122,23 +128,32 @@ class FluffyPix {
     CreateApplicationResponse createApplicationResponse,
   ) async {
     if (instance == null) throw Exception('Connect to instance first!');
-    debugPrint('Obtain token...');
-    accessTokenCredentials = await obtainToken(
-      createApplicationResponse.clientId,
-      createApplicationResponse.clientSecret,
-      _redirectUri,
-      code: code,
-      grantType: 'authorization_code',
-      scope: 'read write follow push',
-    );
-    debugPrint('Store access token...');
+    try {
+      accessTokenCredentials = await obtainToken(
+        createApplicationResponse.clientId,
+        createApplicationResponse.clientSecret,
+        _redirectUri,
+        code: code,
+        grantType: 'authorization_code',
+        scope: 'read write follow push',
+      );
+      ownAccount = await verifyAccountCredentials();
+    } catch (_) {
+      await logout();
+      rethrow;
+    }
     return _save();
   }
 
   Future<void> logout() async {
-    accessTokenCredentials = instance = null;
+    accessTokenCredentials = instance = ownAccount = null;
     return _box.delete(AppConfigs.hiveBoxAccountKey);
   }
+
+  Future<Account> verifyAccountCredentials() => request(
+        RequestType.get,
+        '/api/v1/accounts/verify_credentials',
+      ).then((json) => Account.fromJson(json));
 
   Future<Map<String, dynamic>> request(
     RequestType type,

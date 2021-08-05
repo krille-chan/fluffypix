@@ -214,13 +214,15 @@ class _StatusWidgetState extends State<StatusWidget> {
               PopupMenuButton<StatusAction>(
                 onSelected: onStatusAction,
                 itemBuilder: (_) => [
-                  PopupMenuItem(
-                    value: StatusAction.delete,
-                    child: Text(
-                      L10n.of(context)!.delete,
-                      style: const TextStyle(color: Colors.red),
+                  if (FluffyPix.of(context).ownAccount!.username ==
+                      widget.status.account.username)
+                    PopupMenuItem(
+                      value: StatusAction.delete,
+                      child: Text(
+                        L10n.of(context)!.delete,
+                        style: const TextStyle(color: Colors.red),
+                      ),
                     ),
-                  ),
                 ],
               ),
             ],
@@ -241,6 +243,7 @@ class _StatusWidgetState extends State<StatusWidget> {
 
 enum StatusAction {
   delete,
+  shareLink,
 }
 
 extension on int {
