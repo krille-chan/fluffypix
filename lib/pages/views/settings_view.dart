@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 import '../settings.dart';
 
@@ -15,7 +16,11 @@ class SettingsPageView extends StatelessWidget {
       body: ListView(
         children: [
           ListTile(
-            title: const Text('Logout'),
+            title: Text(L10n.of(context)!.account),
+            onTap: controller.settingsAction,
+          ),
+          ListTile(
+            title: Text(L10n.of(context)!.logout),
             onTap: controller.logout,
           ),
         ],
