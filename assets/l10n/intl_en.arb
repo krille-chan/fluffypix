@@ -10,6 +10,8 @@
     "friday": "Friday",
     "saturday": "Saturday",
     "sunday": "Sunday",
+    "unknown": "Unknown",
+    "members": "Members",
     "dateAndTimeOfDay": "{date}, {timeOfDay}",
     "@dateAndTimeOfDay": {
         "type": "text",

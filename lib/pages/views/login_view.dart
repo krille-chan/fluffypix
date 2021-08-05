@@ -59,40 +59,51 @@ class LoginPageView extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: ListView.separated(
-                    separatorBuilder: (_, __) =>
-                        const Divider(height: 1, color: Colors.black),
-                    itemCount: instances.length,
-                    itemBuilder: (context, i) => Container(
-                      height: 256,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: CachedNetworkImageProvider(
-                            instances[i].thumbnail ??
-                                'https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_960_720.png',
-                          ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      alignment: Alignment.bottomCenter,
-                      child: Material(
-                        color: Colors.black.withOpacity(0.5),
-                        child: ListTile(
-                          title: Text(
-                            instances[i].name,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 12.0,
+                      left: 12.0,
+                      right: 12.0,
+                    ),
+                    child: Material(
+                      borderRadius: BorderRadius.circular(12),
+                      clipBehavior: Clip.hardEdge,
+                      elevation: 2,
+                      child: ListView.separated(
+                        separatorBuilder: (_, __) =>
+                            const Divider(height: 1, color: Colors.black),
+                        itemCount: instances.length,
+                        itemBuilder: (context, i) => Container(
+                          height: 256,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: CachedNetworkImageProvider(
+                                instances[i].thumbnail ??
+                                    'https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_960_720.png',
+                              ),
+                              fit: BoxFit.cover,
                             ),
                           ),
-                          subtitle: Text(
-                            instances[i].shortDescription ?? '',
-                            style: TextStyle(color: Colors.grey[100]),
-                          ),
-                          trailing: ElevatedButton(
-                            onPressed: () =>
-                                controller.loginAction(instances[i].name),
-                            child: const Text('Login'),
+                          alignment: Alignment.bottomCenter,
+                          child: Material(
+                            color: Colors.white.withOpacity(0.9),
+                            child: ListTile(
+                              title: Text(
+                                instances[i].name,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Text(
+                                '${L10n.of(context)!.members}: ${instances[i].users ?? L10n.of(context)!.unknown}\n${instances[i].shortDescription ?? instances[i].fullDescription ?? ''}',
+                                maxLines: 3,
+                              ),
+                              trailing: ElevatedButton(
+                                onPressed: () =>
+                                    controller.loginAction(instances[i].name),
+                                child: const Text('Login'),
+                              ),
+                            ),
                           ),
                         ),
                       ),

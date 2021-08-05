@@ -39,7 +39,8 @@ class LoginPageController extends State<LoginPage> {
 
   Future<List<PublicInstance>> _requestInstances(String query) async {
     final instances = await FluffyPix.of(context).requestInstances(query);
-    if (query.isNotEmpty &&
+    if (instances.isEmpty &&
+        query.isNotEmpty &&
         !instances.any((instance) => instance.name == query)) {
       instances.add(
         PublicInstance(
