@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/model/public_instance.dart';
 import 'package:fluffypix/pages/login.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
@@ -36,6 +37,8 @@ class LoginPageView extends StatelessWidget {
                     padding: const EdgeInsets.all(12.0),
                     child: TextField(
                       controller: controller.searchController,
+                      textInputAction: TextInputAction.search,
+                      onChanged: controller.searchQueryWithCooldown,
                       onSubmitted: isLoading ? null : controller.searchQuery,
                       decoration: InputDecoration(
                         suffixIcon: isLoading
@@ -47,7 +50,7 @@ class LoginPageView extends StatelessWidget {
                                         strokeWidth: 1)),
                               )
                             : IconButton(
-                                icon: const Icon(Icons.send_outlined),
+                                icon: const Icon(CupertinoIcons.search),
                                 onPressed: controller.searchQuery,
                               ),
                         hintText: L10n.of(context)!.search,

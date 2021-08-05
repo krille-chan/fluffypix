@@ -58,6 +58,13 @@ class LoginPageController extends State<LoginPage> {
     getInitialLink().then(_loginWithRedirectUrl);
   }
 
+  Timer? _cooldown;
+
+  void searchQueryWithCooldown([_]) {
+    _cooldown?.cancel();
+    _cooldown = Timer(const Duration(seconds: 1), searchQuery);
+  }
+
   void searchQuery([_]) {
     setState(() {
       publicInstancesFuture = _requestInstances(searchController.text);
