@@ -15,6 +15,8 @@ class StatusWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         ListTile(
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           leading: CircleAvatar(
             backgroundImage: CachedNetworkImageProvider(status.account.avatar),
           ),
@@ -25,25 +27,37 @@ class StatusWidget extends StatelessWidget {
           trailing: Text(status.createdAt.localizedTimeShort(context)),
         ),
         StatusContent(status: status),
-        Row(
-          children: [
-            IconButton(
-              icon: const Icon(CupertinoIcons.heart),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: const Icon(CupertinoIcons.chat_bubble),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: const Icon(CupertinoIcons.share),
-              onPressed: () {},
-            ),
-            const Spacer(),
-            PopupMenuButton(
-              itemBuilder: (_) => [],
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              IconButton(
+                icon: Icon(
+                  status.favourited
+                      ? CupertinoIcons.heart_fill
+                      : CupertinoIcons.heart,
+                  color: status.favourited ? Colors.red : null,
+                ),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(CupertinoIcons.chat_bubble),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(
+                    status.reblogged
+                        ? CupertinoIcons.share_solid
+                        : CupertinoIcons.share,
+                    color: status.reblogged ? Colors.green : null),
+                onPressed: () {},
+              ),
+              const Spacer(),
+              PopupMenuButton(
+                itemBuilder: (_) => [],
+              ),
+            ],
+          ),
         ),
         const Divider(height: 1, thickness: 1),
       ],

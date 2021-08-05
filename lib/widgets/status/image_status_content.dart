@@ -16,7 +16,11 @@ class ImageStatusContent extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        CachedNetworkImage(imageUrl: imageUrl, width: double.infinity),
+        CachedNetworkImage(
+          imageUrl: imageUrl,
+          width: double.infinity,
+          fit: BoxFit.cover,
+        ),
         if (attachment.description != null)
           ListTile(
               title: Text(

@@ -12,16 +12,19 @@ class TextStatusContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints(minHeight: 300),
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
       color: AppConfigs.primaryColor.withOpacity(0.1),
       child: Center(
-        child: RichText(
-          textAlign: TextAlign.center,
-          text: HTML.toTextSpan(
-            context,
-            status.content,
-            linksCallback: (link) => launch(link),
-            defaultTextStyle: const TextStyle(fontSize: 18),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: HTML.toTextSpan(
+              context,
+              status.content,
+              linksCallback: (link) => launch(link),
+              defaultTextStyle: const TextStyle(fontSize: 18),
+            ),
           ),
         ),
       ),
