@@ -318,4 +318,12 @@ class FluffyPix {
             'visibility': visibility.toString().split('.').last,
         },
       ).then((json) => Status.fromJson(json));
+
+  Future<void> deleteStatus(
+    String statusId,
+  ) =>
+      request(
+        RequestType.delete,
+        '/api/v1/statuses/${Uri.encodeComponent(statusId)}',
+      ).then((json) => Status.fromJson(json));
 }

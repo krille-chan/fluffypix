@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
@@ -11,7 +12,7 @@ import 'package:flutter_gen/gen_l10n/l10n.dart';
 class StatusWidget extends StatefulWidget {
   final Status status;
   final List<Status> replies;
-  final void Function(Status status) onUpdate;
+  final void Function(Status? status, [String? deleteId]) onUpdate;
 
   const StatusWidget({
     Key? key,
@@ -63,6 +64,48 @@ class _StatusWidgetState extends State<StatusWidget> {
       rethrow;
     } finally {
       setState(() => _shareLoading = false);
+    }
+  }
+
+  void deleteAction() async {
+    final confirmed = await showOkCancelAlertDialog(
+      context: context,
+      title: L10n.of(context)!.deletePost,
+      message: L10n.of(context)!.areYouSure,
+      okLabel: L10n.of(context)!.delete,
+      isDestructiveAction: true,
+      cancelLabel: L10n.of(context)!.cancel,
+    );
+    if (confirmed != OkCancelResult.ok) return;
+    try {
+      final featureController = ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(L10n.of(context)!.deleting),
+        ),
+      );
+      await FluffyPix.of(context).deleteStatus(widget.status.id);
+      featureController.close();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(L10n.of(context)!.postHasBeenDeleted),
+        ),
+      );
+      widget.onUpdate.call(null, widget.status.id);
+    } catch (_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(L10n.of(context)!.oopsSomethingWentWrong),
+        ),
+      );
+      rethrow;
+    }
+  }
+
+  void onStatusAction(StatusAction action) {
+    switch (action) {
+      case StatusAction.delete:
+        deleteAction();
+        break;
     }
   }
 
@@ -167,8 +210,17 @@ class _StatusWidgetState extends State<StatusWidget> {
                       ),
                     ),
               const Spacer(),
-              PopupMenuButton(
-                itemBuilder: (_) => [],
+              PopupMenuButton<StatusAction>(
+                onSelected: onStatusAction,
+                itemBuilder: (_) => [
+                  PopupMenuItem(
+                    value: StatusAction.delete,
+                    child: Text(
+                      L10n.of(context)!.delete,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -181,6 +233,10 @@ class _StatusWidgetState extends State<StatusWidget> {
       ],
     );
   }
+}
+
+enum StatusAction {
+  delete,
 }
 
 extension on int {

@@ -21,11 +21,13 @@ class ComposePageView extends StatelessWidget {
         leadingWidth: 64,
         leading: TextButton(
           child: Text(L10n.of(context)!.reset),
-          onPressed: controller.loading ? null : controller.resetAction,
+          onPressed: controller.loading || controller.loadingPhoto ? null : controller.resetAction,
         ),
         actions: [
           TextButton(
-            onPressed: controller.loading ? null : controller.postAction,
+            onPressed: controller.loading || controller.loadingPhoto
+                ? null
+                : controller.postAction,
             child: Row(
               children: [
                 Text(L10n.of(context)!.post),

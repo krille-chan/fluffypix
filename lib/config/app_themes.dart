@@ -24,7 +24,17 @@ abstract class AppThemes {
         TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
       },
     ),
-    snackBarTheme: const SnackBarThemeData(behavior: SnackBarBehavior.floating),
+    popupMenuTheme: PopupMenuThemeData(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+    ),
+    snackBarTheme: const SnackBarThemeData(
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.white,
+      contentTextStyle: TextStyle(color: Colors.black),
+    ),
     backgroundColor: Colors.white,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,

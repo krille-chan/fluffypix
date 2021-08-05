@@ -21,7 +21,7 @@ class Status {
   final bool? reblogged;
   final bool? muted;
   final bool? bookmarked;
-  final String content;
+  final String? content;
   final Object? reblog;
   final Application? application;
   final Account account;
@@ -50,7 +50,7 @@ class Status {
     this.reblogged,
     this.muted,
     this.bookmarked,
-    required this.content,
+    this.content,
     required this.reblog,
     required this.application,
     required this.account,

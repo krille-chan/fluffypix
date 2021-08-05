@@ -44,7 +44,13 @@ class HomePageController extends State<HomePage> {
     }
   }
 
-  void onUpdateStatus(Status status) {
+  void onUpdateStatus(Status? status, [String? deleteId]) {
+    if (status == null) {
+      setState(() {
+        timeline.removeWhere((s) => s.id == deleteId);
+      });
+      return;
+    }
     setState(() {
       timeline[timeline.indexWhere((s) => s.id == status.id)] = status;
     });

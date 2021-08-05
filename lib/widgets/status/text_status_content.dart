@@ -21,7 +21,7 @@ class TextStatusContent extends StatelessWidget {
             textAlign: TextAlign.center,
             text: HTML.toTextSpan(
               context,
-              status.content,
+              status.content ?? '',
               linksCallback: (link) => launch(link),
               defaultTextStyle: const TextStyle(fontSize: 18),
             ),
