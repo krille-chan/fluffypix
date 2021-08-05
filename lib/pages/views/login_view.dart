@@ -70,6 +70,7 @@ class LoginPageView extends StatelessWidget {
                       clipBehavior: Clip.hardEdge,
                       elevation: 2,
                       child: ListView.separated(
+                        padding: const EdgeInsets.only(bottom: 32),
                         separatorBuilder: (_, __) =>
                             const Divider(height: 1, color: Colors.black),
                         itemCount: instances.length,

@@ -24,6 +24,7 @@ abstract class AppThemes {
         TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
       },
     ),
+    snackBarTheme: const SnackBarThemeData(behavior: SnackBarBehavior.floating),
     backgroundColor: Colors.white,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
