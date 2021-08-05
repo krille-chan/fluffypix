@@ -30,15 +30,16 @@ class HomePageView extends StatelessWidget {
       body: SmartRefresher(
         controller: controller.refreshController,
         enablePullDown: true,
-        enablePullUp: controller.timeline.isNotEmpty,
+        enablePullUp: controller.filteredTimeline.isNotEmpty,
         onRefresh: controller.refresh,
         onLoading: controller.loadMore,
         child: ListView.builder(
           controller: controller.scrollController,
-          itemCount: controller.timeline.length,
+          itemCount: controller.filteredTimeline.length,
           itemBuilder: (context, i) => StatusWidget(
-            status: controller.timeline[i],
+            status: controller.filteredTimeline[i],
             onUpdate: controller.onUpdateStatus,
+            replies: controller.localReplies(controller.filteredTimeline[i].id),
           ),
         ),
       ),

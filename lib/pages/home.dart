@@ -22,6 +22,11 @@ enum HomePagePopupMenuButtonAction {
 
 class HomePageController extends State<HomePage> {
   List<Status> timeline = [];
+  List<Status> get filteredTimeline =>
+      timeline.where((status) => status.inReplyToId == null).toList();
+  List<Status> localReplies(String statusId) =>
+      timeline.where((status) => status.inReplyToId == statusId).toList();
+
   final refreshController = RefreshController(initialRefresh: false);
   final scrollController = ScrollController();
 
