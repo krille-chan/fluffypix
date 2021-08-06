@@ -14,6 +14,8 @@
     "enterCode": "Enter code",
     "login": "Login",
     "cancel": "Cancel",
+    "shareLink": "Share link",
+    "copiedToClipboard": "Copied to clipboard",
     "reset": "Reset",
     "areYouSure": "Are you sure?",
     "deletePost": "Delete post",

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -5,7 +7,10 @@ import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:share/share.dart';
 import 'package:simple_html_css/simple_html_css.dart';
 import '../../utils/date_time_extension.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -104,6 +109,18 @@ class _StatusWidgetState extends State<StatusWidget> {
 
   void onStatusAction(StatusAction action) {
     switch (action) {
+      case StatusAction.shareLink:
+        if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
+          Share.share(widget.status.uri);
+        } else {
+          Clipboard.setData(ClipboardData(text: widget.status.uri));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(L10n.of(context)!.copiedToClipboard),
+            ),
+          );
+        }
+        break;
       case StatusAction.delete:
         deleteAction();
         break;
@@ -214,6 +231,10 @@ class _StatusWidgetState extends State<StatusWidget> {
               PopupMenuButton<StatusAction>(
                 onSelected: onStatusAction,
                 itemBuilder: (_) => [
+                  PopupMenuItem(
+                    value: StatusAction.shareLink,
+                    child: Text(L10n.of(context)!.shareLink),
+                  ),
                   if (FluffyPix.of(context).ownAccount!.username ==
                       widget.status.account.username)
                     PopupMenuItem(
