@@ -74,7 +74,9 @@ class Account {
         emojis: List<Object>.from(json['emojis']),
         fields: json['fields'] == null
             ? null
-            : (json['fields'] as List).map((i) => Field.fromJson(i)).toList(),
+            : (json['fields'] as List)
+                .map((i) => Field.fromJson(Map<String, dynamic>.from(i)))
+                .toList(),
       );
   Map<String, dynamic> toJson() => {
         'id': id,

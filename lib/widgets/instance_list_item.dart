@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/public_instance.dart';
 import 'package:fluffypix/pages/login.dart';
 import 'package:flutter/cupertino.dart';
@@ -44,7 +45,7 @@ class _InstanceListItemState extends State<InstanceListItem> {
               fit: BoxFit.cover,
               height: double.infinity,
               errorWidget: (_, __, ___) =>
-                  const BlurHash(hash: 'L5H2EC=PM+yV0g-mq.wG9c010J}I'),
+                  const BlurHash(hash: AppConfigs.fallbackBlurHash),
             ),
             Positioned(
               bottom: 0,
