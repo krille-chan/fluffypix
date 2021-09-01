@@ -3,6 +3,7 @@ import 'package:fluffypix/model/public_instance.dart';
 import 'package:fluffypix/pages/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 class InstanceListItem extends StatefulWidget {
@@ -17,7 +18,6 @@ class InstanceListItem extends StatefulWidget {
 }
 
 class _InstanceListItemState extends State<InstanceListItem> {
-  bool _expanded = false;
   bool _loginLoading = false;
 
   void _loginAction() async {
@@ -28,46 +28,51 @@ class _InstanceListItemState extends State<InstanceListItem> {
 
   @override
   Widget build(BuildContext context) {
-    final description = _expanded
-        ? '${widget.instance.shortDescription ?? '-'}\n${widget.instance.fullDescription ?? '-'}'
-        : widget.instance.shortDescription ??
-            widget.instance.fullDescription ??
-            '-';
+    final description = widget.instance.shortDescription ??
+        widget.instance.fullDescription ??
+        '-';
     return InkWell(
-      onTap: () => widget.controller.visitInstance(widget.instance.name),
-      child: Container(
+      onTap: () => widget.controller.visitInstance(widget.instance),
+      child: SizedBox(
         height: 256,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: CachedNetworkImageProvider(
-              widget.instance.thumbnail ??
-                  'https://cdn.pixabay.com/photo/2018/11/29/21/51/social-media-3846597_960_720.png',
+        child: Stack(
+          children: [
+            CachedNetworkImage(
+              imageUrl: widget.instance.thumbnail ?? '',
+              progressIndicatorBuilder: (context, s, p) =>
+                  Center(child: CircularProgressIndicator(value: p.progress)),
+              fit: BoxFit.cover,
+              height: double.infinity,
+              errorWidget: (_, __, ___) =>
+                  const BlurHash(hash: 'L5H2EC=PM+yV0g-mq.wG9c010J}I'),
             ),
-            fit: BoxFit.cover,
-          ),
-        ),
-        alignment: Alignment.bottomCenter,
-        child: Material(
-          color: Colors.white.withOpacity(0.9),
-          child: ListTile(
-            onTap: () => setState(() => _expanded = !_expanded),
-            title: Text(
-              widget.instance.name,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Material(
+                color: Colors.white.withOpacity(0.85),
+                child: ListTile(
+                  title: Text(
+                    widget.instance.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Text(
+                    '${L10n.of(context)!.members}: ${widget.instance.users ?? L10n.of(context)!.unknown}\n$description',
+                    maxLines: 3,
+                  ),
+                  trailing: ElevatedButton(
+                    onPressed: _loginLoading ? null : _loginAction,
+                    child: _loginLoading
+                        ? const CupertinoActivityIndicator()
+                        : Text(L10n.of(context)!.pick),
+                  ),
+                ),
               ),
             ),
-            subtitle: Text(
-              '${L10n.of(context)!.members}: ${widget.instance.users ?? L10n.of(context)!.unknown}\n$description',
-              maxLines: _expanded ? 10 : 3,
-            ),
-            trailing: ElevatedButton(
-              onPressed: _loginLoading ? null : _loginAction,
-              child: _loginLoading
-                  ? const CupertinoActivityIndicator()
-                  : const Text('Login'),
-            ),
-          ),
+          ],
         ),
       ),
     );

@@ -32,6 +32,18 @@ class LoginPageView extends StatelessWidget {
             }
             return Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 12.0,
+                    right: 12,
+                    left: 12,
+                  ),
+                  child: Center(
+                      child: Text(
+                    L10n.of(context)!.pickACommunityDescription,
+                    textAlign: TextAlign.center,
+                  )),
+                ),
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
@@ -66,7 +78,10 @@ class LoginPageView extends StatelessWidget {
                       right: 12.0,
                     ),
                     child: Material(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12),
+                      ),
                       clipBehavior: Clip.hardEdge,
                       elevation: 2,
                       child: ListView.separated(

@@ -235,12 +235,22 @@ class FluffyPix {
     return jsonResp;
   }
 
-  Future<List<PublicInstance>> requestInstances([String? query]) async {
+  static const String _defaultSearchLanguage = 'en';
+
+  Future<List<PublicInstance>> requestInstances(String language,
+      [String? query]) async {
     if (query?.isEmpty ?? false) query = null;
     final url = Uri.https(
       'instances.social',
       '/api/1.0/instances/${query == null ? 'list' : 'search'}',
-      query != null ? {'q': query} : null,
+      query != null
+          ? {'q': query}
+          : {
+              'language': language,
+              'prohibited_content': 'nudity_all',
+              'sort_by': 'active_users',
+              'sort_order': 'desc',
+            },
     );
     final response = await get(
       url,
@@ -251,6 +261,14 @@ class FluffyPix {
     final instances = (responseJson['instances'] as List)
         .map((json) => PublicInstance.fromJson(json))
         .toList();
+    if (query == null &&
+        instances.isEmpty &&
+        language != _defaultSearchLanguage) {
+      return requestInstances(_defaultSearchLanguage);
+    }
+    if (query == null) {
+      instances.removeWhere((i) => i.openRegistrations != true);
+    }
     return instances;
   }
 

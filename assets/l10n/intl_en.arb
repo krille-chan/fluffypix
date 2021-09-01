@@ -1,6 +1,7 @@
 {
     "helloWorld": "Hello world",
     "pickACommunity": "Pick a community",
+    "pickACommunityDescription": "Welcome to our decentralized social network. Just pick a community to join in the fun.",
     "oopsSomethingWentWrong": "Oops... something went wrong!",
     "search": "Search",
     "monday": "Monday",
@@ -19,7 +20,10 @@
     "reset": "Reset",
     "areYouSure": "Are you sure?",
     "deletePost": "Delete post",
+    "statuses": "Statuses",
+    "close": "Close",
     "delete": "Delete",
+    "pick": "Pick",
     "deleting": "Deleting...",
     "postHasBeenDeleted": "Post has been deleted",
     "loading": "Loading...",

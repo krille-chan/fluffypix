@@ -41,7 +41,8 @@ class LoginPageController extends State<LoginPage> {
   }
 
   Future<List<PublicInstance>> _requestInstances(String query) async {
-    final instances = await FluffyPix.of(context).requestInstances(query);
+    final instances = await FluffyPix.of(context)
+        .requestInstances(L10n.of(context)!.localeName, query);
     if (instances.isEmpty &&
         query.isNotEmpty &&
         !instances.any((instance) => instance.name == query)) {
@@ -65,7 +66,7 @@ class LoginPageController extends State<LoginPage> {
 
   void searchQueryWithCooldown([_]) {
     _cooldown?.cancel();
-    _cooldown = Timer(const Duration(seconds: 1), searchQuery);
+    _cooldown = Timer(const Duration(milliseconds: 500), searchQuery);
   }
 
   void searchQuery([_]) {
@@ -74,9 +75,20 @@ class LoginPageController extends State<LoginPage> {
     });
   }
 
-  void visitInstance(String domain) {
-    launch(Uri.https(domain, '/').toString(),
-        forceSafariVC: true, forceWebView: true);
+  void visitInstance(PublicInstance instance) async {
+    final description =
+        '${L10n.of(context)!.members}: ${instance.users ?? L10n.of(context)!.unknown}\n${L10n.of(context)!.statuses}: ${instance.statuses ?? L10n.of(context)!.unknown}\n${instance.fullDescription ?? instance.shortDescription}';
+    final result = await showOkCancelAlertDialog(
+      context: context,
+      title: instance.name,
+      message: description,
+      okLabel: 'Visit website',
+      cancelLabel: L10n.of(context)!.close,
+    );
+    if (result == OkCancelResult.ok) {
+      launch(Uri.https(instance.name, '/').toString(),
+          forceSafariVC: true, forceWebView: true);
+    }
   }
 
   Future<void> loginAction(String domain) async {
@@ -135,7 +147,8 @@ class LoginPageController extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    publicInstancesFuture ??= FluffyPix.of(context).requestInstances();
+    publicInstancesFuture ??=
+        FluffyPix.of(context).requestInstances(L10n.of(context)!.localeName);
     return LoginPageView(this);
   }
 }
