@@ -173,6 +173,8 @@ class UserPageController extends State<UserPage> {
     refreshController.requestRefresh();
   }
 
+  void goToSettings() => Navigator.of(context).pushNamed('/settings');
+
   void goToProfile(String id) => Navigator.of(context).pushNamed('/user/$id');
 
   void setColumnStatuses() => _setColumnTo(UserViewColumn.statuses);

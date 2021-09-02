@@ -13,7 +13,7 @@ class StatusPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text(L10n.of(context)!.viewPost)),
       body: SmartRefresher(
         controller: controller.refreshController,
         enablePullDown: true,

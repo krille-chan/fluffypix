@@ -1,5 +1,6 @@
 import 'package:fluffypix/model/account.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
+import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/pages/compose.dart';
 import 'package:fluffypix/pages/hashtag.dart';
 import 'package:fluffypix/pages/home.dart';
@@ -51,7 +52,13 @@ class AppRoutes {
         break;
       case 'status':
         if (parts.length == 3) {
-          return _fadeRoute(builder: (_) => StatusPage(statusId: parts[2]));
+          final argument = settings.arguments as Status?;
+          return _fadeRoute(
+            builder: (_) => StatusPage(
+              statusId: parts[2],
+              status: argument,
+            ),
+          );
         }
         break;
     }

@@ -37,15 +37,14 @@ class UserPageView extends StatelessWidget {
           controller: controller.scrollController,
           children: [
             if (controller.account != null) ...[
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxHeight: 256),
-                child: CachedNetworkImage(
-                  imageUrl: controller.account!.header.isEmpty
-                      ? controller.account!.avatar
-                      : controller.account!.header,
-                  fit: BoxFit.cover,
+              if (!controller.account!.header.endsWith('missing.png'))
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxHeight: 256),
+                  child: CachedNetworkImage(
+                    imageUrl: controller.account!.header,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Row(
@@ -79,7 +78,7 @@ class UserPageView extends StatelessWidget {
                             OutlinedButton.icon(
                               icon: const Icon(CupertinoIcons.settings),
                               label: Text(L10n.of(context)!.settings),
-                              onPressed: () {},
+                              onPressed: controller.goToSettings,
                             ),
                           if (!controller.isOwnUser)
                             controller.relationships == null ||
@@ -109,6 +108,29 @@ class UserPageView extends StatelessWidget {
                   ],
                 ),
               ),
+              if (controller.account?.fields != null) ...{
+                for (final field in controller.account!.fields!)
+                  ListTile(
+                    onTap: field.isUrl ? field.launchUrl : null,
+                    title: Text(
+                      field.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: Text(
+                      field.pureValue,
+                      style: TextStyle(
+                        color:
+                            field.isUrl ? Theme.of(context).primaryColor : null,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    trailing: field.verifiedAt != null
+                        ? const Icon(Icons.check, color: Colors.green)
+                        : null,
+                  ),
+              },
               const Divider(height: 1),
               Padding(
                 padding: const EdgeInsets.all(8.0),

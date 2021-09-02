@@ -352,11 +352,16 @@ class _StatusWidgetState extends State<StatusWidget> {
         ),
         for (final reply in widget.replies)
           ListTile(
+            onTap: () => Navigator.of(context).pushNamed(
+              '/status/${reply.id}',
+              arguments: reply,
+            ),
             title: RichText(
               text: HTML.toTextSpan(context,
                   '<b>${reply.account.displayName.isNotEmpty ? reply.account.displayName : reply.account.username}</b>: ${reply.content}'),
             ),
           ),
+        if (widget.replies.isNotEmpty) const SizedBox(height: 8),
         const Divider(height: 1, thickness: 1),
       ],
     );
