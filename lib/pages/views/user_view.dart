@@ -18,8 +18,14 @@ class UserPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-              controller.account?.displayName ?? L10n.of(context)!.loading)),
+        title: Text(L10n.of(context)!.profile),
+        actions: [
+          IconButton(
+            onPressed: controller.sendMessage,
+            icon: const Icon(CupertinoIcons.mail),
+          ),
+        ],
+      ),
       body: SmartRefresher(
         controller: controller.refreshController,
         enablePullDown: true,
@@ -31,7 +37,15 @@ class UserPageView extends StatelessWidget {
           controller: controller.scrollController,
           children: [
             if (controller.account != null) ...[
-              CachedNetworkImage(imageUrl: controller.account!.header),
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: 256),
+                child: CachedNetworkImage(
+                  imageUrl: controller.account!.header.isEmpty
+                      ? controller.account!.avatar
+                      : controller.account!.header,
+                  fit: BoxFit.cover,
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Row(
@@ -41,61 +55,56 @@ class UserPageView extends StatelessWidget {
                       elevation: 5,
                       child: CircleAvatar(
                         backgroundImage: CachedNetworkImageProvider(
-                            controller.account!.avatar),
+                          controller.account!.avatar,
+                        ),
                         radius: 48,
                       ),
                     ),
                     const Divider(height: 1, thickness: 1),
                     const SizedBox(width: 16),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          controller.account!.displayName,
-                          style: const TextStyle(fontSize: 24),
-                        ),
-                        const SizedBox(height: 16),
-                        if (controller.isOwnUser)
-                          OutlinedButton.icon(
-                            icon: const Icon(CupertinoIcons.settings),
-                            label: Text(L10n.of(context)!.settings),
-                            onPressed: () {},
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            controller.account!.displayName,
+                            style: const TextStyle(fontSize: 24),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        if (!controller.isOwnUser)
-                          Row(
-                            children: [
-                              controller.relationships == null ||
-                                      controller.loadFollowChanges
-                                  ? const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 42.0),
-                                      child: CupertinoActivityIndicator(),
-                                    )
-                                  : (controller.relationships!.following ??
-                                          false)
-                                      ? OutlinedButton.icon(
-                                          onPressed: controller.unfollow,
-                                          icon: const Icon(CupertinoIcons
-                                              .square_favorites_alt),
-                                          label:
-                                              Text(L10n.of(context)!.following),
-                                        )
-                                      : ElevatedButton.icon(
-                                          onPressed: controller.follow,
-                                          icon: const Icon(CupertinoIcons
-                                              .square_favorites_alt_fill),
-                                          label: Text(L10n.of(context)!.follow),
-                                        ),
-                              const SizedBox(width: 16),
-                              OutlinedButton.icon(
-                                onPressed: controller.sendMessage,
-                                icon: const Icon(CupertinoIcons.mail),
-                                label: Text(L10n.of(context)!.sendMessage),
-                              ),
-                            ],
-                          ),
-                      ],
+                          Text('@${controller.account?.acct}'),
+                          const SizedBox(height: 16),
+                          if (controller.isOwnUser)
+                            OutlinedButton.icon(
+                              icon: const Icon(CupertinoIcons.settings),
+                              label: Text(L10n.of(context)!.settings),
+                              onPressed: () {},
+                            ),
+                          if (!controller.isOwnUser)
+                            controller.relationships == null ||
+                                    controller.loadFollowChanges
+                                ? const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 42.0),
+                                    child: CupertinoActivityIndicator(),
+                                  )
+                                : (controller.relationships!.following ?? false)
+                                    ? OutlinedButton.icon(
+                                        onPressed: controller.unfollow,
+                                        icon: const Icon(CupertinoIcons
+                                            .square_favorites_alt),
+                                        label:
+                                            Text(L10n.of(context)!.following),
+                                      )
+                                    : ElevatedButton.icon(
+                                        onPressed: controller.follow,
+                                        icon: const Icon(CupertinoIcons
+                                            .square_favorites_alt_fill),
+                                        label: Text(L10n.of(context)!.follow),
+                                      ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

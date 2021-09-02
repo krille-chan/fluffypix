@@ -150,8 +150,14 @@ class _StatusWidgetState extends State<StatusWidget> {
           title: Text(
             displayName,
             style: const TextStyle(fontWeight: FontWeight.bold),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
-          subtitle: Text('@${widget.status.account.acct}'),
+          subtitle: Text(
+            '@${widget.status.account.acct}',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
