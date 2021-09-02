@@ -5,6 +5,7 @@ import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/config/instances_api_token.dart';
 import 'package:fluffypix/model/chunk.dart';
 import 'package:fluffypix/model/relationships.dart';
+import 'package:fluffypix/model/search_result.dart';
 import 'package:fluffypix/model/status_context.dart';
 import 'package:fluffypix/model/status_visibility.dart';
 import 'package:flutter/foundation.dart';
@@ -423,6 +424,14 @@ class FluffyPix {
         'comment': comment,
         'forward': true,
       });
+
+  Future<SearchResult> search(String query, {String? maxId}) =>
+      request(RequestType.get, '/api/v2/search', query: {
+        'q': query,
+        if (maxId != null) 'max_id': maxId,
+      }).then(
+        (json) => SearchResult.fromJson(json),
+      );
 
   Future<AccessTokenCredentials> obtainToken(
     String clientId,
