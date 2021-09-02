@@ -44,8 +44,7 @@ class ImageStatusContent extends StatelessWidget {
 
   ImageType get _type {
     if ((status.mediaAttachments.isNotEmpty &&
-            status.mediaAttachments.first.url != null) ||
-        status.card?.image != null) {
+        status.mediaAttachments.first.url != null)) {
       return ImageType.image;
     }
     if (status.account.header.isNotEmpty &&
@@ -120,15 +119,12 @@ class ImageStatusContent extends StatelessWidget {
                   return;
                 }
                 launch(link);
-              },
-                  defaultTextStyle: const TextStyle(fontSize: 14),
-                  overrideStyle: {
-                    'a': TextStyle(
-                      fontSize: 14,
-                      color: Theme.of(context).primaryColor,
-                      decoration: TextDecoration.none,
-                    ),
-                  }),
+              }, overrideStyle: {
+                'a': TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  decoration: TextDecoration.none,
+                ),
+              }),
             ),
           ),
       ],

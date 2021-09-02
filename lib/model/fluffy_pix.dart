@@ -12,6 +12,7 @@ import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 import 'account.dart';
+import 'conversation.dart';
 import 'create_application_response.dart';
 import 'obtain_token_response.dart';
 import 'public_instance.dart';
@@ -308,11 +309,18 @@ class FluffyPix {
           RequestType.get, '/api/v1/timelines/tag/${Uri.encodeComponent(tag)}',
           query: {
             if (maxId != null) 'max_id': maxId,
-            'only_media': 'true',
-            'limit': '30',
           }).then(
         (json) =>
             (json['chunk'] as List).map((j) => Status.fromJson(j)).toList(),
+      );
+
+  Future<List<Conversation>> requestConversations({String? maxId}) =>
+      request(RequestType.get, '/api/v1/conversations', query: {
+        if (maxId != null) 'max_id': maxId,
+      }).then(
+        (json) => (json['chunk'] as List)
+            .map((j) => Conversation.fromJson(j))
+            .toList(),
       );
 
   Future<AccessTokenCredentials> obtainToken(

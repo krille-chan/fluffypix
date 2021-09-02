@@ -16,15 +16,17 @@ class MessagesPage extends StatefulWidget {
 
 class MessagesPageController extends State<MessagesPage> {
   List<Status> timeline = [];
-  List<Status> localReplies(String statusId) =>
-      timeline.where((status) => status.inReplyToId == statusId).toList();
 
   final refreshController = RefreshController(initialRefresh: false);
   final scrollController = ScrollController();
 
   void refresh() async {
     try {
-      timeline = await FluffyPix.of(context).requestHomeTimeline();
+      timeline = (await FluffyPix.of(context).requestConversations())
+          .map((c) => c.lastStatus)
+          .where((s) => s != null)
+          .map((c) => c!)
+          .toList();
       setState(() {});
       refreshController.refreshCompleted();
     } catch (_) {
@@ -50,8 +52,12 @@ class MessagesPageController extends State<MessagesPage> {
 
   void loadMore() async {
     try {
-      final statuses = await FluffyPix.of(context)
-          .requestHomeTimeline(maxId: timeline.last.id);
+      final statuses = (await FluffyPix.of(context)
+              .requestConversations(maxId: timeline.last.id))
+          .map((c) => c.lastStatus)
+          .where((s) => s != null)
+          .map((c) => c!)
+          .toList();
       timeline.addAll(statuses);
       setState(() {});
       refreshController.loadComplete();
