@@ -80,24 +80,32 @@ class HomePageController extends State<HomePage> {
     _intentFileStreamSubscription = ReceiveSharingIntent.getMediaStream()
         .listen((List<SharedMediaFile> value) {
       if (value.isEmpty) return;
-      Navigator.of(context).pushNamed('/sharemedia', arguments: value);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          '/sharemedia', (r) => r.isFirst,
+          arguments: value);
     });
 
     // For sharing images coming from outside the app while the app is closed
     ReceiveSharingIntent.getInitialMedia().then((List<SharedMediaFile> value) {
-      Navigator.of(context).pushNamed('/sharemedia', arguments: value);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          '/sharemedia', (r) => r.isFirst,
+          arguments: value);
     });
 
     // For sharing or opening urls/text coming from outside the app while the app is in the memory
     _intentTextStreamSubscription =
         ReceiveSharingIntent.getTextStream().listen((String value) {
-      Navigator.of(context).pushNamed('/sharetext', arguments: value);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          '/sharetext', (r) => r.isFirst,
+          arguments: value);
     });
 
     // For sharing or opening urls/text coming from outside the app while the app is closed
     ReceiveSharingIntent.getInitialText().then((String? value) {
       if (value == null) return;
-      Navigator.of(context).pushNamed('/sharetext', arguments: value);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          '/sharetext', (r) => r.isFirst,
+          arguments: value);
     });
   }
 
