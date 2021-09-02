@@ -56,6 +56,50 @@
     "logout": "Logout",
     "account": "Account",
     "members": "Members",
+    "pollEnded": "A poll you took part in has ended.",
+    "mentioned": "<b>{name}</b> mentioned you in a post:<br/>{content}",
+    "@mentioned": {
+        "type": "text",
+        "placeholders": {
+        "name": {},
+        "content": {}
+        }
+    },
+    "hasPosted": "<b>{name}</b> has posted.",
+    "@hasPosted": {
+        "type": "text",
+        "placeholders": {
+        "name": {}
+        }
+    },
+    "likesYourPost": "<b>{name}</b> likes your post.",
+    "@likesYourPost": {
+        "type": "text",
+        "placeholders": {
+        "name": {}
+        }
+    },
+    "isFollowingYouNow": "<b>{name}</b> is following you now.",
+    "@isFollowingYouNow": {
+        "type": "text",
+        "placeholders": {
+        "name": {}
+        }
+    },
+    "wouldLikeToFollowYou": "<b>{name}</b> would like to follow you.",
+    "@wouldLikeToFollowYou": {
+        "type": "text",
+        "placeholders": {
+        "name": {}
+        }
+    },
+    "sharedYourPost": "<b>{name}</b> shared your post.",
+    "@sharedYourPost": {
+        "type": "text",
+        "placeholders": {
+        "name": {}
+        }
+    },
     "dateAndTimeOfDay": "{date}, {timeOfDay}",
     "@dateAndTimeOfDay": {
         "type": "text",

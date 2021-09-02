@@ -19,6 +19,7 @@ import 'create_application_response.dart';
 import 'obtain_token_response.dart';
 import 'public_instance.dart';
 import 'status.dart';
+import 'notification.dart';
 
 enum RequestType { get, post, put, delete }
 
@@ -345,6 +346,13 @@ class FluffyPix {
           }).then(
         (json) =>
             (json['chunk'] as List).map((j) => Status.fromJson(j)).toList(),
+      );
+
+  Future<Chunk<PushNotification>> getNotifications({String? maxId}) =>
+      request(RequestType.get, '/api/v1/notifications', query: {
+        if (maxId != null) 'max_id': maxId,
+      }).then(
+        (json) => Chunk.fromJson(json, (m) => PushNotification.fromJson(m)),
       );
 
   Future<List<Conversation>> requestConversations({String? maxId}) =>

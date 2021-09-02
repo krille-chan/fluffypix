@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -59,25 +60,33 @@ class DefaultBottomBarController extends State<DefaultBottomBar> {
   Widget build(BuildContext context) => BottomNavigationBar(
         currentIndex: widget.currentIndex ?? 0,
         onTap: onTap,
-        items: const [
-          BottomNavigationBarItem(
+        items: [
+          const BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.home),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.search),
             label: 'Search',
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.add_circled),
+            icon: Icon(widget.currentIndex == 2
+                ? CupertinoIcons.add_circled_solid
+                : CupertinoIcons.add_circled),
             label: 'Compose',
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.heart),
+            icon: Icon(widget.currentIndex == 3
+                ? CupertinoIcons.heart_fill
+                : CupertinoIcons.heart),
             label: 'Notifications',
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.profile_circled),
+            icon: CircleAvatar(
+              backgroundImage: CachedNetworkImageProvider(
+                  FluffyPix.of(context).ownAccount?.avatar ?? ''),
+              radius: 16,
+            ),
             label: 'Account',
           ),
         ],
