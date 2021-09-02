@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 class DefaultBottomBar extends StatefulWidget {
   final int? currentIndex;
-  final void Function()? onCurrentIndexTab;
+  final ScrollController? scrollController;
 
   const DefaultBottomBar({
     Key? key,
     this.currentIndex,
-    this.onCurrentIndexTab,
+    this.scrollController,
   }) : super(key: key);
   @override
   DefaultBottomBarController createState() => DefaultBottomBarController();
@@ -18,7 +18,13 @@ class DefaultBottomBar extends StatefulWidget {
 class DefaultBottomBarController extends State<DefaultBottomBar> {
   void onTap(int index) {
     if (index == widget.currentIndex) {
-      widget.onCurrentIndexTab?.call();
+      if (widget.scrollController != null) {
+        widget.scrollController!.animateTo(
+          0,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.ease,
+        );
+      }
       return;
     }
 

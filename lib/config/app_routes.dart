@@ -36,13 +36,12 @@ class AppRoutes {
         final dmUser = settings.arguments as Account?;
         return _fadeRoute(builder: (_) => ComposePage(dmUser: dmUser));
       case 'messages':
-        return MaterialPageRoute(builder: (_) => const MessagesPage());
+        return _fadeRoute(builder: (_) => const MessagesPage());
       case 'settings':
-        return MaterialPageRoute(builder: (_) => const SettingsPage());
+        return _fadeRoute(builder: (_) => const SettingsPage());
       case 'tags':
         if (parts.length == 3) {
-          return MaterialPageRoute(
-              builder: (_) => HashtagPage(hashtag: parts[2]));
+          return _fadeRoute(builder: (_) => HashtagPage(hashtag: parts[2]));
         }
         break;
       case 'user':
@@ -52,20 +51,23 @@ class AppRoutes {
         break;
       case 'status':
         if (parts.length == 3) {
-          return MaterialPageRoute(
-              builder: (_) => StatusPage(statusId: parts[2]));
+          return _fadeRoute(builder: (_) => StatusPage(statusId: parts[2]));
         }
         break;
     }
-    return MaterialPageRoute(builder: (_) => const PageNotFoundRouteView());
+    return _fadeRoute(builder: (_) => const PageNotFoundRouteView());
   }
 
   Route _fadeRoute({required Widget Function(BuildContext) builder}) {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => builder(context),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return child;
-      },
-    );
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            builder(context),
+        transitionsBuilder: (context, animation, anotherAnimation, child) {
+          animation = CurvedAnimation(curve: Curves.easeIn, parent: animation);
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        });
   }
 }

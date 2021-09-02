@@ -29,7 +29,9 @@ class HashtagPageView extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const DefaultBottomBar(),
+      bottomNavigationBar: DefaultBottomBar(
+        scrollController: controller.scrollController,
+      ),
     );
   }
 }

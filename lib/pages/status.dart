@@ -11,6 +11,7 @@ class StatusPage extends StatefulWidget {
 }
 
 class StatusPageController extends State<StatusPage> {
+  final ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) => StatusPageView(this);
 }

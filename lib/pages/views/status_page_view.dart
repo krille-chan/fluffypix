@@ -10,7 +10,9 @@ class StatusPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      bottomNavigationBar: const DefaultBottomBar(),
+      bottomNavigationBar: DefaultBottomBar(
+        scrollController: controller.scrollController,
+      ),
     );
   }
 }

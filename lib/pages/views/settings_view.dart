@@ -1,3 +1,4 @@
+import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
@@ -14,6 +15,7 @@ class SettingsPageView extends StatelessWidget {
         title: Text(L10n.of(context)!.settings),
       ),
       body: ListView(
+        controller: controller.scrollController,
         children: [
           ListTile(
             title: Text(L10n.of(context)!.account),
@@ -24,6 +26,9 @@ class SettingsPageView extends StatelessWidget {
             onTap: controller.logout,
           ),
         ],
+      ),
+      bottomNavigationBar: DefaultBottomBar(
+        scrollController: controller.scrollController,
       ),
     );
   }

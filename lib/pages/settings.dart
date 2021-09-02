@@ -13,6 +13,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class SettingsPageController extends State<SettingsPage> {
+  final ScrollController scrollController = ScrollController();
   void settingsAction() => launch(
         FluffyPix.of(context)
             .instance!

@@ -276,8 +276,10 @@ class UserPageView extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar:
-          DefaultBottomBar(currentIndex: controller.isOwnUser ? 4 : null),
+      bottomNavigationBar: DefaultBottomBar(
+        currentIndex: controller.isOwnUser ? 4 : null,
+        scrollController: controller.scrollController,
+      ),
     );
   }
 }

@@ -20,7 +20,10 @@ class NotificationsPageView extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: const DefaultBottomBar(currentIndex: 3),
+      bottomNavigationBar: DefaultBottomBar(
+        currentIndex: 3,
+        scrollController: controller.scrollController,
+      ),
     );
   }
 }

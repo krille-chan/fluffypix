@@ -1,3 +1,4 @@
+import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
 import 'package:fluffypix/widgets/status/status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -30,6 +31,9 @@ class MessagesPageView extends StatelessWidget {
             replyMode: true,
           ),
         ),
+      ),
+      bottomNavigationBar: DefaultBottomBar(
+        scrollController: controller.scrollController,
       ),
     );
   }

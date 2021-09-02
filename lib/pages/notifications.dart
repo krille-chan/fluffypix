@@ -9,6 +9,7 @@ class NotificationsPage extends StatefulWidget {
 }
 
 class NotificationsPageController extends State<NotificationsPage> {
+  final ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) => NotificationsPageView(this);
 }

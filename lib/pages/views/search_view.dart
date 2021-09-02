@@ -49,7 +49,10 @@ class SearchPageView extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const DefaultBottomBar(currentIndex: 1),
+      bottomNavigationBar: DefaultBottomBar(
+        currentIndex: 1,
+        scrollController: controller.scrollController,
+      ),
     );
   }
 }

@@ -44,12 +44,9 @@ class HomePageView extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: DefaultBottomBar(
-          currentIndex: 0,
-          onCurrentIndexTab: () => controller.scrollController.animateTo(
-                0,
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.ease,
-              )),
+        currentIndex: 0,
+        scrollController: controller.scrollController,
+      ),
     );
   }
 }
