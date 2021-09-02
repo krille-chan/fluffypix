@@ -1,4 +1,5 @@
 import 'package:fluffypix/pages/status.dart';
+import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class StatusPageView extends StatelessWidget {
@@ -7,6 +8,9 @@ class StatusPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(),
+      bottomNavigationBar: const DefaultBottomBar(),
+    );
   }
 }

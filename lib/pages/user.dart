@@ -98,14 +98,15 @@ class UserPageController extends State<UserPage> {
         case UserViewColumn.followers:
           final users = await FluffyPix.of(context).requestFollowers(
             widget.id,
-            maxId: timeline!.last.id,
+            maxId: followers!.last.id,
           );
+
           followers!.addAll(users);
           break;
         case UserViewColumn.following:
           final users = await FluffyPix.of(context).requestFollowing(
             widget.id,
-            maxId: timeline!.last.id,
+            maxId: following!.last.id,
           );
           following!.addAll(users);
           break;

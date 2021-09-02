@@ -327,6 +327,7 @@ class FluffyPix {
             if (maxId != null) 'max_id': maxId,
             'exclude_replies': excludeReplies.toString(),
             'only_media': onlyMedia.toString(),
+            'limit': '21',
           }).then(
         (json) =>
             (json['chunk'] as List).map((j) => Status.fromJson(j)).toList(),

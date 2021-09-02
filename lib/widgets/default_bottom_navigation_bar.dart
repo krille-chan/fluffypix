@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DefaultBottomBar extends StatefulWidget {
-  final int currentIndex;
+  final int? currentIndex;
   final void Function()? onCurrentIndexTab;
 
   const DefaultBottomBar({
     Key? key,
-    required this.currentIndex,
+    this.currentIndex,
     this.onCurrentIndexTab,
   }) : super(key: key);
   @override
@@ -51,7 +51,7 @@ class DefaultBottomBarController extends State<DefaultBottomBar> {
 
   @override
   Widget build(BuildContext context) => BottomNavigationBar(
-        currentIndex: widget.currentIndex,
+        currentIndex: widget.currentIndex ?? 0,
         onTap: onTap,
         items: const [
           BottomNavigationBarItem(
