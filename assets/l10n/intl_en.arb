@@ -23,6 +23,7 @@
     "reset": "Reset",
     "areYouSure": "Are you sure?",
     "addedAt": "Added at",
+    "messages": "Messages",
     "serverVersion": "Server version",
     "deletePost": "Delete post",
     "statuses": "Statuses",

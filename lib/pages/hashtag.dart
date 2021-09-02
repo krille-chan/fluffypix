@@ -2,26 +2,21 @@ import 'dart:async';
 
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/status.dart';
-import 'package:fluffypix/pages/views/home_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+import 'views/hashtag_view.dart';
+
+class HashtagPage extends StatefulWidget {
+  final String hashtag;
+  const HashtagPage({required this.hashtag, Key? key}) : super(key: key);
+
   @override
-  HomePageController createState() => HomePageController();
+  HashtagPageController createState() => HashtagPageController();
 }
 
-enum HomePagePopupMenuButtonAction {
-  settings,
-  logout,
-}
-
-class HomePageController extends State<HomePage> {
+class HashtagPageController extends State<HashtagPage> {
   List<Status> timeline = [];
-  List<Status> get filteredTimeline =>
-      timeline.where((status) => status.inReplyToId == null).toList();
   List<Status> localReplies(String statusId) =>
       timeline.where((status) => status.inReplyToId == statusId).toList();
 
@@ -30,7 +25,7 @@ class HomePageController extends State<HomePage> {
 
   void refresh() async {
     try {
-      timeline = await FluffyPix.of(context).requestHomeTimeline();
+      timeline = await FluffyPix.of(context).requestTagTimeline(widget.hashtag);
       setState(() {});
       refreshController.refreshCompleted();
     } catch (_) {
@@ -57,7 +52,7 @@ class HomePageController extends State<HomePage> {
   void loadMore() async {
     try {
       final statuses = await FluffyPix.of(context)
-          .requestHomeTimeline(maxId: timeline.last.id);
+          .requestTagTimeline(widget.hashtag, maxId: timeline.last.id);
       timeline.addAll(statuses);
       setState(() {});
       refreshController.loadComplete();
@@ -66,10 +61,6 @@ class HomePageController extends State<HomePage> {
       rethrow;
     }
   }
-
-  void settingsAction() => Navigator.of(context).pushNamed('/settings');
-
-  void goToMessages() => Navigator.of(context).pushNamed('/messages');
 
   @override
   void initState() {
@@ -80,7 +71,5 @@ class HomePageController extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return HomePageView(this);
-  }
+  Widget build(BuildContext context) => HashtagPageView(this);
 }

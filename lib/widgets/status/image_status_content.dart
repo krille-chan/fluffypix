@@ -111,8 +111,16 @@ class ImageStatusContent extends StatelessWidget {
               text: HTML.toTextSpan(
                   context,
                   '<b>${status.account.displayName}</b>: ' +
-                      (status.content ?? ''),
-                  linksCallback: (link) => launch(link),
+                      (status.content ?? ''), linksCallback: (link) {
+                final uri = Uri.parse(link);
+                if (uri.pathSegments.length >= 2 &&
+                    uri.pathSegments[uri.pathSegments.length - 2] == 'tags') {
+                  Navigator.of(context)
+                      .pushNamed('/tags/${uri.pathSegments.last}');
+                  return;
+                }
+                launch(link);
+              },
                   defaultTextStyle: const TextStyle(fontSize: 14),
                   overrideStyle: {
                     'a': TextStyle(

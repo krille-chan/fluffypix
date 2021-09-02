@@ -303,6 +303,18 @@ class FluffyPix {
             (json['chunk'] as List).map((j) => Status.fromJson(j)).toList(),
       );
 
+  Future<List<Status>> requestTagTimeline(String tag, {String? maxId}) =>
+      request(
+          RequestType.get, '/api/v1/timelines/tag/${Uri.encodeComponent(tag)}',
+          query: {
+            if (maxId != null) 'max_id': maxId,
+            'only_media': 'true',
+            'limit': '30',
+          }).then(
+        (json) =>
+            (json['chunk'] as List).map((j) => Status.fromJson(j)).toList(),
+      );
+
   Future<AccessTokenCredentials> obtainToken(
     String clientId,
     String clientSecret,

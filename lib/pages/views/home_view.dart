@@ -22,8 +22,8 @@ class HomePageView extends StatelessWidget {
         title: const Text(AppConfigs.applicationName),
         actions: [
           IconButton(
-            icon: const Icon(CupertinoIcons.chat_bubble_2),
-            onPressed: () {},
+            icon: const Icon(CupertinoIcons.mail),
+            onPressed: controller.goToMessages,
           ),
         ],
       ),

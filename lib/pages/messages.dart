@@ -2,26 +2,20 @@ import 'dart:async';
 
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/status.dart';
-import 'package:fluffypix/pages/views/home_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+import 'views/messages_view.dart';
+
+class MessagesPage extends StatefulWidget {
+  const MessagesPage({Key? key}) : super(key: key);
+
   @override
-  HomePageController createState() => HomePageController();
+  MessagesPageController createState() => MessagesPageController();
 }
 
-enum HomePagePopupMenuButtonAction {
-  settings,
-  logout,
-}
-
-class HomePageController extends State<HomePage> {
+class MessagesPageController extends State<MessagesPage> {
   List<Status> timeline = [];
-  List<Status> get filteredTimeline =>
-      timeline.where((status) => status.inReplyToId == null).toList();
   List<Status> localReplies(String statusId) =>
       timeline.where((status) => status.inReplyToId == statusId).toList();
 
@@ -67,10 +61,6 @@ class HomePageController extends State<HomePage> {
     }
   }
 
-  void settingsAction() => Navigator.of(context).pushNamed('/settings');
-
-  void goToMessages() => Navigator.of(context).pushNamed('/messages');
-
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
@@ -80,7 +70,5 @@ class HomePageController extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return HomePageView(this);
-  }
+  Widget build(BuildContext context) => MessagesPageView(this);
 }

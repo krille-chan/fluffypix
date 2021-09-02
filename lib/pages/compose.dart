@@ -34,7 +34,7 @@ class ComposePageController extends State<ComposePage> {
   void addMedia() async {
     setState(() => loadingPhoto = true);
     final pick = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
+      source: ImageSource.camera,
       maxHeight: 2048,
       maxWidth: 2048,
       preferredCameraDevice: CameraDevice.front,
