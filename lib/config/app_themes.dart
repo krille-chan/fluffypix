@@ -62,6 +62,7 @@ abstract class AppThemes {
       iconTheme: IconThemeData(color: Colors.black),
       elevation: 1,
     ),
+    secondaryHeaderColor: const Color(0xffeeeffe),
   );
   static final ThemeData dark = ThemeData.dark();
 }

@@ -41,7 +41,7 @@ class _InstanceListItemState extends State<InstanceListItem> {
             CachedNetworkImage(
               imageUrl: widget.instance.thumbnail ?? '',
               progressIndicatorBuilder: (context, s, p) =>
-                  Center(child: CircularProgressIndicator(value: p.progress)),
+                  const Center(child: CupertinoActivityIndicator()),
               fit: BoxFit.cover,
               height: double.infinity,
               errorWidget: (_, __, ___) =>

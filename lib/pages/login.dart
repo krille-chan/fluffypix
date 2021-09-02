@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:fluffypix/widgets/instance_info_scaffold.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:uni_links/uni_links.dart';
 
@@ -76,19 +78,10 @@ class LoginPageController extends State<LoginPage> {
   }
 
   void visitInstance(PublicInstance instance) async {
-    final description =
-        '${L10n.of(context)!.members}: ${instance.users ?? L10n.of(context)!.unknown}\n${L10n.of(context)!.statuses}: ${instance.statuses ?? L10n.of(context)!.unknown}\n${instance.fullDescription ?? instance.shortDescription}';
-    final result = await showOkCancelAlertDialog(
+    showModalBottomSheet(
       context: context,
-      title: instance.name,
-      message: description,
-      okLabel: 'Visit website',
-      cancelLabel: L10n.of(context)!.close,
+      builder: (context) => InstanceInfoScaffold(instance: instance),
     );
-    if (result == OkCancelResult.ok) {
-      launch(Uri.https(instance.name, '/').toString(),
-          forceSafariVC: true, forceWebView: true);
-    }
   }
 
   Future<void> loginAction(String domain) async {

@@ -26,10 +26,7 @@ class LoginPageView extends StatelessWidget {
             }
             final isLoading =
                 snapshot.connectionState == ConnectionState.waiting;
-            final instances = snapshot.data;
-            if (instances == null) {
-              return const Center(child: CupertinoActivityIndicator());
-            }
+            final instances = snapshot.data ?? [];
             return Column(
               children: [
                 Padding(
