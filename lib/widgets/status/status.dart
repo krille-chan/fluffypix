@@ -130,10 +130,51 @@ class _StatusWidgetState extends State<StatusWidget> {
           );
         }
         break;
+      case StatusAction.open:
+        commentAction();
+        break;
+      case StatusAction.report:
+        reportAction();
+        break;
       case StatusAction.delete:
         deleteAction();
         break;
     }
+  }
+
+  void reportAction() async {
+    final comment = await showTextInputDialog(
+      context: context,
+      title: L10n.of(context)!.report,
+      message: L10n.of(context)!.reportDescription,
+      textFields: [DialogTextField(hintText: L10n.of(context)!.reason)],
+    );
+    if (comment == null) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(L10n.of(context)!.loading),
+      ),
+    );
+    try {
+      await FluffyPix.of(context).report(
+        widget.status.account.id,
+        [widget.status.id],
+        comment.first,
+      );
+    } catch (_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(L10n.of(context)!.oopsSomethingWentWrong),
+        ),
+      );
+      rethrow;
+    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(L10n.of(context)!.postHasBeenReported),
+      ),
+    );
   }
 
   @override
@@ -284,6 +325,14 @@ class _StatusWidgetState extends State<StatusWidget> {
                 onSelected: onStatusAction,
                 itemBuilder: (_) => [
                   PopupMenuItem(
+                    value: StatusAction.open,
+                    child: Text(L10n.of(context)!.viewPost),
+                  ),
+                  PopupMenuItem(
+                    value: StatusAction.report,
+                    child: Text(L10n.of(context)!.report),
+                  ),
+                  PopupMenuItem(
                     value: StatusAction.shareLink,
                     child: Text(L10n.of(context)!.shareLink),
                   ),
@@ -315,6 +364,8 @@ class _StatusWidgetState extends State<StatusWidget> {
 }
 
 enum StatusAction {
+  open,
+  report,
   delete,
   shareLink,
 }

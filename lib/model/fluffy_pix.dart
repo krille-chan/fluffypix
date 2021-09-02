@@ -412,6 +412,18 @@ class FluffyPix {
         (json) => Relationships.fromJson(json['chunk'].single),
       );
 
+  Future<void> report(
+    String accountId,
+    List<String> statusIds,
+    String comment,
+  ) =>
+      request(RequestType.post, '/api/v1/report', data: {
+        'account_id': accountId,
+        'status_ids': statusIds,
+        'comment': comment,
+        'forward': true,
+      });
+
   Future<AccessTokenCredentials> obtainToken(
     String clientId,
     String clientSecret,
