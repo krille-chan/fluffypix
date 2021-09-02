@@ -33,6 +33,9 @@ class UserPageController extends State<UserPage> {
   List<Account>? following;
   Relationships? relationships;
 
+  String? nextFollowers;
+  String? nextFollowing;
+
   bool loadFollowChanges = false;
 
   final refreshController = RefreshController(initialRefresh: false);
@@ -54,10 +57,14 @@ class UserPageController extends State<UserPage> {
           );
           break;
         case UserViewColumn.followers:
-          followers = await FluffyPix.of(context).requestFollowers(widget.id);
+          final chunk = await FluffyPix.of(context).requestFollowers(widget.id);
+          followers = chunk.chunk;
+          nextFollowers = chunk.next;
           break;
         case UserViewColumn.following:
-          following = await FluffyPix.of(context).requestFollowing(widget.id);
+          final chunk = await FluffyPix.of(context).requestFollowing(widget.id);
+          following = chunk.chunk;
+          nextFollowing = chunk.next;
           break;
       }
       setState(() {});
@@ -98,17 +105,18 @@ class UserPageController extends State<UserPage> {
         case UserViewColumn.followers:
           final users = await FluffyPix.of(context).requestFollowers(
             widget.id,
-            maxId: followers!.last.id,
+            maxId: nextFollowers,
           );
-
-          followers!.addAll(users);
+          nextFollowers = users.next;
+          followers!.addAll(users.chunk);
           break;
         case UserViewColumn.following:
           final users = await FluffyPix.of(context).requestFollowing(
             widget.id,
-            maxId: following!.last.id,
+            maxId: nextFollowing,
           );
-          following!.addAll(users);
+          nextFollowing = users.next;
+          following!.addAll(users.chunk);
           break;
       }
       setState(() {});

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/config/instances_api_token.dart';
+import 'package:fluffypix/model/chunk.dart';
 import 'package:fluffypix/model/relationships.dart';
 import 'package:fluffypix/model/status_visibility.dart';
 import 'package:flutter/foundation.dart';
@@ -187,8 +188,6 @@ class FluffyPix {
       headers['Authorization'] = 'Bearer $accessToken';
     }
 
-    //print('${type.toString()} ${url.toString()} $json');
-
     Response resp;
     var jsonResp = <String, dynamic>{};
     switch (type) {
@@ -224,7 +223,22 @@ class FluffyPix {
     }
     var jsonString = String.fromCharCodes(respBody.runes);
     if (jsonString.startsWith('[') && jsonString.endsWith(']')) {
-      jsonString = '{"chunk":$jsonString}';
+      final linkHeader = resp.headers['link'];
+      String? next;
+      String? prev;
+      if (linkHeader != null) {
+        final linkHeaderParts = linkHeader.split(',');
+        for (final part in linkHeaderParts) {
+          if (part.endsWith('rel="next"')) {
+            next = Uri.parse(part.split('<').last.split('>').first)
+                .queryParameters['max_id'];
+          } else if (part.endsWith('rel="prev"')) {
+            prev = Uri.parse(part.split('<').last.split('>').first)
+                .queryParameters['max_id'];
+          }
+        }
+      }
+      jsonString = '{"chunk":$jsonString,"next":$next,"prev":$prev}';
     }
     jsonResp = jsonDecode(jsonString)
         as Map<String, dynamic>; // May throw FormatException
@@ -342,24 +356,22 @@ class FluffyPix {
             .toList(),
       );
 
-  Future<List<Account>> requestFollowers(String id, {String? maxId}) => request(
-          RequestType.get,
+  Future<Chunk<Account>> requestFollowers(String id, {String? maxId}) =>
+      request(RequestType.get,
           '/api/v1/accounts/${Uri.encodeComponent(id)}/followers',
           query: {
             if (maxId != null) 'max_id': maxId,
           }).then(
-        (json) =>
-            (json['chunk'] as List).map((j) => Account.fromJson(j)).toList(),
+        (json) => Chunk.fromJson(json, (m) => Account.fromJson(m)),
       );
 
-  Future<List<Account>> requestFollowing(String id, {String? maxId}) => request(
-          RequestType.get,
+  Future<Chunk<Account>> requestFollowing(String id, {String? maxId}) =>
+      request(RequestType.get,
           '/api/v1/accounts/${Uri.encodeComponent(id)}/following',
           query: {
             if (maxId != null) 'max_id': maxId,
           }).then(
-        (json) =>
-            (json['chunk'] as List).map((j) => Account.fromJson(j)).toList(),
+        (json) => Chunk.fromJson(json, (m) => Account.fromJson(m)),
       );
 
   Future<Account> loadAccount(String username) => request(
