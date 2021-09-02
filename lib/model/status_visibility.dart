@@ -13,11 +13,11 @@ extension StatusVisibilityLocalization on StatusVisibility {
   IconData get icon {
     switch (this) {
       case StatusVisibility.public:
-        return CupertinoIcons.group;
+        return Icons.public_outlined;
       case StatusVisibility.unlisted:
-        return CupertinoIcons.lock_open;
+        return Icons.lock_open_outlined;
       case StatusVisibility.private:
-        return CupertinoIcons.lock;
+        return Icons.lock_open;
       case StatusVisibility.direct:
         return CupertinoIcons.mail;
     }

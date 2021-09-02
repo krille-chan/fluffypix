@@ -5,6 +5,7 @@ import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/status.dart';
+import 'package:fluffypix/model/status_visibility.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -140,6 +141,8 @@ class _StatusWidgetState extends State<StatusWidget> {
       mainAxisSize: MainAxisSize.min,
       children: [
         ListTile(
+          onTap: () => Navigator.of(context)
+              .pushNamed('/user/${widget.status.account.id}'),
           leading: CircleAvatar(
             backgroundImage:
                 CachedNetworkImageProvider(widget.status.account.avatar),
@@ -149,7 +152,18 @@ class _StatusWidgetState extends State<StatusWidget> {
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           subtitle: Text('@${widget.status.account.acct}'),
-          trailing: Text(widget.status.createdAt.localizedTimeShort(context)),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                widget.status.visibility.icon,
+                size: 16,
+                color: Theme.of(context).textTheme.bodyText1?.color,
+              ),
+              const SizedBox(width: 4),
+              Text(widget.status.createdAt.localizedTimeShort(context)),
+            ],
+          ),
         ),
         StatusContent(
           status: widget.status,

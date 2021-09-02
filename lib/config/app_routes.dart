@@ -1,3 +1,4 @@
+import 'package:fluffypix/model/account.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/pages/compose.dart';
 import 'package:fluffypix/pages/hashtag.dart';
@@ -32,7 +33,8 @@ class AppRoutes {
       case 'search':
         return _fadeRoute(builder: (_) => const SearchPage());
       case 'compose':
-        return _fadeRoute(builder: (_) => const ComposePage());
+        final dmUser = settings.arguments as Account?;
+        return _fadeRoute(builder: (_) => ComposePage(dmUser: dmUser));
       case 'messages':
         return MaterialPageRoute(builder: (_) => const MessagesPage());
       case 'settings':
@@ -45,8 +47,7 @@ class AppRoutes {
         break;
       case 'user':
         if (parts.length == 3) {
-          return MaterialPageRoute(
-              builder: (_) => UserPage(username: parts[2]));
+          return _fadeRoute(builder: (_) => UserPage(id: parts[2]));
         }
         break;
       case 'status':

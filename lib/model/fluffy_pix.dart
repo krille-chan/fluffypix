@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/config/instances_api_token.dart';
+import 'package:fluffypix/model/relationships.dart';
 import 'package:fluffypix/model/status_visibility.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -314,6 +315,23 @@ class FluffyPix {
             (json['chunk'] as List).map((j) => Status.fromJson(j)).toList(),
       );
 
+  Future<List<Status>> requestUserTimeline(
+    String userId, {
+    String? maxId,
+    bool excludeReplies = true,
+    bool onlyMedia = true,
+  }) =>
+      request(RequestType.get,
+          '/api/v1/accounts/${Uri.encodeComponent(userId)}/statuses',
+          query: {
+            if (maxId != null) 'max_id': maxId,
+            'exclude_replies': excludeReplies.toString(),
+            'only_media': onlyMedia.toString(),
+          }).then(
+        (json) =>
+            (json['chunk'] as List).map((j) => Status.fromJson(j)).toList(),
+      );
+
   Future<List<Conversation>> requestConversations({String? maxId}) =>
       request(RequestType.get, '/api/v1/conversations', query: {
         if (maxId != null) 'max_id': maxId,
@@ -321,6 +339,41 @@ class FluffyPix {
         (json) => (json['chunk'] as List)
             .map((j) => Conversation.fromJson(j))
             .toList(),
+      );
+
+  Future<List<Account>> requestFollowers(String id, {String? maxId}) => request(
+          RequestType.get,
+          '/api/v1/accounts/${Uri.encodeComponent(id)}/followers',
+          query: {
+            if (maxId != null) 'max_id': maxId,
+          }).then(
+        (json) =>
+            (json['chunk'] as List).map((j) => Account.fromJson(j)).toList(),
+      );
+
+  Future<List<Account>> requestFollowing(String id, {String? maxId}) => request(
+          RequestType.get,
+          '/api/v1/accounts/${Uri.encodeComponent(id)}/following',
+          query: {
+            if (maxId != null) 'max_id': maxId,
+          }).then(
+        (json) =>
+            (json['chunk'] as List).map((j) => Account.fromJson(j)).toList(),
+      );
+
+  Future<Account> loadAccount(String username) => request(
+        RequestType.get,
+        '/api/v1/accounts/${Uri.encodeComponent(username)}',
+      ).then(
+        (json) => Account.fromJson(json),
+      );
+
+  Future<Relationships> getRelationship(String username) => request(
+        RequestType.get,
+        '/api/v1/accounts/relationships',
+        query: {'id': username},
+      ).then(
+        (json) => Relationships.fromJson(json['chunk'].single),
       );
 
   Future<AccessTokenCredentials> obtainToken(
@@ -361,6 +414,16 @@ class FluffyPix {
         RequestType.post,
         '/api/v1/statuses/${Uri.encodeComponent(statusId)}/unreblog',
       ).then((json) => Status.fromJson(json));
+
+  Future<Relationships> follow(String id) => request(
+        RequestType.post,
+        '/api/v1/accounts/${Uri.encodeComponent(id)}/follow',
+      ).then((json) => Relationships.fromJson(json));
+
+  Future<Relationships> unfollow(String id) => request(
+        RequestType.post,
+        '/api/v1/accounts/${Uri.encodeComponent(id)}/unfollow',
+      ).then((json) => Relationships.fromJson(json));
 
   Future<Status> publishNewStatus({
     String? status,

@@ -57,7 +57,9 @@ class ComposePageController extends State<ComposePage> {
   void _init() {
     sensitive = false;
     statusController.clear();
-    statusController.text = widget.dmUser?.id ?? '';
+    if (widget.dmUser != null) {
+      statusController.text = '@${widget.dmUser?.acct} ';
+    }
     visibility = widget.dmUser != null
         ? StatusVisibility.direct
         : StatusVisibility.public;

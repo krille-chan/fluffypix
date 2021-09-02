@@ -1,3 +1,5 @@
+import 'package:fluffypix/model/status_visibility.dart';
+
 import 'account.dart';
 import 'application.dart';
 import 'card.dart';
@@ -10,7 +12,7 @@ class Status {
   final String? inReplyToAccountId;
   final bool sensitive;
   final String spoilerText;
-  final String visibility;
+  final StatusVisibility visibility;
   final String? language;
   final String uri;
   final String? url;
@@ -69,7 +71,8 @@ class Status {
         inReplyToAccountId: json['in_reply_to_account_id'],
         sensitive: json['sensitive'],
         spoilerText: json['spoiler_text'],
-        visibility: json['visibility'],
+        visibility: StatusVisibility.values.firstWhere(
+            (v) => v.toString().split('.').last == json['visibility']),
         language: json['language'],
         uri: json['uri'],
         url: json['url'],
@@ -105,7 +108,7 @@ class Status {
           'in_reply_to_account_id': inReplyToAccountId,
         'sensitive': sensitive,
         'spoiler_text': spoilerText,
-        'visibility': visibility,
+        'visibility': visibility.toString().split('.').last,
         if (language != null) 'language': language,
         'uri': uri,
         if (url != null) 'url': url,

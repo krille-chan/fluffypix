@@ -1,3 +1,4 @@
+import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +39,7 @@ class DefaultBottomBarController extends State<DefaultBottomBar> {
         route = '/notifications';
         break;
       case 4:
-        route = '/settings';
+        route = '/user/${FluffyPix.of(context).ownAccount?.id}';
         break;
       default:
         return;

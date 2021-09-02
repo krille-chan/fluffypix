@@ -17,8 +17,8 @@ class Account {
   final String header;
   final String headerStatic;
   final int? followersCount;
-  final int followingCount;
-  final int statusesCount;
+  final int? followingCount;
+  final int? statusesCount;
   final String? lastStatusAt;
   final List<Object> emojis;
   final List<Field>? fields;
@@ -95,8 +95,8 @@ class Account {
         'header': header,
         'header_static': headerStatic,
         if (followersCount != null) 'followers_count': followersCount,
-        'following_count': followingCount,
-        'statuses_count': statusesCount,
+        if (followingCount != null) 'following_count': followingCount,
+        if (statusesCount != null) 'statuses_count': statusesCount,
         if (lastStatusAt != null) 'last_status_at': lastStatusAt,
         'emojis': List<Object>.from(emojis),
         if (fields != null) 'fields': fields!.map((i) => i.toJson()).toList(),
