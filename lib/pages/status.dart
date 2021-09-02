@@ -1,17 +1,102 @@
+import 'package:fluffypix/model/fluffy_pix.dart';
+import 'package:fluffypix/model/status.dart';
+import 'package:fluffypix/model/status_context.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 import 'views/status_page_view.dart';
 
 class StatusPage extends StatefulWidget {
   final String statusId;
-  const StatusPage({required this.statusId, Key? key}) : super(key: key);
+  final Status? status;
+  const StatusPage({
+    required this.statusId,
+    this.status,
+    Key? key,
+  }) : super(key: key);
 
   @override
   StatusPageController createState() => StatusPageController();
 }
 
 class StatusPageController extends State<StatusPage> {
-  final ScrollController scrollController = ScrollController();
+  final ScrollPhysics scrollPhysics = const ScrollPhysics();
+  Status? status;
+  StatusContext? statusContext;
+  final TextEditingController textEditingController = TextEditingController();
+  bool commentLoading = false;
+
+  final refreshController = RefreshController(initialRefresh: false);
+  final scrollController = ScrollController();
+
+  void refresh() async {
+    try {
+      status ??= await FluffyPix.of(context).getStatus(widget.statusId);
+      statusContext =
+          await FluffyPix.of(context).getStatusContext(widget.statusId);
+      setState(() {});
+      refreshController.refreshCompleted();
+    } catch (_) {
+      refreshController.refreshFailed();
+      rethrow;
+    }
+  }
+
+  void onUpdateStatus(Status? status, [String? deleteId]) {
+    if (status == null) {
+      setState(() {
+        statusContext?.ancestors.removeWhere((s) => s.id == deleteId);
+        statusContext?.descendants.removeWhere((s) => s.id == deleteId);
+      });
+      return;
+    }
+    setState(() {
+      statusContext?.ancestors[statusContext!.ancestors
+          .indexWhere((s) => s.id == status.id)] = status;
+      statusContext?.descendants[statusContext!.descendants
+          .indexWhere((s) => s.id == status.id)] = status;
+    });
+  }
+
+  void commentAction() async {
+    if (textEditingController.text.isEmpty) {
+      return;
+    }
+    setState(() => commentLoading = true);
+    try {
+      await FluffyPix.of(context).publishNewStatus(
+        status: textEditingController.text,
+        visibility: status!.visibility,
+        inReplyTo: status!.id,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(L10n.of(context)!.newPostPublished),
+        ),
+      );
+      textEditingController.clear();
+      refreshController.requestRefresh();
+    } catch (_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(L10n.of(context)!.oopsSomethingWentWrong),
+        ),
+      );
+      rethrow;
+    } finally {
+      setState(() => commentLoading = false);
+    }
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      refreshController.requestRefresh();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) => StatusPageView(this);
 }

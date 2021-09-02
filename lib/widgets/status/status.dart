@@ -77,6 +77,11 @@ class _StatusWidgetState extends State<StatusWidget> {
     }
   }
 
+  void commentAction() => Navigator.of(context).pushNamed(
+        '/status/${widget.status.id}',
+        arguments: widget.status,
+      );
+
   void deleteAction() async {
     final confirmed = await showOkCancelAlertDialog(
       context: context,
@@ -171,14 +176,27 @@ class _StatusWidgetState extends State<StatusWidget> {
             ],
           ),
         ),
-        StatusContent(
-          status: widget.status,
-          imageStatusMode: widget.replyMode
-              ? ImageStatusMode.reply
-              : ImageStatusMode.timeline,
-        ),
+        widget.replyMode
+            ? Padding(
+                padding: const EdgeInsets.only(left: 56.0),
+                child: StatusContent(
+                  status: widget.status,
+                  imageStatusMode: widget.replyMode
+                      ? ImageStatusMode.reply
+                      : ImageStatusMode.timeline,
+                ),
+              )
+            : StatusContent(
+                status: widget.status,
+                imageStatusMode: widget.replyMode
+                    ? ImageStatusMode.reply
+                    : ImageStatusMode.timeline,
+              ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: widget.replyMode
+              ? const EdgeInsets.only(
+                  left: 64.0, right: 8.0, top: 8.0, bottom: 8.0)
+              : const EdgeInsets.all(8.0),
           child: Row(
             children: [
               _favoriteLoading
@@ -228,7 +246,7 @@ class _StatusWidgetState extends State<StatusWidget> {
                 badgeColor: Theme.of(context).appBarTheme.color!,
                 child: IconButton(
                   icon: const Icon(CupertinoIcons.chat_bubble),
-                  onPressed: () {},
+                  onPressed: commentAction,
                 ),
               ),
               _shareLoading

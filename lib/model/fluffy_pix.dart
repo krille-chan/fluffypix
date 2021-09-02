@@ -5,6 +5,7 @@ import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/config/instances_api_token.dart';
 import 'package:fluffypix/model/chunk.dart';
 import 'package:fluffypix/model/relationships.dart';
+import 'package:fluffypix/model/status_context.dart';
 import 'package:fluffypix/model/status_visibility.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -380,6 +381,20 @@ class FluffyPix {
             if (maxId != null) 'max_id': maxId,
           }).then(
         (json) => Chunk.fromJson(json, (m) => Account.fromJson(m)),
+      );
+
+  Future<Status> getStatus(String id) => request(
+        RequestType.get,
+        '/api/v1/statuses/${Uri.encodeComponent(id)}',
+      ).then(
+        (json) => Status.fromJson(json),
+      );
+
+  Future<StatusContext> getStatusContext(String id) => request(
+        RequestType.get,
+        '/api/v1/statuses/${Uri.encodeComponent(id)}/context',
+      ).then(
+        (json) => StatusContext.fromJson(json),
       );
 
   Future<Account> loadAccount(String username) => request(

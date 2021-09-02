@@ -57,6 +57,8 @@
     "account": "Account",
     "members": "Members",
     "profile": "Profile",
+    "comment": "Comment",
+    "sendComment": "Send comment",
     "pollEnded": "A poll you took part in has ended.",
     "mentioned": "<b>{name}</b> mentioned you in a post:<br/>{content}",
     "@mentioned": {
