@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/status.dart';
+import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
@@ -11,12 +12,21 @@ enum ImageType { image, avatar, missing }
 
 class ImageStatusContent extends StatelessWidget {
   final Status status;
+  final ImageStatusMode imageStatusMode;
 
-  const ImageStatusContent({Key? key, required this.status}) : super(key: key);
+  const ImageStatusContent({
+    Key? key,
+    required this.status,
+    required this.imageStatusMode,
+  }) : super(key: key);
 
   String get _imageUrl {
     if (status.mediaAttachments.isNotEmpty &&
         status.mediaAttachments.first.url != null) {
+      if (imageStatusMode == ImageStatusMode.discover &&
+          status.mediaAttachments.first.previewUrl != null) {
+        return status.mediaAttachments.first.previewUrl!.toString();
+      }
       return status.mediaAttachments.first.url!.toString();
     }
     if (status.card?.image != null) {
@@ -47,7 +57,7 @@ class ImageStatusContent extends StatelessWidget {
   }
 
   Widget blurHashBuilder(_, __, ___) => SizedBox(
-        height: 256,
+        height: imageStatusMode == ImageStatusMode.discover ? null : 256,
         child: Stack(
           children: [
             BlurHash(
@@ -55,12 +65,21 @@ class ImageStatusContent extends StatelessWidget {
                     ? AppConfigs.fallbackBlurHash
                     : status.mediaAttachments.first.blurhash ??
                         AppConfigs.fallbackBlurHash),
-            const Center(child: CupertinoActivityIndicator()),
+            if (imageStatusMode != ImageStatusMode.discover)
+              const Center(child: CupertinoActivityIndicator()),
           ],
         ),
       );
   @override
   Widget build(BuildContext context) {
+    if (imageStatusMode == ImageStatusMode.discover) {
+      return CachedNetworkImage(
+        imageUrl: _imageUrl,
+        progressIndicatorBuilder: blurHashBuilder,
+        errorWidget: blurHashBuilder,
+        fit: BoxFit.cover,
+      );
+    }
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -71,34 +90,39 @@ class ImageStatusContent extends StatelessWidget {
             width: 56,
             height: 56,
           )),
-        if (_type != ImageType.missing)
+        if (_type != ImageType.missing &&
+            (imageStatusMode != ImageStatusMode.reply ||
+                _type == ImageType.image))
           CachedNetworkImage(
             imageUrl: _imageUrl,
-            width: double.infinity,
+            width: imageStatusMode == ImageStatusMode.discover
+                ? null
+                : double.infinity,
             fit: BoxFit.cover,
             progressIndicatorBuilder: blurHashBuilder,
             errorWidget: blurHashBuilder,
             height: _type == ImageType.avatar ? 256 : null,
           ),
-        Container(
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
-          child: RichText(
-            text: HTML.toTextSpan(
-                context,
-                '<b>${status.account.displayName}</b>: ' +
-                    (status.content ?? ''),
-                linksCallback: (link) => launch(link),
-                defaultTextStyle: const TextStyle(fontSize: 14),
-                overrideStyle: {
-                  'a': TextStyle(
-                    fontSize: 14,
-                    color: Theme.of(context).primaryColor,
-                    decoration: TextDecoration.none,
-                  ),
-                }),
+        if (imageStatusMode != ImageStatusMode.discover)
+          Container(
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
+            child: RichText(
+              text: HTML.toTextSpan(
+                  context,
+                  '<b>${status.account.displayName}</b>: ' +
+                      (status.content ?? ''),
+                  linksCallback: (link) => launch(link),
+                  defaultTextStyle: const TextStyle(fontSize: 14),
+                  overrideStyle: {
+                    'a': TextStyle(
+                      fontSize: 14,
+                      color: Theme.of(context).primaryColor,
+                      decoration: TextDecoration.none,
+                    ),
+                  }),
+            ),
           ),
-        ),
       ],
     );
   }

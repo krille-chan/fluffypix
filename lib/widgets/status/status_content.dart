@@ -4,9 +4,16 @@ import 'package:fluffypix/widgets/status/sensitive_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+enum ImageStatusMode { timeline, reply, discover }
+
 class StatusContent extends StatefulWidget {
   final Status status;
-  const StatusContent({required this.status, Key? key}) : super(key: key);
+  final ImageStatusMode imageStatusMode;
+  const StatusContent({
+    required this.status,
+    this.imageStatusMode = ImageStatusMode.timeline,
+    Key? key,
+  }) : super(key: key);
 
   @override
   _StatusContentState createState() => _StatusContentState();
@@ -21,6 +28,9 @@ class _StatusContentState extends State<StatusContent> {
         onUnlock: () => setState(() => unlocked = true),
       );
     }
-    return ImageStatusContent(status: widget.status);
+    return ImageStatusContent(
+      status: widget.status,
+      imageStatusMode: widget.imageStatusMode,
+    );
   }
 }

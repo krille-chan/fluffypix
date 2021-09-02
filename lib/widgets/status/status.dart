@@ -18,12 +18,14 @@ import 'package:flutter_gen/gen_l10n/l10n.dart';
 class StatusWidget extends StatefulWidget {
   final Status status;
   final List<Status> replies;
+  final bool replyMode;
   final void Function(Status? status, [String? deleteId]) onUpdate;
 
   const StatusWidget({
     Key? key,
     required this.status,
     required this.onUpdate,
+    this.replyMode = false,
     this.replies = const [],
   }) : super(key: key);
 
@@ -138,8 +140,6 @@ class _StatusWidgetState extends State<StatusWidget> {
       mainAxisSize: MainAxisSize.min,
       children: [
         ListTile(
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           leading: CircleAvatar(
             backgroundImage:
                 CachedNetworkImageProvider(widget.status.account.avatar),
@@ -151,7 +151,12 @@ class _StatusWidgetState extends State<StatusWidget> {
           subtitle: Text('@${widget.status.account.acct}'),
           trailing: Text(widget.status.createdAt.localizedTimeShort(context)),
         ),
-        StatusContent(status: widget.status),
+        StatusContent(
+          status: widget.status,
+          imageStatusMode: widget.replyMode
+              ? ImageStatusMode.reply
+              : ImageStatusMode.timeline,
+        ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
