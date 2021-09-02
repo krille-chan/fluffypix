@@ -13,6 +13,7 @@ import 'package:fluffypix/pages/status.dart';
 import 'package:fluffypix/pages/user.dart';
 import 'package:fluffypix/pages/views/page_not_found_view.dart';
 import 'package:flutter/material.dart';
+import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
 class AppRoutes {
   final FluffyPix fluffyPix;
@@ -36,6 +37,13 @@ class AppRoutes {
       case 'compose':
         final dmUser = settings.arguments as Account?;
         return _fadeRoute(builder: (_) => ComposePage(dmUser: dmUser));
+      case 'sharemedia':
+        final sharedMediaFiles = settings.arguments as List<SharedMediaFile>;
+        return _fadeRoute(
+            builder: (_) => ComposePage(sharedMediaFiles: sharedMediaFiles));
+      case 'sharetext':
+        final text = settings.arguments as String;
+        return _fadeRoute(builder: (_) => ComposePage(sharedText: text));
       case 'messages':
         return _fadeRoute(builder: (_) => const MessagesPage());
       case 'settings':

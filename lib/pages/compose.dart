@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
@@ -7,14 +8,20 @@ import 'package:fluffypix/model/status_visibility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
 import 'views/compose_view.dart';
 
 class ComposePage extends StatefulWidget {
   final Account? dmUser;
+  final String? sharedText;
+  final List<SharedMediaFile>? sharedMediaFiles;
+
   const ComposePage({
     Key? key,
     this.dmUser,
+    this.sharedMediaFiles,
+    this.sharedText,
   }) : super(key: key);
 
   @override
@@ -54,11 +61,30 @@ class ComposePageController extends State<ComposePage> {
     super.initState();
   }
 
-  void _init() {
+  void _init() async {
     sensitive = false;
     statusController.clear();
     if (widget.dmUser != null) {
       statusController.text = '@${widget.dmUser?.acct} ';
+    }
+    if (widget.sharedText != null) {
+      statusController.text = widget.sharedText!;
+    }
+    if (widget.sharedMediaFiles != null) {
+      setState(() => loadingPhoto = true);
+      for (final sharedMediaFile in widget.sharedMediaFiles!) {
+        try {
+          final bytes = await File(sharedMediaFile.path).readAsBytes();
+          setState(() => media.add(bytes));
+        } catch (_) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(L10n.of(context)!.oopsSomethingWentWrong),
+            ),
+          );
+        }
+      }
+      setState(() => loadingPhoto = false);
     }
     visibility = widget.dmUser != null
         ? StatusVisibility.direct
