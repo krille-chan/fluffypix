@@ -8,5 +8,9 @@ void linksCallback(String link, BuildContext context) {
     Navigator.of(context).pushNamed('/tags/${uri.pathSegments.last}');
     return;
   }
+  /*if (uri.pathSegments.last.startsWith('@')) {
+    Navigator.of(context).pushNamed('/user/${uri.pathSegments.last}');
+    return;
+  }*/
   launch(link);
 }

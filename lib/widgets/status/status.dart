@@ -14,6 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:share/share.dart';
 import 'package:simple_html_css/simple_html_css.dart';
 import '../../utils/date_time_extension.dart';
+import '../../utils/int_short_string_extension.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 class StatusWidget extends StatefulWidget {
@@ -132,7 +133,6 @@ class _StatusWidgetState extends State<StatusWidget> {
 
   @override
   Widget build(BuildContext context) {
-    const badgeTextStyle = TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
     final badgePosition = BadgePosition.topEnd(top: 0, end: 0);
     final displayName = widget.status.account.displayName.isEmpty
         ? widget.status.account.username
@@ -183,7 +183,10 @@ class _StatusWidgetState extends State<StatusWidget> {
                   : Badge(
                       badgeContent: Text(
                         widget.status.favouritesCount.shortString,
-                        style: badgeTextStyle,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red[900],
+                        ),
                       ),
                       shape: BadgeShape.square,
                       borderRadius: BorderRadius.circular(6),
@@ -206,7 +209,10 @@ class _StatusWidgetState extends State<StatusWidget> {
               Badge(
                 badgeContent: Text(
                   widget.status.repliesCount.shortString,
-                  style: badgeTextStyle,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green[900],
+                  ),
                 ),
                 shape: BadgeShape.square,
                 borderRadius: BorderRadius.circular(6),
@@ -227,7 +233,10 @@ class _StatusWidgetState extends State<StatusWidget> {
                   : Badge(
                       badgeContent: Text(
                         widget.status.reblogsCount.shortString,
-                        style: badgeTextStyle,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue[900],
+                        ),
                       ),
                       shape: BadgeShape.square,
                       borderRadius: BorderRadius.circular(6),
@@ -284,12 +293,4 @@ class _StatusWidgetState extends State<StatusWidget> {
 enum StatusAction {
   delete,
   shareLink,
-}
-
-extension on int {
-  String get shortString {
-    if (this < 1000) return toString();
-    if (this < 1000000) return '${toString()}k';
-    return '${toString()}m';
-  }
 }

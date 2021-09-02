@@ -42,6 +42,7 @@ abstract class AppThemes {
       showUnselectedLabels: false,
       selectedItemColor: AppConfigs.primaryColor,
       unselectedItemColor: Colors.black,
+      backgroundColor: Colors.white,
     ),
     primaryColor: AppConfigs.primaryColor,
     colorScheme: ThemeData.light().colorScheme.copyWith(
