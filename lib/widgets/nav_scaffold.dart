@@ -1,4 +1,5 @@
 import 'package:fluffypix/model/fluffy_pix.dart';
+import 'package:fluffypix/widgets/trending_hashtags_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -71,6 +72,7 @@ class NavScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final columnMode = constraints.maxWidth >= columnWidth * 3 + 3;
+      final wideColumnMode = constraints.maxWidth >= columnWidth * 4 + 3;
       final scaffold = Scaffold(
         appBar: appBar,
         body: body,
@@ -192,6 +194,15 @@ class NavScaffold extends StatelessWidget {
               child: scaffold,
             ),
             Container(width: 1, color: Theme.of(context).dividerColor),
+            if (wideColumnMode)
+              SizedBox(
+                width: columnWidth * 1.25,
+                child: ListView(
+                  children: const [
+                    TrendingHashtagsCard(),
+                  ],
+                ),
+              ),
             const Spacer(),
           ],
         ),

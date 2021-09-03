@@ -54,53 +54,56 @@ class HomePageView extends StatelessWidget {
               ? Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Material(
-                      color: Theme.of(context).secondaryHeaderColor,
+                    SizedBox(
+                      width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          L10n.of(context)!.hashtags,
+                          L10n.of(context)!.trendingHashtags,
                           style: const TextStyle(fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
-                    const Divider(height: 1),
-                    SizedBox(
-                      height: 56,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: controller.trends.length,
-                        padding: const EdgeInsets.all(8.0),
-                        itemBuilder: (context, i) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Center(
-                            child: Material(
-                              color:
-                                  Theme.of(context).appBarTheme.backgroundColor,
-                              borderRadius: BorderRadius.circular(64),
-                              elevation: 2,
-                              child: InkWell(
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        children: [
+                          for (final hashtag in controller.trends)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0,
+                                vertical: 4.0,
+                              ),
+                              child: Material(
+                                color: Theme.of(context)
+                                    .appBarTheme
+                                    .backgroundColor,
                                 borderRadius: BorderRadius.circular(64),
-                                onTap: () => controller
-                                    .goToHashtag(controller.trends[i].name),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0,
-                                    vertical: 4.0,
-                                  ),
-                                  child: Text(
-                                    '#${controller.trends[i].name}',
-                                    style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16,
+                                elevation: 2,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(64),
+                                  onTap: () =>
+                                      controller.goToHashtag(hashtag.name),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0,
+                                      vertical: 4.0,
+                                    ),
+                                    child: Text(
+                                      '#${hashtag.name}',
+                                      style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
+                        ],
                       ),
                     ),
                     const Divider(height: 1),

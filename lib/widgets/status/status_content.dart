@@ -39,23 +39,22 @@ class _StatusContentState extends State<StatusContent> {
       mainAxisSize: MainAxisSize.min,
       children: [
         content,
-        Container(
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
-          child: RichText(
-            text: HTML.toTextSpan(
-                context,
-                '<b>${widget.status.account.displayName.isNotEmpty ? widget.status.account.displayName : widget.status.account.username}</b>: ' +
-                    (widget.status.content ?? ''),
-                linksCallback: (link) => linksCallback(link, context),
-                overrideStyle: {
-                  'a': TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    decoration: TextDecoration.none,
-                  ),
-                }),
+        if (widget.status.mediaAttachments.isNotEmpty ||
+            widget.imageStatusMode == ImageStatusMode.reply)
+          Container(
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
+            child: RichText(
+              text: HTML.toTextSpan(context, (widget.status.content ?? ''),
+                  linksCallback: (link) => linksCallback(link, context),
+                  overrideStyle: {
+                    'a': TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      decoration: TextDecoration.none,
+                    ),
+                  }),
+            ),
           ),
-        ),
       ],
     );
   }

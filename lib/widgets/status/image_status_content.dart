@@ -1,11 +1,15 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/status.dart';
+import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
+import 'package:simple_html_css/simple_html_css.dart';
 
 enum ImageType { image, avatar, missing }
 
@@ -20,6 +24,7 @@ class ImageStatusContent extends StatelessWidget {
   }) : super(key: key);
 
   String _imageUrl(BuildContext context) {
+    final author = status.reblog?.account ?? status.account;
     if (status.mediaAttachments.isNotEmpty &&
         status.mediaAttachments.first.url != null) {
       if ((imageStatusMode == ImageStatusMode.discover ||
@@ -32,11 +37,11 @@ class ImageStatusContent extends StatelessWidget {
     if (status.card?.image != null) {
       return status.card!.image!;
     }
-    if (status.account.headerStatic.isNotEmpty &&
-        !status.account.headerStatic.endsWith('missing.png')) {
-      return status.account.headerStatic;
+    if (author.headerStatic.isNotEmpty &&
+        !author.headerStatic.endsWith('missing.png')) {
+      return author.headerStatic;
     }
-    return status.account.avatarStatic;
+    return author.avatarStatic;
   }
 
   ImageType get _type {
@@ -90,15 +95,53 @@ class ImageStatusContent extends StatelessWidget {
     if (_type != ImageType.missing &&
         (imageStatusMode != ImageStatusMode.reply ||
             _type == ImageType.image)) {
-      return CachedNetworkImage(
-        imageUrl: _imageUrl(context),
-        width: imageStatusMode == ImageStatusMode.discover
-            ? null
-            : double.infinity,
-        fit: BoxFit.cover,
-        progressIndicatorBuilder: blurHashBuilder,
-        errorWidget: blurHashBuilder,
-        height: _type == ImageType.avatar ? 256 : null,
+      return Stack(
+        children: [
+          if (_type == ImageType.image)
+            CachedNetworkImage(
+              imageUrl: _imageUrl(context),
+              width: imageStatusMode == ImageStatusMode.discover
+                  ? null
+                  : double.infinity,
+              fit: BoxFit.fill,
+              progressIndicatorBuilder: blurHashBuilder,
+              errorWidget: blurHashBuilder,
+            ),
+          if (_type != ImageType.image)
+            ClipRRect(
+              clipBehavior: Clip.hardEdge,
+              child: Container(
+                padding: const EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.3), BlendMode.dstATop),
+                    image: CachedNetworkImageProvider(
+                      _imageUrl(context),
+                    ),
+                  ),
+                ),
+                constraints: const BoxConstraints(minHeight: 256),
+                alignment: Alignment.center,
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                  child: RichText(
+                    text: HTML.toTextSpan(context, status.content ?? '',
+                        linksCallback: (link) => linksCallback(link, context),
+                        defaultTextStyle: const TextStyle(fontSize: 21),
+                        overrideStyle: {
+                          'a': TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            decoration: TextDecoration.none,
+                          ),
+                        }),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+        ],
       );
     }
     return Container();

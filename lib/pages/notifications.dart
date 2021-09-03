@@ -34,11 +34,6 @@ class NotificationsPageController extends State<NotificationsPage> {
       if (timeline.isEmpty) {
         Timer(const Duration(seconds: 3), refreshController.requestRefresh);
       }
-      setState(() {
-        timeline = FluffyPix.of(context).getCachedTimeline<PushNotification>(
-                'notifications', (j) => PushNotification.fromJson(j)) ??
-            [];
-      });
       rethrow;
     }
   }
@@ -65,6 +60,9 @@ class NotificationsPageController extends State<NotificationsPage> {
       refreshController.requestRefresh();
     });
     super.initState();
+    timeline = FluffyPix.of(context).getCachedTimeline<PushNotification>(
+            'notifications', (j) => PushNotification.fromJson(j)) ??
+        [];
   }
 
   @override

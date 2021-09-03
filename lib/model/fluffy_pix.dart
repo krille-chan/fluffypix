@@ -433,8 +433,9 @@ class FluffyPix {
         (json) => SearchResult.fromJson(json),
       );
 
-  Future<List<Hashtag>> getTrends() =>
-      request(RequestType.get, '/api/v1/trends').then(
+  Future<List<Hashtag>> getTrends({int limit = 10}) =>
+      request(RequestType.get, '/api/v1/trends',
+          query: {'limit': limit.toString()}).then(
         (json) =>
             (json['chunk'] as List).map((j) => Hashtag.fromJson(j)).toList(),
       );
@@ -545,8 +546,8 @@ class FluffyPix {
     T Function(Map<String, dynamic>) parser,
   ) {
     final raw = _box.get(key);
-    if (raw == null || raw! is List) return null;
-    return raw.map((json) => parser(json)).toList();
+    if (raw == null || raw is! List) return null;
+    return raw.map((json) => parser(convertToJson(json))).toList();
   }
 
   bool get allowAnimatedAvatars => _box.get('allowAnimatedAvatars') ?? true;
@@ -554,4 +555,28 @@ class FluffyPix {
 
   bool get displayThumbnailsOnly => _box.get('displayThumbnailsOnly') ?? false;
   set displayThumbnailsOnly(bool b) => _box.put('displayThumbnailsOnly', b);
+
+  bool get useInAppBrowser => _box.get('useInAppBrowser') ?? true;
+  set useInAppBrowser(bool b) => _box.put('useInAppBrowser', b);
+}
+
+dynamic _castValue(dynamic value) {
+  if (value is Map) {
+    return convertToJson(value);
+  }
+  if (value is List) {
+    return value.map(_castValue).toList();
+  }
+  return value;
+}
+
+/// Hive always gives back an `_InternalLinkedHasMap<dynamic, dynamic>`. This
+/// creates a deep copy of the json and makes sure that the format is always
+/// `Map<String, dynamic>`.
+Map<String, dynamic> convertToJson(Map map) {
+  final copy = Map<String, dynamic>.from(map);
+  for (final entry in copy.entries) {
+    copy[entry.key] = _castValue(entry.value);
+  }
+  return copy;
 }

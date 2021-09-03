@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -18,14 +22,23 @@ class SettingsPage extends StatefulWidget {
 
 class SettingsPageController extends State<SettingsPage> {
   final ScrollController scrollController = ScrollController();
-  void settingsAction() => launch(
-        FluffyPix.of(context)
-            .instance!
-            .resolveUri(Uri(path: '/settings'))
-            .toString(),
-        forceSafariVC: true,
-        forceWebView: true,
+  void settingsAction() {
+    if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+      ChromeSafariBrowser().open(
+        url: FluffyPix.of(context).instance!.resolveUri(Uri(path: '/settings')),
       );
+      return;
+    }
+    launch(
+      FluffyPix.of(context)
+          .instance!
+          .resolveUri(Uri(path: '/settings'))
+          .toString(),
+      forceSafariVC: true,
+      forceWebView: true,
+    );
+  }
+
   void logout() async {
     if (await showOkCancelAlertDialog(
           context: context,
@@ -76,6 +89,11 @@ class SettingsPageController extends State<SettingsPage> {
   bool get displayThumbnailsOnly => FluffyPix.of(context).displayThumbnailsOnly;
   void setDisplayThumbnailsOnly(bool b) => setState(() {
         FluffyPix.of(context).displayThumbnailsOnly = b;
+      });
+
+  bool get useInAppBrowser => FluffyPix.of(context).useInAppBrowser;
+  void setUseInAppBrowser(bool b) => setState(() {
+        FluffyPix.of(context).useInAppBrowser = b;
       });
 
   @override

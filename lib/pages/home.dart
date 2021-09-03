@@ -35,6 +35,8 @@ class HomePageController extends State<HomePage> {
   final refreshController = RefreshController(initialRefresh: false);
   final scrollController = ScrollController();
 
+  late final Timer refreshTimer;
+
   bool get columnMode =>
       MediaQuery.of(context).size.width > NavScaffold.columnWidth * 3 + 3;
 
@@ -58,11 +60,6 @@ class HomePageController extends State<HomePage> {
       if (timeline.isEmpty) {
         Timer(const Duration(seconds: 3), refreshController.requestRefresh);
       }
-      setState(() {
-        timeline = FluffyPix.of(context)
-                .getCachedTimeline<Status>('home', (j) => Status.fromJson(j)) ??
-            [];
-      });
       rethrow;
     }
   }
@@ -155,12 +152,26 @@ class HomePageController extends State<HomePage> {
       _initReceiveSharingIntent();
     }
     super.initState();
+    timeline = FluffyPix.of(context)
+            .getCachedTimeline<Status>('home', (j) => Status.fromJson(j)) ??
+        [];
+    refreshTimer = Timer.periodic(
+      const Duration(seconds: 30),
+      (_) {
+        if (scrollController.position.atEdge &&
+            scrollController.position.pixels == 0) {
+          return;
+        }
+        refresh();
+      },
+    );
   }
 
   @override
   void dispose() {
     _intentTextStreamSubscription?.cancel();
     _intentFileStreamSubscription?.cancel();
+    refreshTimer.cancel();
     super.dispose();
   }
 

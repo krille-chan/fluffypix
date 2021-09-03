@@ -27,6 +27,9 @@ class MessagesPageController extends State<MessagesPage> {
           .where((s) => s != null)
           .map((c) => c!)
           .toList();
+
+      FluffyPix.of(context)
+          .storeCachedTimeline<Status>('messages', timeline, (t) => t.toJson());
       setState(() {});
       refreshController.refreshCompleted();
     } catch (_) {
@@ -78,6 +81,9 @@ class MessagesPageController extends State<MessagesPage> {
       refreshController.requestRefresh();
     });
     super.initState();
+    timeline = FluffyPix.of(context)
+            .getCachedTimeline<Status>('messages', (j) => Status.fromJson(j)) ??
+        [];
   }
 
   @override

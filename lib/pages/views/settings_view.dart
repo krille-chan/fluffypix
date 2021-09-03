@@ -34,6 +34,11 @@ class SettingsPageView extends StatelessWidget {
             onChanged: controller.setDisplayThumbnailsOnly,
             title: Text(L10n.of(context)!.displayThumbnailsOnly),
           ),
+          SwitchListTile(
+            value: controller.useInAppBrowser,
+            onChanged: controller.setUseInAppBrowser,
+            title: Text(L10n.of(context)!.openLinksInAppBrowser),
+          ),
           const Divider(),
           ListTile(
             leading: const Icon(CupertinoIcons.doc_circle),

@@ -1,3 +1,4 @@
+import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -8,9 +9,9 @@ void linksCallback(String link, BuildContext context) {
     Navigator.of(context).pushNamed('/tags/${uri.pathSegments.last}');
     return;
   }
-  /*if (uri.pathSegments.last.startsWith('@')) {
-    Navigator.of(context).pushNamed('/user/${uri.pathSegments.last}');
-    return;
-  }*/
-  launch(link);
+  launch(
+    link,
+    forceSafariVC: FluffyPix.of(context).useInAppBrowser,
+    forceWebView: FluffyPix.of(context).useInAppBrowser,
+  );
 }

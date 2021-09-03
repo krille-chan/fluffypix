@@ -1,4 +1,7 @@
-import 'package:url_launcher/url_launcher.dart';
+import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:fluffypix/utils/links_callback.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 class Field {
   final String name;
@@ -13,7 +16,14 @@ class Field {
 
   bool get isUrl => Uri.tryParse(pureValue) != null;
 
-  void launchUrl() => isUrl ? launch(pureValue) : null;
+  void launchUrl(BuildContext context) => isUrl
+      ? linksCallback(pureValue, context)
+      : showOkAlertDialog(
+          context: context,
+          title: name,
+          message: pureValue,
+          okLabel: L10n.of(context)!.close,
+        );
 
   String get pureValue => value.replaceAll(RegExp(r'<[^>]*>'), '');
 

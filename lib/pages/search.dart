@@ -116,11 +116,6 @@ class SearchPageController extends State<SearchPage> {
       if (timeline.isEmpty) {
         Timer(const Duration(seconds: 3), refreshController.requestRefresh);
       }
-      setState(() {
-        timeline = FluffyPix.of(context).getCachedTimeline<Status>(
-                'discover', (j) => Status.fromJson(j)) ??
-            [];
-      });
       rethrow;
     }
   }
@@ -144,6 +139,9 @@ class SearchPageController extends State<SearchPage> {
       refreshController.requestRefresh();
     });
     super.initState();
+    timeline = FluffyPix.of(context)
+            .getCachedTimeline<Status>('discover', (j) => Status.fromJson(j)) ??
+        [];
   }
 
   @override

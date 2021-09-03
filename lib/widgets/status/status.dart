@@ -188,22 +188,34 @@ class _StatusWidgetState extends State<StatusWidget> {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (widget.status.reblog != null)
-          ListTile(
-            leading: const Padding(
-              padding: EdgeInsets.only(left: 18.0),
-              child: Icon(
-                CupertinoIcons.repeat,
-                color: Colors.green,
-                size: 20,
-              ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 8.0,
+              left: 12,
+              right: 12,
             ),
-            title: Text(
-              L10n.of(context)!.userShared(
-                widget.status.account.displayName.isNotEmpty
-                    ? widget.status.account.displayName
-                    : widget.status.account.username,
-              ),
-              style: const TextStyle(fontSize: 12),
+            child: Row(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 14.0),
+                  child: Icon(
+                    CupertinoIcons.repeat,
+                    color: Colors.green,
+                    size: 20,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Avatar(account: widget.status.account, radius: 8),
+                const SizedBox(width: 4),
+                Text(
+                  L10n.of(context)!.userShared(
+                    widget.status.account.displayName.isNotEmpty
+                        ? widget.status.account.displayName
+                        : widget.status.account.username,
+                  ),
+                  style: const TextStyle(fontSize: 12),
+                ),
+              ],
             ),
           ),
         ListTile(

@@ -88,6 +88,7 @@ class UserPageView extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
+                    const Spacer(),
                     Material(
                       borderRadius: BorderRadius.circular(48),
                       elevation: 5,
@@ -98,77 +99,109 @@ class UserPageView extends StatelessWidget {
                     ),
                     const Divider(height: 1, thickness: 1),
                     const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            controller.account!.displayName.isNotEmpty
-                                ? controller.account!.displayName
-                                : controller.account!.username,
-                            style: const TextStyle(fontSize: 24),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          controller.account!.displayName.isNotEmpty
+                              ? controller.account!.displayName
+                              : controller.account!.username,
+                          style: const TextStyle(fontSize: 24),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text('@${controller.account?.acct}'),
+                        const SizedBox(height: 16),
+                        if (controller.isOwnUser)
+                          OutlinedButton.icon(
+                            icon: const Icon(CupertinoIcons.settings),
+                            label: Text(L10n.of(context)!.settings),
+                            onPressed: controller.goToSettings,
                           ),
-                          Text('@${controller.account?.acct}'),
-                          const SizedBox(height: 16),
-                          if (controller.isOwnUser)
-                            OutlinedButton.icon(
-                              icon: const Icon(CupertinoIcons.settings),
-                              label: Text(L10n.of(context)!.settings),
-                              onPressed: controller.goToSettings,
-                            ),
-                          if (!controller.isOwnUser)
-                            controller.relationships == null ||
-                                    controller.loadFollowChanges
-                                ? const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 42.0),
-                                    child: CupertinoActivityIndicator(),
-                                  )
-                                : (controller.relationships!.following ?? false)
-                                    ? OutlinedButton.icon(
-                                        onPressed: controller.unfollow,
-                                        icon: const Icon(CupertinoIcons
-                                            .square_favorites_alt),
-                                        label:
-                                            Text(L10n.of(context)!.following),
-                                      )
-                                    : ElevatedButton.icon(
-                                        onPressed: controller.follow,
-                                        icon: const Icon(CupertinoIcons
-                                            .square_favorites_alt_fill),
-                                        label: Text(L10n.of(context)!.follow),
-                                      ),
-                        ],
-                      ),
+                        if (!controller.isOwnUser)
+                          controller.relationships == null ||
+                                  controller.loadFollowChanges
+                              ? const Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 42.0),
+                                  child: CupertinoActivityIndicator(),
+                                )
+                              : (controller.relationships!.following ?? false)
+                                  ? OutlinedButton.icon(
+                                      onPressed: controller.unfollow,
+                                      icon: const Icon(
+                                          CupertinoIcons.square_favorites_alt),
+                                      label: Text(L10n.of(context)!.following),
+                                    )
+                                  : ElevatedButton.icon(
+                                      onPressed: controller.follow,
+                                      icon: const Icon(CupertinoIcons
+                                          .square_favorites_alt_fill),
+                                      label: Text(L10n.of(context)!.follow),
+                                    ),
+                      ],
                     ),
+                    const Spacer(),
                   ],
                 ),
               ),
               if (controller.account?.fields != null) ...{
-                for (final field in controller.account!.fields!)
-                  ListTile(
-                    onTap: field.isUrl ? field.launchUrl : null,
-                    title: Text(
-                      field.name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    subtitle: Text(
-                      field.pureValue,
-                      style: TextStyle(
-                        color:
-                            field.isUrl ? Theme.of(context).primaryColor : null,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    trailing: field.verifiedAt != null
-                        ? const Icon(Icons.check, color: Colors.green)
-                        : null,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Wrap(
+                    alignment: WrapAlignment.center,
+                    children: [
+                      for (final field in controller.account!.fields!)
+                        Padding(
+                          padding: const EdgeInsets.all(0.0),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(8),
+                            onTap: () => field.launchUrl(context),
+                            child: SizedBox(
+                              width: 86,
+                              height: 86,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Material(
+                                    borderRadius: BorderRadius.circular(64),
+                                    elevation: 2,
+                                    child: CircleAvatar(
+                                      radius: 24,
+                                      backgroundColor: Theme.of(context)
+                                          .secondaryHeaderColor,
+                                      foregroundColor: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          ?.color,
+                                      child: Text(
+                                        field.name
+                                            .trim()
+                                            .substring(0, 2)
+                                            .trim(),
+                                        style: const TextStyle(fontSize: 24),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    field.name,
+                                    maxLines: 1,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
+                ),
               },
               const Divider(height: 1),
               Padding(
