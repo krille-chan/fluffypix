@@ -102,8 +102,13 @@ class SearchPageController extends State<SearchPage> {
   }
 
   void refresh() async {
+    if (textEditingController.text.isNotEmpty) {
+      return searchQuery();
+    }
     try {
       timeline = await FluffyPix.of(context).requestPublicTimeline();
+      FluffyPix.of(context)
+          .storeCachedTimeline<Status>('discover', timeline, (t) => t.toJson());
       setState(() {});
       refreshController.refreshCompleted();
     } catch (_) {
@@ -111,6 +116,11 @@ class SearchPageController extends State<SearchPage> {
       if (timeline.isEmpty) {
         Timer(const Duration(seconds: 3), refreshController.requestRefresh);
       }
+      setState(() {
+        timeline = FluffyPix.of(context).getCachedTimeline<Status>(
+                'discover', (j) => Status.fromJson(j)) ??
+            [];
+      });
       rethrow;
     }
   }

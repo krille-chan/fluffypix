@@ -1,6 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/model/notification.dart';
 import 'package:fluffypix/utils/links_callback.dart';
+import 'package:fluffypix/widgets/avatar.dart';
 import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
 import 'package:fluffypix/widgets/status/image_status_content.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
@@ -39,10 +39,7 @@ class NotificationsPageView extends StatelessWidget {
               borderRadius: BorderRadius.circular(64),
               onTap: () =>
                   controller.goToProfile(controller.timeline[i].account.id),
-              child: CircleAvatar(
-                backgroundImage: CachedNetworkImageProvider(
-                    controller.timeline[i].account.avatar),
-              ),
+              child: Avatar(account: controller.timeline[i].account),
             ),
             title: RichText(
               text: HTML.toTextSpan(

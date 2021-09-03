@@ -34,6 +34,8 @@ class HomePageController extends State<HomePage> {
   void refresh() async {
     try {
       timeline = await FluffyPix.of(context).requestHomeTimeline();
+      FluffyPix.of(context)
+          .storeCachedTimeline<Status>('home', timeline, (t) => t.toJson());
       setState(() {});
       refreshController.refreshCompleted();
     } catch (_) {
@@ -41,6 +43,11 @@ class HomePageController extends State<HomePage> {
       if (timeline.isEmpty) {
         Timer(const Duration(seconds: 3), refreshController.requestRefresh);
       }
+      setState(() {
+        timeline = FluffyPix.of(context)
+                .getCachedTimeline<Status>('home', (j) => Status.fromJson(j)) ??
+            [];
+      });
       rethrow;
     }
   }

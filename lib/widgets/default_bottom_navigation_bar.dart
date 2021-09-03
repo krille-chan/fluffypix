@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
+import 'package:fluffypix/widgets/avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -82,9 +82,8 @@ class DefaultBottomBarController extends State<DefaultBottomBar> {
             label: 'Notifications',
           ),
           BottomNavigationBarItem(
-            icon: CircleAvatar(
-              backgroundImage: CachedNetworkImageProvider(
-                  FluffyPix.of(context).ownAccount?.avatar ?? ''),
+            icon: Avatar(
+              account: FluffyPix.of(context).ownAccount!,
               radius: 16,
             ),
             label: 'Account',

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/config/app_configs.dart';
+import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,10 +19,11 @@ class ImageStatusContent extends StatelessWidget {
     required this.imageStatusMode,
   }) : super(key: key);
 
-  String get _imageUrl {
+  String _imageUrl(BuildContext context) {
     if (status.mediaAttachments.isNotEmpty &&
         status.mediaAttachments.first.url != null) {
-      if (imageStatusMode == ImageStatusMode.discover &&
+      if ((imageStatusMode == ImageStatusMode.discover ||
+              FluffyPix.of(context).displayThumbnailsOnly) &&
           status.mediaAttachments.first.previewUrl != null) {
         return status.mediaAttachments.first.previewUrl!.toString();
       }
@@ -30,14 +32,11 @@ class ImageStatusContent extends StatelessWidget {
     if (status.card?.image != null) {
       return status.card!.image!;
     }
-    if (status.account.header.isNotEmpty &&
-        !status.account.header.endsWith('missing.png')) {
-      return status.account.header;
+    if (status.account.headerStatic.isNotEmpty &&
+        !status.account.headerStatic.endsWith('missing.png')) {
+      return status.account.headerStatic;
     }
-    if (status.account.avatar.isNotEmpty) {
-      return status.account.avatar;
-    }
-    return '';
+    return status.account.avatarStatic;
   }
 
   ImageType get _type {
@@ -45,9 +44,9 @@ class ImageStatusContent extends StatelessWidget {
         status.mediaAttachments.first.url != null)) {
       return ImageType.image;
     }
-    if (status.account.header.isNotEmpty &&
-            !status.account.header.endsWith('missing.png') ||
-        status.account.avatar.isNotEmpty) {
+    if (status.account.headerStatic.isNotEmpty &&
+            !status.account.headerStatic.endsWith('missing.png') ||
+        status.account.avatarStatic.isNotEmpty) {
       return ImageType.avatar;
     }
     return ImageType.missing;
@@ -73,7 +72,7 @@ class ImageStatusContent extends StatelessWidget {
       return InkWell(
         onTap: () => Navigator.of(context).pushNamed('/status/${status.id}'),
         child: CachedNetworkImage(
-          imageUrl: _imageUrl,
+          imageUrl: _imageUrl(context),
           progressIndicatorBuilder: blurHashBuilder,
           errorWidget: blurHashBuilder,
           fit: BoxFit.cover,
@@ -92,7 +91,7 @@ class ImageStatusContent extends StatelessWidget {
         (imageStatusMode != ImageStatusMode.reply ||
             _type == ImageType.image)) {
       return CachedNetworkImage(
-        imageUrl: _imageUrl,
+        imageUrl: _imageUrl(context),
         width: imageStatusMode == ImageStatusMode.discover
             ? null
             : double.infinity,

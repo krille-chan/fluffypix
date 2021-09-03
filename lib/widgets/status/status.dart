@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:badges/badges.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/model/status_visibility.dart';
+import 'package:fluffypix/widgets/avatar.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -90,6 +90,7 @@ class _StatusWidgetState extends State<StatusWidget> {
       okLabel: L10n.of(context)!.delete,
       isDestructiveAction: true,
       cancelLabel: L10n.of(context)!.cancel,
+      fullyCapitalizedForMaterial: false,
     );
     if (confirmed != OkCancelResult.ok) return;
     try {
@@ -189,10 +190,7 @@ class _StatusWidgetState extends State<StatusWidget> {
         ListTile(
           onTap: () => Navigator.of(context)
               .pushNamed('/user/${widget.status.account.id}'),
-          leading: CircleAvatar(
-            backgroundImage:
-                CachedNetworkImageProvider(widget.status.account.avatar),
-          ),
+          leading: Avatar(account: widget.status.account),
           title: Text(
             displayName,
             style: const TextStyle(fontWeight: FontWeight.bold),

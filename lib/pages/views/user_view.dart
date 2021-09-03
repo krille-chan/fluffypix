@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluffypix/model/fluffy_pix.dart';
+import 'package:fluffypix/widgets/avatar.dart';
 import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
 import 'package:fluffypix/widgets/status/status.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
@@ -42,7 +44,9 @@ class UserPageView extends StatelessWidget {
                 ConstrainedBox(
                   constraints: const BoxConstraints(maxHeight: 256),
                   child: CachedNetworkImage(
-                    imageUrl: controller.account!.header,
+                    imageUrl: FluffyPix.of(context).allowAnimatedAvatars
+                        ? controller.account!.header
+                        : controller.account!.headerStatic,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -53,10 +57,8 @@ class UserPageView extends StatelessWidget {
                     Material(
                       borderRadius: BorderRadius.circular(48),
                       elevation: 5,
-                      child: CircleAvatar(
-                        backgroundImage: CachedNetworkImageProvider(
-                          controller.account!.avatar,
-                        ),
+                      child: Avatar(
+                        account: controller.account!,
                         radius: 48,
                       ),
                     ),
@@ -260,10 +262,7 @@ class UserPageView extends StatelessWidget {
                       itemBuilder: (context, i) => ListTile(
                         onTap: () =>
                             controller.goToProfile(controller.followers![i].id),
-                        leading: CircleAvatar(
-                          backgroundImage: CachedNetworkImageProvider(
-                              controller.followers![i].avatar),
-                        ),
+                        leading: Avatar(account: controller.followers![i]),
                         title: Text(controller.followers![i].displayName),
                         subtitle: Text('@${controller.followers![i].acct}'),
                         trailing: const Icon(CupertinoIcons.right_chevron),
@@ -296,10 +295,7 @@ class UserPageView extends StatelessWidget {
                       itemBuilder: (context, i) => ListTile(
                         onTap: () =>
                             controller.goToProfile(controller.following![i].id),
-                        leading: CircleAvatar(
-                          backgroundImage: CachedNetworkImageProvider(
-                              controller.following![i].avatar),
-                        ),
+                        leading: Avatar(account: controller.following![i]),
                         title: Text(controller.following![i].displayName),
                         subtitle: Text('@${controller.following![i].acct}'),
                         trailing: const Icon(CupertinoIcons.right_chevron),

@@ -509,4 +509,23 @@ class FluffyPix {
         RequestType.delete,
         '/api/v1/statuses/${Uri.encodeComponent(statusId)}',
       ).then((json) => Status.fromJson(json));
+
+  Future<void> storeCachedTimeline<T>(String key, List<T> timeline,
+          Map<String, dynamic> Function(T) toJson) =>
+      _box.put(key, timeline.map((t) => toJson(t)).toList());
+
+  List<T>? getCachedTimeline<T>(
+    String key,
+    T Function(Map<String, dynamic>) parser,
+  ) {
+    final raw = _box.get(key);
+    if (raw == null || raw! is List) return null;
+    return raw.map((json) => parser(json)).toList();
+  }
+
+  bool get allowAnimatedAvatars => _box.get('allowAnimatedAvatars') ?? true;
+  set allowAnimatedAvatars(bool b) => _box.put('allowAnimatedAvatars', b);
+
+  bool get displayThumbnailsOnly => _box.get('displayThumbnailsOnly') ?? false;
+  set displayThumbnailsOnly(bool b) => _box.put('displayThumbnailsOnly', b);
 }

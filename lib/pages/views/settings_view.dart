@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
@@ -17,10 +18,40 @@ class SettingsPageView extends StatelessWidget {
         controller: controller.scrollController,
         children: [
           ListTile(
+            leading: const Icon(CupertinoIcons.person),
             title: Text(L10n.of(context)!.account),
             onTap: controller.settingsAction,
           ),
+          const Divider(),
+          SwitchListTile(
+            value: controller.allowAnimatedAvatars,
+            onChanged: controller.setAllowAnimatedAvatars,
+            title: Text(L10n.of(context)!.allowAnimatedAvatars),
+          ),
+          SwitchListTile(
+            value: controller.displayThumbnailsOnly,
+            onChanged: controller.setDisplayThumbnailsOnly,
+            title: Text(L10n.of(context)!.displayThumbnailsOnly),
+          ),
+          const Divider(),
           ListTile(
+            leading: const Icon(CupertinoIcons.doc_circle),
+            title: Text(L10n.of(context)!.privacy),
+            onTap: controller.privacyAction,
+          ),
+          ListTile(
+            leading: const Icon(CupertinoIcons.info_circle),
+            title: Text(L10n.of(context)!.about),
+            onTap: controller.aboutAction,
+          ),
+          ListTile(
+            leading: const Icon(CupertinoIcons.question_circle),
+            title: Text(L10n.of(context)!.help),
+            onTap: controller.helpAction,
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(CupertinoIcons.delete_right),
             title: Text(L10n.of(context)!.logout),
             onTap: controller.logout,
           ),

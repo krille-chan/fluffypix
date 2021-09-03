@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluffypix/widgets/avatar.dart';
 import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
 import 'package:fluffypix/widgets/status/status.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
@@ -75,11 +75,8 @@ class SearchPageView extends StatelessWidget {
                                 Material(
                                   borderRadius: BorderRadius.circular(64),
                                   elevation: 2,
-                                  child: CircleAvatar(
-                                    backgroundImage: CachedNetworkImageProvider(
-                                      controller
-                                          .searchResult!.accounts[i].avatar,
-                                    ),
+                                  child: Avatar(
+                                    account: controller.timeline[i].account,
                                     radius: 32,
                                   ),
                                 ),

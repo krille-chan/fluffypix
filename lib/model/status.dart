@@ -123,7 +123,7 @@ class Status {
         if (reblog != null) 'reblog': reblog,
         if (application != null) 'application': application!.toJson(),
         'account': account.toJson(),
-        'media_attachments': List<Object>.from(mediaAttachments),
+        'media_attachments': mediaAttachments.map((m) => m.toJson()).toList(),
         'mentions': List<Object>.from(mentions),
         'tags': List<Object>.from(tags),
         'emojis': List<Object>.from(emojis),
