@@ -482,6 +482,26 @@ class FluffyPix {
         '/api/v1/accounts/${Uri.encodeComponent(id)}/unfollow',
       ).then((json) => Relationships.fromJson(json));
 
+  Future<Relationships> mute(String id) => request(
+        RequestType.post,
+        '/api/v1/accounts/${Uri.encodeComponent(id)}/mute',
+      ).then((json) => Relationships.fromJson(json));
+
+  Future<Relationships> unmute(String id) => request(
+        RequestType.post,
+        '/api/v1/accounts/${Uri.encodeComponent(id)}/unmute',
+      ).then((json) => Relationships.fromJson(json));
+
+  Future<Relationships> block(String id) => request(
+        RequestType.post,
+        '/api/v1/accounts/${Uri.encodeComponent(id)}/block',
+      ).then((json) => Relationships.fromJson(json));
+
+  Future<Relationships> unblock(String id) => request(
+        RequestType.post,
+        '/api/v1/accounts/${Uri.encodeComponent(id)}/unblock',
+      ).then((json) => Relationships.fromJson(json));
+
   Future<Status> publishNewStatus({
     String? status,
     List<String>? mediaIds,

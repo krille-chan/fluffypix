@@ -12,6 +12,8 @@ import '../../utils/int_short_string_extension.dart';
 
 import '../user.dart';
 
+enum PopupActions { block, mute }
+
 class UserPageView extends StatelessWidget {
   final UserPageController controller;
   const UserPageView(this.controller, {Key? key}) : super(key: key);
@@ -26,6 +28,38 @@ class UserPageView extends StatelessWidget {
             IconButton(
               onPressed: controller.sendMessage,
               icon: const Icon(CupertinoIcons.mail),
+            ),
+          if (controller.relationships != null)
+            PopupMenuButton<PopupActions>(
+              onSelected: controller.onPopupAction,
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  value: PopupActions.mute,
+                  child: Row(
+                    children: [
+                      const Icon(CupertinoIcons.volume_off),
+                      const SizedBox(width: 12),
+                      Text((controller.relationships?.muting ?? false)
+                          ? L10n.of(context)!.unmuteUser
+                          : L10n.of(context)!.muteUser),
+                    ],
+                  ),
+                ),
+                PopupMenuItem(
+                  value: PopupActions.block,
+                  child: Row(
+                    children: [
+                      Icon((controller.relationships?.blocking ?? false)
+                          ? CupertinoIcons.shield_fill
+                          : CupertinoIcons.shield),
+                      const SizedBox(width: 12),
+                      Text((controller.relationships?.blocking ?? false)
+                          ? L10n.of(context)!.unblockUser
+                          : L10n.of(context)!.blockUser),
+                    ],
+                  ),
+                ),
+              ],
             ),
         ],
       ),

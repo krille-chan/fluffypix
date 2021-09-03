@@ -132,6 +132,46 @@ class UserPageController extends State<UserPage> {
     }
   }
 
+  void onPopupAction(PopupActions action) async {
+    final snackBar = ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(L10n.of(context)!.loading),
+        duration: const Duration(seconds: 30),
+      ),
+    );
+    try {
+      late final Relationships newRelationships;
+      switch (action) {
+        case PopupActions.block:
+          if ((relationships?.blocking ?? false)) {
+            newRelationships = await FluffyPix.of(context).unblock(account!.id);
+          } else {
+            newRelationships = await FluffyPix.of(context).block(account!.id);
+          }
+          break;
+        case PopupActions.mute:
+          if ((relationships?.muting ?? false)) {
+            newRelationships = await FluffyPix.of(context).unmute(account!.id);
+          } else {
+            newRelationships = await FluffyPix.of(context).mute(account!.id);
+          }
+          break;
+      }
+      snackBar.close();
+      setState(() {
+        relationships = newRelationships;
+      });
+    } catch (_) {
+      snackBar.close();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(L10n.of(context)!.oopsSomethingWentWrong),
+        ),
+      );
+      rethrow;
+    }
+  }
+
   void follow() => _setFollowStatus(true);
   void unfollow() => _setFollowStatus(false);
 

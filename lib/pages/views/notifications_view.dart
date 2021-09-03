@@ -31,55 +31,57 @@ class NotificationsPageView extends StatelessWidget {
         enablePullUp: controller.timeline.isNotEmpty,
         onRefresh: controller.refresh,
         onLoading: controller.loadMore,
-        child: ListView.builder(
-          controller: controller.scrollController,
-          itemCount: controller.timeline.length,
-          itemBuilder: (context, i) => ListTile(
-            leading: InkWell(
-              borderRadius: BorderRadius.circular(64),
-              onTap: () =>
-                  controller.goToProfile(controller.timeline[i].account.id),
-              child: Avatar(account: controller.timeline[i].account),
-            ),
-            title: RichText(
-              text: HTML.toTextSpan(
-                  context, controller.timeline[i].toLocalizedString(context),
-                  linksCallback: (link) => linksCallback(link, context),
-                  overrideStyle: {
-                    'a': TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      decoration: TextDecoration.none,
-                    ),
-                  }),
-            ),
-            subtitle: Row(
-              children: [
-                Icon(
-                  controller.timeline[i].iconData,
-                  size: 16,
-                  color: controller.timeline[i].color,
-                ),
-                const SizedBox(width: 4),
-                Text(controller.timeline[i].createdAt
-                    .localizedTimeShort(context)),
-              ],
-            ),
-            trailing: controller.timeline[i].status == null
-                ? ElevatedButton(
-                    child: Text(L10n.of(context)!.follow),
-                    onPressed: () => controller
+        child: controller.timeline.isEmpty
+            ? Center(child: Text(L10n.of(context)!.suchEmpty))
+            : ListView.builder(
+                controller: controller.scrollController,
+                itemCount: controller.timeline.length,
+                itemBuilder: (context, i) => ListTile(
+                  leading: InkWell(
+                    borderRadius: BorderRadius.circular(64),
+                    onTap: () => controller
                         .goToProfile(controller.timeline[i].account.id),
-                  )
-                : SizedBox(
-                    width: 42,
-                    height: 42,
-                    child: ImageStatusContent(
-                      status: controller.timeline[i].status!,
-                      imageStatusMode: ImageStatusMode.discover,
-                    ),
+                    child: Avatar(account: controller.timeline[i].account),
                   ),
-          ),
-        ),
+                  title: RichText(
+                    text: HTML.toTextSpan(context,
+                        controller.timeline[i].toLocalizedString(context),
+                        linksCallback: (link) => linksCallback(link, context),
+                        overrideStyle: {
+                          'a': TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            decoration: TextDecoration.none,
+                          ),
+                        }),
+                  ),
+                  subtitle: Row(
+                    children: [
+                      Icon(
+                        controller.timeline[i].iconData,
+                        size: 16,
+                        color: controller.timeline[i].color,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(controller.timeline[i].createdAt
+                          .localizedTimeShort(context)),
+                    ],
+                  ),
+                  trailing: controller.timeline[i].status == null
+                      ? ElevatedButton(
+                          child: Text(L10n.of(context)!.follow),
+                          onPressed: () => controller
+                              .goToProfile(controller.timeline[i].account.id),
+                        )
+                      : SizedBox(
+                          width: 42,
+                          height: 42,
+                          child: ImageStatusContent(
+                            status: controller.timeline[i].status!,
+                            imageStatusMode: ImageStatusMode.discover,
+                          ),
+                        ),
+                ),
+              ),
       ),
       bottomNavigationBar: DefaultBottomBar(
         currentIndex: 3,
