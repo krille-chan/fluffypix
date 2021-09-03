@@ -83,8 +83,8 @@ class NavScaffold extends StatelessWidget {
             : BottomNavigationBar(
                 currentIndex:
                     (!columnMode && currentIndex != null && currentIndex! > 4)
-                        ? 0
-                        : currentIndex ?? 0,
+                        ? 4
+                        : currentIndex ?? 4,
                 onTap: (i) => onTap(i, context),
                 items: [
                   BottomNavigationBarItem(

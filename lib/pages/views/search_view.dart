@@ -27,9 +27,13 @@ class SearchPageView extends StatelessWidget {
             onChanged: controller.searchQueryWithCooldown,
             onSubmitted: controller.searchQuery,
             decoration: InputDecoration(
-              suffixIcon: controller.loading
+              prefixIcon: controller.loading
                   ? const CupertinoActivityIndicator()
                   : const Icon(CupertinoIcons.search),
+              suffixIcon: IconButton(
+                icon: const Icon(CupertinoIcons.delete_left),
+                onPressed: controller.cancelSearch,
+              ),
               hintText: L10n.of(context)!.search,
               filled: true,
               fillColor: Theme.of(context).secondaryHeaderColor,
@@ -61,7 +65,8 @@ class SearchPageView extends StatelessWidget {
                       HorizontalAccountList(
                         accounts: controller.searchResult!.accounts,
                         onTap: controller.goToUser,
-                      )
+                      ),
+                      const Divider(height: 1),
                     ],
                     if (controller.searchResult!.hashtags.isNotEmpty) ...[
                       Material(

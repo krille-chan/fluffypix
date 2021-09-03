@@ -113,15 +113,6 @@ class UserPageView extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text('@${controller.account?.acct}'),
-                        if (controller.account?.note.isNotEmpty ?? false)
-                          SizedBox(
-                            width: 256,
-                            child: Text(
-                              controller.account!.pureNote,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                          ),
                         const SizedBox(height: 16),
                         if (controller.isOwnUser)
                           OutlinedButton.icon(
@@ -156,9 +147,18 @@ class UserPageView extends StatelessWidget {
                   ],
                 ),
               ),
+              if (controller.account?.note.isNotEmpty ?? false)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Text(
+                    controller.account!.pureNote,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                ),
               if (controller.account?.fields != null) ...{
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
+                  padding: const EdgeInsets.only(bottom: 8.0, top: 4.0),
                   child: Wrap(
                     alignment: WrapAlignment.center,
                     children: [
