@@ -26,17 +26,18 @@ class _StatusContentState extends State<StatusContent> {
   bool unlocked = false;
   @override
   Widget build(BuildContext context) {
-    final hide = widget.status.sensitive && !unlocked;
+    final contentStatus = widget.status.reblog ?? widget.status;
+    final hide = contentStatus.sensitive && !unlocked;
     final content = hide
         ? SensitiveContent(
-            blurHash: widget.status.mediaAttachments.isEmpty
+            blurHash: contentStatus.mediaAttachments.isEmpty
                 ? AppConfigs.fallbackBlurHash
-                : widget.status.mediaAttachments.first.blurhash ??
+                : contentStatus.mediaAttachments.first.blurhash ??
                     AppConfigs.fallbackBlurHash,
             onUnlock: () => setState(() => unlocked = true),
           )
         : ImageStatusContent(
-            status: widget.status,
+            status: contentStatus,
             imageStatusMode: widget.imageStatusMode,
           );
     if (widget.imageStatusMode == ImageStatusMode.discover) return content;
@@ -44,14 +45,14 @@ class _StatusContentState extends State<StatusContent> {
       mainAxisSize: MainAxisSize.min,
       children: [
         content,
-        if (widget.status.mediaAttachments.isNotEmpty ||
-            widget.status.card?.image != null ||
+        if (contentStatus.mediaAttachments.isNotEmpty ||
+            contentStatus.card?.image != null ||
             widget.imageStatusMode == ImageStatusMode.reply)
           Container(
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
             child: RichText(
-              text: HTML.toTextSpan(context, (widget.status.content ?? ''),
+              text: HTML.toTextSpan(context, (contentStatus.content ?? ''),
                   linksCallback: (link) => linksCallback(link, context),
                   defaultTextStyle: TextStyle(
                     color: Theme.of(context).textTheme.bodyText1?.color,

@@ -116,7 +116,10 @@ class UserPageView extends StatelessWidget {
                           controller.account!.displayName.isNotEmpty
                               ? controller.account!.displayName
                               : controller.account!.username,
-                          style: const TextStyle(fontSize: 24),
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

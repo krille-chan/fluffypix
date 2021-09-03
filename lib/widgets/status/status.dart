@@ -78,7 +78,7 @@ class _StatusWidgetState extends State<StatusWidget> {
   }
 
   void commentAction() => Navigator.of(context).pushNamed(
-        '/status/${widget.status.id}',
+        '/status/${(widget.status.reblog ?? widget.status).id}',
         arguments: widget.status,
       );
 
@@ -231,7 +231,6 @@ class _StatusWidgetState extends State<StatusWidget> {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              const Spacer(),
               Text(
                 widget.status.createdAt.localizedTimeShort(context),
                 style: const TextStyle(fontSize: 12),
@@ -247,7 +246,6 @@ class _StatusWidgetState extends State<StatusWidget> {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              const Spacer(),
               Icon(
                 widget.status.visibility.icon,
                 size: 16,
