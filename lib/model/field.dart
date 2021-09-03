@@ -16,14 +16,15 @@ class Field {
 
   bool get isUrl => Uri.tryParse(pureValue) != null;
 
-  void launchUrl(BuildContext context) => isUrl
-      ? linksCallback(pureValue, context)
-      : showOkAlertDialog(
-          context: context,
-          title: name,
-          message: pureValue,
-          okLabel: L10n.of(context)!.close,
-        );
+  void launchUrl(BuildContext context) =>
+      isUrl && Uri.parse(pureValue).isAbsolute
+          ? linksCallback(pureValue, context)
+          : showOkAlertDialog(
+              context: context,
+              title: name,
+              message: Uri.decodeFull(pureValue),
+              okLabel: L10n.of(context)!.close,
+            );
 
   String get pureValue => value.replaceAll(RegExp(r'<[^>]*>'), '');
 
