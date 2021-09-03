@@ -56,13 +56,14 @@ class StatusPageController extends State<StatusPage> {
       return;
     }
     setState(() {
-      if (this.status?.id == status.id) {
+      if (this.status?.id == status.id ||
+          this.status?.reblog?.id == status.id) {
         this.status = status;
       } else {
-        statusContext?.ancestors[statusContext!.ancestors
-            .indexWhere((s) => s.id == status.id)] = status;
-        statusContext?.descendants[statusContext!.descendants
-            .indexWhere((s) => s.id == status.id)] = status;
+        statusContext?.ancestors[statusContext!.ancestors.indexWhere(
+            (s) => s.id == status.id || s.reblog?.id == status.id)] = status;
+        statusContext?.descendants[statusContext!.descendants.indexWhere(
+            (s) => s.id == status.id || s.reblog?.id == status.id)] = status;
       }
     });
   }

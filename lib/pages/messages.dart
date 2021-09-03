@@ -48,7 +48,8 @@ class MessagesPageController extends State<MessagesPage> {
       });
       return;
     }
-    final index = timeline.indexWhere((s) => s.id == status.id);
+    final index = timeline
+        .indexWhere((s) => s.id == status.id || s.reblog?.id == status.id);
     if (index == -1) {
       refreshController.requestRefresh();
     } else {

@@ -125,6 +125,7 @@ class FluffyPix {
     );
     debugPrint('Open OAuth Uri $oAuthUri...');
     launch(oAuthUri);
+    _box.put('createApplicationResponse', createApplicationResponse.toJson());
 
     return createApplicationResponse;
   }
@@ -152,8 +153,19 @@ class FluffyPix {
   }
 
   Future<void> logout() async {
-    accessTokenCredentials = instance = ownAccount = null;
-    return _box.delete(AppConfigs.hiveBoxAccountKey);
+    try {
+      final createApplicationResponse = CreateApplicationResponse.fromJson(
+        convertToJson(_box.get('createApplicationResponse')),
+      );
+      await revokeToken(
+        createApplicationResponse.clientId,
+        createApplicationResponse.clientSecret,
+        accessTokenCredentials!.accessToken,
+      );
+    } finally {
+      accessTokenCredentials = instance = ownAccount = null;
+      await _box.delete(AppConfigs.hiveBoxAccountKey);
+    }
   }
 
   Future<Account> verifyAccountCredentials() => request(
@@ -312,11 +324,16 @@ class FluffyPix {
             (json['chunk'] as List).map((j) => Status.fromJson(j)).toList(),
       );
 
-  Future<List<Status>> requestPublicTimeline({String? maxId}) =>
+  Future<List<Status>> requestPublicTimeline({
+    String? maxId,
+    bool mediaOnly = true,
+    bool local = false,
+  }) =>
       request(RequestType.get, '/api/v1/timelines/public', query: {
         if (maxId != null) 'max_id': maxId,
-        'only_media': 'true',
+        'only_media': mediaOnly.toString(),
         'limit': '30',
+        'local': local.toString(),
       }).then(
         (json) =>
             (json['chunk'] as List).map((j) => Status.fromJson(j)).toList(),
@@ -466,6 +483,17 @@ class FluffyPix {
         (json) => AccessTokenCredentials.fromJson(json),
       );
 
+  Future<void> revokeToken(
+    String clientId,
+    String clientSecret,
+    String token,
+  ) =>
+      request(RequestType.post, '/oauth/revoke', data: {
+        'client_id': clientId,
+        'client_secret': clientSecret,
+        'token': token,
+      });
+
   Future<Status> favoriteStatus(String statusId) => request(
         RequestType.post,
         '/api/v1/statuses/${Uri.encodeComponent(statusId)}/favourite',
@@ -565,6 +593,12 @@ class FluffyPix {
 
   bool get useInAppBrowser => _box.get('useInAppBrowser') ?? true;
   set useInAppBrowser(bool b) => _box.put('useInAppBrowser', b);
+
+  bool get usePublicTimeline => _box.get('usePublicTimeline') ?? true;
+  set usePublicTimeline(bool b) => _box.put('usePublicTimeline', b);
+
+  bool get useDiscoverGridView => _box.get('useDiscoverGridView') ?? true;
+  set useDiscoverGridView(bool b) => _box.put('useDiscoverGridView', b);
 }
 
 dynamic _castValue(dynamic value) {

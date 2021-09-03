@@ -1,12 +1,17 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:fluffypix/model/account.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/relationships.dart';
 import 'package:fluffypix/model/status.dart';
+import 'package:fluffypix/utils/links_callback.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:share/share.dart';
 
 import 'views/user_view.dart';
 
@@ -85,7 +90,8 @@ class UserPageController extends State<UserPage> {
       });
       return;
     }
-    final index = timeline!.indexWhere((s) => s.id == status.id);
+    final index = timeline!
+        .indexWhere((s) => s.id == status.id || s.reblog?.id == status.id);
     if (index == -1) {
       refreshController.requestRefresh();
     } else {
@@ -154,6 +160,21 @@ class UserPageController extends State<UserPage> {
             newRelationships = await FluffyPix.of(context).unmute(account!.id);
           } else {
             newRelationships = await FluffyPix.of(context).mute(account!.id);
+          }
+          break;
+        case PopupActions.website:
+          linksCallback(account!.url, context);
+          break;
+        case PopupActions.share:
+          if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
+            Share.share(account!.url);
+          } else {
+            Clipboard.setData(ClipboardData(text: account!.url));
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(L10n.of(context)!.copiedToClipboard),
+              ),
+            );
           }
           break;
       }

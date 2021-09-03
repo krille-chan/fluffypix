@@ -14,7 +14,7 @@ import '../../utils/int_short_string_extension.dart';
 
 import '../user.dart';
 
-enum PopupActions { block, mute }
+enum PopupActions { block, mute, website, share }
 
 class UserPageView extends StatelessWidget {
   final UserPageController controller;
@@ -31,10 +31,30 @@ class UserPageView extends StatelessWidget {
               onPressed: controller.sendMessage,
               icon: const Icon(CupertinoIcons.mail),
             ),
-          if (controller.relationships != null)
-            PopupMenuButton<PopupActions>(
-              onSelected: controller.onPopupAction,
-              itemBuilder: (context) => [
+          PopupMenuButton<PopupActions>(
+            onSelected: controller.onPopupAction,
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: PopupActions.website,
+                child: Row(
+                  children: [
+                    const Icon(CupertinoIcons.profile_circled),
+                    const SizedBox(width: 12),
+                    Text(L10n.of(context)!.externalProfile),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                value: PopupActions.share,
+                child: Row(
+                  children: [
+                    const Icon(CupertinoIcons.share),
+                    const SizedBox(width: 12),
+                    Text(L10n.of(context)!.shareLink),
+                  ],
+                ),
+              ),
+              if (controller.relationships != null)
                 PopupMenuItem(
                   value: PopupActions.mute,
                   child: Row(
@@ -47,6 +67,7 @@ class UserPageView extends StatelessWidget {
                     ],
                   ),
                 ),
+              if (controller.relationships != null)
                 PopupMenuItem(
                   value: PopupActions.block,
                   child: Row(
@@ -61,8 +82,8 @@ class UserPageView extends StatelessWidget {
                     ],
                   ),
                 ),
-              ],
-            ),
+            ],
+          ),
         ],
       ),
       body: SmartRefresher(
@@ -351,7 +372,7 @@ class UserPageView extends StatelessWidget {
                         onTap: () =>
                             controller.goToProfile(controller.followers![i].id),
                         leading: Avatar(account: controller.followers![i]),
-                        title: Text(controller.followers![i].displayName),
+                        title: Text(controller.followers![i].calcedDisplayname),
                         subtitle: Text('@${controller.followers![i].acct}'),
                         trailing: const Icon(CupertinoIcons.right_chevron),
                       ),
@@ -384,7 +405,7 @@ class UserPageView extends StatelessWidget {
                         onTap: () =>
                             controller.goToProfile(controller.following![i].id),
                         leading: Avatar(account: controller.following![i]),
-                        title: Text(controller.following![i].displayName),
+                        title: Text(controller.following![i].calcedDisplayname),
                         subtitle: Text('@${controller.following![i].acct}'),
                         trailing: const Icon(CupertinoIcons.right_chevron),
                       ),
@@ -419,7 +440,9 @@ class _CountButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(8),
-      color: selected ? Theme.of(context).secondaryHeaderColor : null,
+      color: selected
+          ? Theme.of(context).secondaryHeaderColor
+          : Theme.of(context).scaffoldBackgroundColor,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(8),

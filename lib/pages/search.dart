@@ -96,9 +96,27 @@ class SearchPageController extends State<SearchPage> {
       return;
     }
     setState(() {
-      searchResult?.statuses[
-          searchResult!.statuses.indexWhere((s) => s.id == status.id)] = status;
+      searchResult?.statuses[searchResult!.statuses.indexWhere(
+          (s) => s.id == status.id || s.reblog?.id == status.id)] = status;
     });
+  }
+
+  bool get usePublicTimeline => FluffyPix.of(context).usePublicTimeline;
+  void setUsePublicTimeline(bool? b) {
+    if (b == null) return;
+    setState(() {
+      FluffyPix.of(context).usePublicTimeline = b;
+    });
+    refreshController.requestRefresh();
+  }
+
+  bool get useDiscoverGridView => FluffyPix.of(context).useDiscoverGridView;
+  void setUseDiscoverGridView(bool? b) {
+    if (b == null) return;
+    setState(() {
+      FluffyPix.of(context).useDiscoverGridView = b;
+    });
+    refreshController.requestRefresh();
   }
 
   void refresh() async {
@@ -106,7 +124,10 @@ class SearchPageController extends State<SearchPage> {
       return searchQuery();
     }
     try {
-      timeline = await FluffyPix.of(context).requestPublicTimeline();
+      timeline = await FluffyPix.of(context).requestPublicTimeline(
+        mediaOnly: useDiscoverGridView,
+        local: !usePublicTimeline,
+      );
       FluffyPix.of(context)
           .storeCachedTimeline<Status>('discover', timeline, (t) => t.toJson());
       setState(() {});
@@ -122,8 +143,11 @@ class SearchPageController extends State<SearchPage> {
 
   void loadMore() async {
     try {
-      final statuses = await FluffyPix.of(context)
-          .requestPublicTimeline(maxId: timeline.last.id);
+      final statuses = await FluffyPix.of(context).requestPublicTimeline(
+        maxId: timeline.last.id,
+        mediaOnly: useDiscoverGridView,
+        local: !usePublicTimeline,
+      );
       timeline.addAll(statuses);
       setState(() {});
       refreshController.loadComplete();

@@ -22,6 +22,7 @@ class SettingsPage extends StatefulWidget {
 
 class SettingsPageController extends State<SettingsPage> {
   final ScrollController scrollController = ScrollController();
+  bool logoutLoading = false;
   void settingsAction() {
     if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
       ChromeSafariBrowser().open(
@@ -52,7 +53,13 @@ class SettingsPageController extends State<SettingsPage> {
         OkCancelResult.ok) {
       return;
     }
+    setState(() {
+      logoutLoading = true;
+    });
     await FluffyPix.of(context).logout();
+    setState(() {
+      logoutLoading = false;
+    });
     await Navigator.of(context).pushAndRemoveUntil(
         CupertinoPageRoute(builder: (_) => const LoginPage()),
         (route) => false);

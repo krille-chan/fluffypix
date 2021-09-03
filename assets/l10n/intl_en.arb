@@ -66,6 +66,8 @@
     "hashtags": "Hashtags",
     "about": "About",
     "help": "Help",
+    "local": "Local",
+    "externalProfile": "Externes profil",
     "privacy": "Privacy",
     "discoverUsers": "Discover users",
     "trendingHashtags": "Trending hashtags:",

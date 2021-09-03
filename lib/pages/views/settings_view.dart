@@ -57,9 +57,11 @@ class SettingsPageView extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(CupertinoIcons.delete_right),
+            leading: controller.logoutLoading
+                ? const CupertinoActivityIndicator()
+                : const Icon(CupertinoIcons.delete_right),
             title: Text(L10n.of(context)!.logout),
-            onTap: controller.logout,
+            onTap: controller.logoutLoading ? null : controller.logout,
           ),
         ],
       ),

@@ -147,24 +147,72 @@ class SearchPageView extends StatelessWidget {
                     ],
                   ],
                 )
-          : SmartRefresher(
-              controller: controller.refreshController,
-              enablePullDown: true,
-              enablePullUp: controller.timeline.isNotEmpty,
-              onRefresh: controller.refresh,
-              onLoading: controller.loadMore,
-              child: GridView.builder(
-                controller: controller.scrollController,
-                itemCount: controller.timeline.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 1,
+          : Column(
+              children: [
+                Expanded(
+                  child: controller.useDiscoverGridView
+                      ? SmartRefresher(
+                          controller: controller.refreshController,
+                          enablePullDown: true,
+                          enablePullUp: controller.timeline.isNotEmpty,
+                          onRefresh: controller.refresh,
+                          onLoading: controller.loadMore,
+                          child: GridView.builder(
+                            controller: controller.scrollController,
+                            itemCount: controller.timeline.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              childAspectRatio: 1,
+                            ),
+                            itemBuilder: (context, i) => StatusContent(
+                              status: controller.timeline[i],
+                              imageStatusMode: ImageStatusMode.discover,
+                            ),
+                          ),
+                        )
+                      : SmartRefresher(
+                          controller: controller.refreshController,
+                          enablePullDown: true,
+                          enablePullUp: controller.timeline.isNotEmpty,
+                          onRefresh: controller.refresh,
+                          onLoading: controller.loadMore,
+                          child: ListView.builder(
+                            controller: controller.scrollController,
+                            itemCount: controller.timeline.length,
+                            itemBuilder: (context, i) => StatusWidget(
+                              status: controller.timeline[i],
+                              onUpdate: controller.onUpdateStatus,
+                            ),
+                          ),
+                        ),
                 ),
-                itemBuilder: (context, i) => StatusContent(
-                  status: controller.timeline[i],
-                  imageStatusMode: ImageStatusMode.discover,
+                const Divider(height: 1),
+                SizedBox(
+                  height: 42,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      CupertinoSlidingSegmentedControl<bool>(
+                        onValueChanged: controller.setUseDiscoverGridView,
+                        groupValue: controller.useDiscoverGridView,
+                        children: const {
+                          false: Icon(Icons.view_day_outlined),
+                          true: Icon(CupertinoIcons.square_grid_3x2),
+                        },
+                      ),
+                      CupertinoSlidingSegmentedControl<bool>(
+                        onValueChanged: controller.setUsePublicTimeline,
+                        groupValue: controller.usePublicTimeline,
+                        children: {
+                          false: Text(L10n.of(context)!.local),
+                          true: Text(L10n.of(context)!.worldWide),
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
       currentIndex: 1,
       scrollController: controller.scrollController,

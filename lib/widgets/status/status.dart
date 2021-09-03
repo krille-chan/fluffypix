@@ -39,12 +39,14 @@ class _StatusWidgetState extends State<StatusWidget> {
   bool _favoriteLoading = false;
   bool _shareLoading = false;
 
+  Status get contentStatus => widget.status.reblog ?? widget.status;
+
   void favoriteAction() async {
     setState(() => _favoriteLoading = true);
     try {
-      final status = await (widget.status.favourited ?? false
-          ? FluffyPix.of(context).unfavoriteStatus(widget.status.id)
-          : FluffyPix.of(context).favoriteStatus(widget.status.id));
+      final status = await (contentStatus.favourited ?? false
+          ? FluffyPix.of(context).unfavoriteStatus(contentStatus.id)
+          : FluffyPix.of(context).favoriteStatus(contentStatus.id));
       widget.onUpdate(status);
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -61,9 +63,9 @@ class _StatusWidgetState extends State<StatusWidget> {
   void shareAction() async {
     setState(() => _shareLoading = true);
     try {
-      final status = await (widget.status.reblogged ?? false
-          ? FluffyPix.of(context).unboostStatus(widget.status.id)
-          : FluffyPix.of(context).boostStatus(widget.status.id));
+      final status = await (contentStatus.reblogged ?? false
+          ? FluffyPix.of(context).unboostStatus(contentStatus.id)
+          : FluffyPix.of(context).boostStatus(contentStatus.id));
       widget.onUpdate(status);
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -78,8 +80,8 @@ class _StatusWidgetState extends State<StatusWidget> {
   }
 
   void commentAction() => Navigator.of(context).pushNamed(
-        '/status/${(widget.status.reblog ?? widget.status).id}',
-        arguments: widget.status,
+        '/status/${(contentStatus).id}',
+        arguments: contentStatus,
       );
 
   void deleteAction() async {
@@ -106,7 +108,7 @@ class _StatusWidgetState extends State<StatusWidget> {
           content: Text(L10n.of(context)!.postHasBeenDeleted),
         ),
       );
-      widget.onUpdate.call(null, widget.status.id);
+      widget.onUpdate(null, widget.status.id);
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -121,9 +123,9 @@ class _StatusWidgetState extends State<StatusWidget> {
     switch (action) {
       case StatusAction.shareLink:
         if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
-          Share.share(widget.status.uri);
+          Share.share(contentStatus.uri);
         } else {
-          Clipboard.setData(ClipboardData(text: widget.status.uri));
+          Clipboard.setData(ClipboardData(text: contentStatus.uri));
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(L10n.of(context)!.copiedToClipboard),
@@ -181,9 +183,6 @@ class _StatusWidgetState extends State<StatusWidget> {
   @override
   Widget build(BuildContext context) {
     final badgePosition = BadgePosition.topEnd(top: 0, end: 0);
-    final author = widget.status.reblog?.account ?? widget.status.account;
-    final displayName =
-        author.displayName.isEmpty ? author.username : author.displayName;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -219,20 +218,21 @@ class _StatusWidgetState extends State<StatusWidget> {
             ),
           ),
         ListTile(
-          onTap: () => Navigator.of(context).pushNamed('/user/${author.id}'),
-          leading: Avatar(account: author),
+          onTap: () => Navigator.of(context)
+              .pushNamed('/user/${contentStatus.account.id}'),
+          leading: Avatar(account: contentStatus.account),
           title: Row(
             children: [
               Expanded(
                 child: Text(
-                  displayName,
+                  contentStatus.account.calcedDisplayname,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
               Text(
-                widget.status.createdAt.localizedTimeShort(context),
+                contentStatus.createdAt.localizedTimeShort(context),
                 style: const TextStyle(fontSize: 12),
               ),
             ],
@@ -241,13 +241,13 @@ class _StatusWidgetState extends State<StatusWidget> {
             children: [
               Expanded(
                 child: Text(
-                  '@${author.acct}',
+                  '@${contentStatus.account.acct}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
               Icon(
-                widget.status.visibility.icon,
+                contentStatus.visibility.icon,
                 size: 16,
                 color: Theme.of(context).textTheme.bodyText1?.color,
               ),
@@ -283,7 +283,7 @@ class _StatusWidgetState extends State<StatusWidget> {
                     )
                   : Badge(
                       badgeContent: Text(
-                        widget.status.favouritesCount.shortString,
+                        contentStatus.favouritesCount.shortString,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.red[900],
@@ -294,13 +294,13 @@ class _StatusWidgetState extends State<StatusWidget> {
                       padding: const EdgeInsets.all(2),
                       position: badgePosition,
                       badgeColor: Theme.of(context).appBarTheme.color!,
-                      showBadge: widget.status.favouritesCount > 0,
+                      showBadge: contentStatus.favouritesCount > 0,
                       child: IconButton(
                         icon: Icon(
-                          widget.status.favourited ?? false
+                          contentStatus.favourited ?? false
                               ? CupertinoIcons.heart_fill
                               : CupertinoIcons.heart,
-                          color: widget.status.favourited ?? false
+                          color: contentStatus.favourited ?? false
                               ? Colors.red
                               : null,
                         ),
@@ -309,7 +309,7 @@ class _StatusWidgetState extends State<StatusWidget> {
                     ),
               Badge(
                 badgeContent: Text(
-                  widget.status.repliesCount.shortString,
+                  contentStatus.repliesCount.shortString,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.blue[900],
@@ -319,7 +319,7 @@ class _StatusWidgetState extends State<StatusWidget> {
                 borderRadius: BorderRadius.circular(6),
                 padding: const EdgeInsets.all(2),
                 position: badgePosition,
-                showBadge: widget.status.repliesCount > 0,
+                showBadge: contentStatus.repliesCount > 0,
                 badgeColor: Theme.of(context).appBarTheme.color!,
                 child: IconButton(
                   icon: const Icon(CupertinoIcons.chat_bubble),
@@ -333,7 +333,7 @@ class _StatusWidgetState extends State<StatusWidget> {
                     )
                   : Badge(
                       badgeContent: Text(
-                        widget.status.reblogsCount.shortString,
+                        contentStatus.reblogsCount.shortString,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.green[900],
@@ -342,12 +342,12 @@ class _StatusWidgetState extends State<StatusWidget> {
                       shape: BadgeShape.square,
                       borderRadius: BorderRadius.circular(6),
                       padding: const EdgeInsets.all(2),
-                      showBadge: widget.status.reblogsCount > 0,
+                      showBadge: contentStatus.reblogsCount > 0,
                       badgeColor: Theme.of(context).appBarTheme.color!,
                       position: badgePosition,
                       child: IconButton(
                         icon: Icon(CupertinoIcons.repeat,
-                            color: widget.status.reblogged ?? false
+                            color: contentStatus.reblogged ?? false
                                 ? Colors.green
                                 : null),
                         onPressed: shareAction,

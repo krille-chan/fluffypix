@@ -103,4 +103,5 @@ class Account {
       };
 
   String get pureNote => note.replaceAll(RegExp(r'<[^>]*>'), '');
+  String get calcedDisplayname => displayName.isEmpty ? username : displayName;
 }

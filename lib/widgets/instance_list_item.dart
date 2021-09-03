@@ -55,7 +55,8 @@ class _InstanceListItemState extends State<InstanceListItem> {
               left: 0,
               right: 0,
               child: Material(
-                color: Colors.white.withOpacity(0.85),
+                color:
+                    Theme.of(context).scaffoldBackgroundColor.withOpacity(0.85),
                 child: ListTile(
                   title: Text(
                     widget.instance.name,
