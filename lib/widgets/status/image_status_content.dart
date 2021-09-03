@@ -127,7 +127,9 @@ class ImageStatusContent extends StatelessWidget {
               child: RichText(
                 text: HTML.toTextSpan(context, status.content ?? '',
                     linksCallback: (link) => linksCallback(link, context),
-                    defaultTextStyle: const TextStyle(fontSize: 21),
+                    defaultTextStyle: TextStyle(
+                        fontSize: 21,
+                        color: Theme.of(context).textTheme.bodyText1?.color),
                     overrideStyle: {
                       'a': TextStyle(
                         color: Theme.of(context).primaryColor,

@@ -48,6 +48,9 @@ class _StatusContentState extends State<StatusContent> {
             child: RichText(
               text: HTML.toTextSpan(context, (widget.status.content ?? ''),
                   linksCallback: (link) => linksCallback(link, context),
+                  defaultTextStyle: TextStyle(
+                    color: Theme.of(context).textTheme.bodyText1?.color,
+                  ),
                   overrideStyle: {
                     'a': TextStyle(
                       color: Theme.of(context).primaryColor,

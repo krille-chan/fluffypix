@@ -83,8 +83,10 @@ class LoginPageView extends StatelessWidget {
                       elevation: 2,
                       child: ListView.separated(
                         padding: const EdgeInsets.only(bottom: 32),
-                        separatorBuilder: (_, __) =>
-                            const Divider(height: 1, color: Colors.black),
+                        separatorBuilder: (_, __) => Divider(
+                            height: 1,
+                            color:
+                                Theme.of(context).textTheme.bodyText1?.color),
                         itemCount: instances.length,
                         itemBuilder: (context, i) => InstanceListItem(
                           instance: instances[i],

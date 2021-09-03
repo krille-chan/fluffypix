@@ -20,7 +20,7 @@ class FluffyPixApp extends StatelessWidget {
     return MaterialApp(
       title: AppConfigs.applicationName,
       theme: AppThemes.light,
-      //darkTheme: AppThemes.dark,
+      darkTheme: AppThemes.dark,
       builder: fluffyPix.builder,
       onGenerateRoute: AppRoutes(fluffyPix).onGenerateRoute,
       localizationsDelegates: L10n.localizationsDelegates,

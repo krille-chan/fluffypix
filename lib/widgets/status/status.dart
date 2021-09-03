@@ -381,8 +381,13 @@ class _StatusWidgetState extends State<StatusWidget> {
               arguments: reply,
             ),
             title: RichText(
-              text: HTML.toTextSpan(context,
-                  '<b>${reply.account.displayName.isNotEmpty ? reply.account.displayName : reply.account.username}</b>: ${reply.content}'),
+              text: HTML.toTextSpan(
+                context,
+                '<b>${reply.account.displayName.isNotEmpty ? reply.account.displayName : reply.account.username}</b>: ${reply.content}',
+                defaultTextStyle: TextStyle(
+                  color: Theme.of(context).textTheme.bodyText1?.color,
+                ),
+              ),
             ),
           ),
         if (widget.replies.isNotEmpty) const SizedBox(height: 8),

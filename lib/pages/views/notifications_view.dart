@@ -47,6 +47,9 @@ class NotificationsPageView extends StatelessWidget {
                     text: HTML.toTextSpan(context,
                         controller.timeline[i].toLocalizedString(context),
                         linksCallback: (link) => linksCallback(link, context),
+                        defaultTextStyle: TextStyle(
+                          color: Theme.of(context).textTheme.bodyText1?.color,
+                        ),
                         overrideStyle: {
                           'a': TextStyle(
                             color: Theme.of(context).primaryColor,
