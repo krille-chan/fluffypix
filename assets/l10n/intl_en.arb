@@ -64,6 +64,8 @@
     "reason": "Reason",
     "viewPost": "View post",
     "hashtags": "Hashtags",
+    "openCamera": "Open camera",
+    "pickFromYourGallery": "Pick from your gallery",
     "sendComment": "Send comment",
     "pollEnded": "A poll you took part in has ended.",
     "mentioned": "<b>{name}</b> mentioned you in a post:<br/>{content}",

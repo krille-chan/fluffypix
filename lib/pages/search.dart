@@ -52,8 +52,8 @@ class SearchPageController extends State<SearchPage> {
       loading = true;
     });
     try {
-      final result =
-          await FluffyPix.of(context).search(textEditingController.text);
+      final result = await FluffyPix.of(context).search(query);
+
       if (result.statuses.isEmpty) {
         result.statuses.addAll(
           timeline.where(
@@ -62,6 +62,11 @@ class SearchPageController extends State<SearchPage> {
                 status.content!.toLowerCase().contains(query),
           ),
         );
+        if (result.hashtags.isNotEmpty && result.hashtags.first.name == query) {
+          final statuses =
+              await FluffyPix.of(context).requestTagTimeline(query);
+          result.statuses.addAll(statuses);
+        }
       }
       setState(() {
         searchResult = result;

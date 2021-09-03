@@ -5,8 +5,6 @@ import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
-import 'package:simple_html_css/simple_html_css.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 enum ImageType { image, avatar, missing }
 
@@ -82,55 +80,28 @@ class ImageStatusContent extends StatelessWidget {
         ),
       );
     }
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (_type == ImageType.missing)
-          Center(
-              child: Image.asset(
-            'assets/images/logo.png',
-            width: 56,
-            height: 56,
-          )),
-        if (_type != ImageType.missing &&
-            (imageStatusMode != ImageStatusMode.reply ||
-                _type == ImageType.image))
-          CachedNetworkImage(
-            imageUrl: _imageUrl,
-            width: imageStatusMode == ImageStatusMode.discover
-                ? null
-                : double.infinity,
-            fit: BoxFit.cover,
-            progressIndicatorBuilder: blurHashBuilder,
-            errorWidget: blurHashBuilder,
-            height: _type == ImageType.avatar ? 256 : null,
-          ),
-        if (imageStatusMode != ImageStatusMode.discover)
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
-            child: RichText(
-              text: HTML.toTextSpan(
-                  context,
-                  '<b>${status.account.displayName}</b>: ' +
-                      (status.content ?? ''), linksCallback: (link) {
-                final uri = Uri.parse(link);
-                if (uri.pathSegments.length >= 2 &&
-                    uri.pathSegments[uri.pathSegments.length - 2] == 'tags') {
-                  Navigator.of(context)
-                      .pushNamed('/tags/${uri.pathSegments.last}');
-                  return;
-                }
-                launch(link);
-              }, overrideStyle: {
-                'a': TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  decoration: TextDecoration.none,
-                ),
-              }),
-            ),
-          ),
-      ],
-    );
+    if (_type == ImageType.missing) {
+      return Center(
+          child: Image.asset(
+        'assets/images/logo.png',
+        width: 56,
+        height: 56,
+      ));
+    }
+    if (_type != ImageType.missing &&
+        (imageStatusMode != ImageStatusMode.reply ||
+            _type == ImageType.image)) {
+      return CachedNetworkImage(
+        imageUrl: _imageUrl,
+        width: imageStatusMode == ImageStatusMode.discover
+            ? null
+            : double.infinity,
+        fit: BoxFit.cover,
+        progressIndicatorBuilder: blurHashBuilder,
+        errorWidget: blurHashBuilder,
+        height: _type == ImageType.avatar ? 256 : null,
+      );
+    }
+    return Container();
   }
 }

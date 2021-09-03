@@ -5,6 +5,8 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:fluffypix/model/account.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/status_visibility.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:image_picker/image_picker.dart';
@@ -39,9 +41,28 @@ class ComposePageController extends State<ComposePage> {
   void toggleSensitive([_]) => setState(() => sensitive = !sensitive);
 
   void addMedia() async {
+    final source = (!kIsWeb && (Platform.isAndroid || Platform.isIOS))
+        ? await showModalActionSheet<ImageSource>(
+            context: context,
+            title: L10n.of(context)!.addMedia,
+            actions: [
+              SheetAction(
+                label: L10n.of(context)!.openCamera,
+                key: ImageSource.camera,
+                icon: CupertinoIcons.camera,
+              ),
+              SheetAction(
+                label: L10n.of(context)!.pickFromYourGallery,
+                key: ImageSource.gallery,
+                icon: CupertinoIcons.photo,
+              ),
+            ],
+          )
+        : ImageSource.gallery;
+    if (source == null) return;
     setState(() => loadingPhoto = true);
     final pick = await ImagePicker().pickImage(
-      source: ImageSource.camera,
+      source: source,
       maxHeight: 2048,
       maxWidth: 2048,
       preferredCameraDevice: CameraDevice.front,
@@ -94,15 +115,17 @@ class ComposePageController extends State<ComposePage> {
   void resetAction() => setState(_init);
 
   void setVisibility() async {
-    final newVisibility = await showConfirmationDialog(
+    final newVisibility = await showModalActionSheet(
       context: context,
       title: L10n.of(context)!.visibility,
       message: visibility.toLocalizedString(context),
       actions: StatusVisibility.values
           .map(
-            (vis) => AlertDialogAction(
+            (vis) => SheetAction(
               key: vis,
               label: vis.toLocalizedString(context),
+              icon: vis.icon,
+              isDefaultAction: vis == visibility,
             ),
           )
           .toList(),

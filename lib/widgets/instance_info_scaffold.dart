@@ -23,7 +23,7 @@ class InstanceInfoScaffold extends StatelessWidget {
             padding: const EdgeInsets.only(right: 12.0),
             child: TextButton(
               child: Text(L10n.of(context)!.website),
-              onPressed: () => launch(instance.name),
+              onPressed: () => launch('https://${instance.name}'),
             ),
           ),
         ],

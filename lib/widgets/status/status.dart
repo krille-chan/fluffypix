@@ -222,16 +222,15 @@ class _StatusWidgetState extends State<StatusWidget> {
                 padding: const EdgeInsets.only(left: 56.0),
                 child: StatusContent(
                   status: widget.status,
-                  imageStatusMode: widget.replyMode
-                      ? ImageStatusMode.reply
-                      : ImageStatusMode.timeline,
+                  imageStatusMode: ImageStatusMode.reply,
                 ),
               )
             : StatusContent(
                 status: widget.status,
-                imageStatusMode: widget.replyMode
-                    ? ImageStatusMode.reply
-                    : ImageStatusMode.timeline,
+                imageStatusMode:
+                    widget.status.visibility == StatusVisibility.direct
+                        ? ImageStatusMode.reply
+                        : ImageStatusMode.timeline,
               ),
         Padding(
           padding: widget.replyMode
@@ -276,7 +275,7 @@ class _StatusWidgetState extends State<StatusWidget> {
                   widget.status.repliesCount.shortString,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.green[900],
+                    color: Colors.blue[900],
                   ),
                 ),
                 shape: BadgeShape.square,
@@ -300,7 +299,7 @@ class _StatusWidgetState extends State<StatusWidget> {
                         widget.status.reblogsCount.shortString,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue[900],
+                          color: Colors.green[900],
                         ),
                       ),
                       shape: BadgeShape.square,
@@ -310,10 +309,7 @@ class _StatusWidgetState extends State<StatusWidget> {
                       badgeColor: Theme.of(context).appBarTheme.color!,
                       position: badgePosition,
                       child: IconButton(
-                        icon: Icon(
-                            widget.status.reblogged ?? false
-                                ? CupertinoIcons.share_solid
-                                : CupertinoIcons.share,
+                        icon: Icon(CupertinoIcons.repeat,
                             color: widget.status.reblogged ?? false
                                 ? Colors.green
                                 : null),

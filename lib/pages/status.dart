@@ -45,6 +45,10 @@ class StatusPageController extends State<StatusPage> {
 
   void onUpdateStatus(Status? status, [String? deleteId]) {
     if (status == null) {
+      if (deleteId == this.status?.id) {
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        return;
+      }
       setState(() {
         statusContext?.ancestors.removeWhere((s) => s.id == deleteId);
         statusContext?.descendants.removeWhere((s) => s.id == deleteId);
@@ -52,10 +56,14 @@ class StatusPageController extends State<StatusPage> {
       return;
     }
     setState(() {
-      statusContext?.ancestors[statusContext!.ancestors
-          .indexWhere((s) => s.id == status.id)] = status;
-      statusContext?.descendants[statusContext!.descendants
-          .indexWhere((s) => s.id == status.id)] = status;
+      if (this.status?.id == status.id) {
+        this.status = status;
+      } else {
+        statusContext?.ancestors[statusContext!.ancestors
+            .indexWhere((s) => s.id == status.id)] = status;
+        statusContext?.descendants[statusContext!.descendants
+            .indexWhere((s) => s.id == status.id)] = status;
+      }
     });
   }
 

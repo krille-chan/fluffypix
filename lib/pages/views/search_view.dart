@@ -58,7 +58,7 @@ class SearchPageView extends StatelessWidget {
                     height: 94,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: controller.searchResult!.hashtags.length,
+                      itemCount: controller.searchResult!.accounts.length,
                       itemBuilder: (context, i) => Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: InkWell(
@@ -85,9 +85,16 @@ class SearchPageView extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  controller
-                                      .searchResult!.accounts[i].displayName,
+                                  controller.searchResult!.accounts[i]
+                                          .displayName.isNotEmpty
+                                      ? controller
+                                          .searchResult!.accounts[i].displayName
+                                      : controller
+                                          .searchResult!.accounts[i].username,
                                   maxLines: 1,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ],
                             ),
@@ -114,22 +121,32 @@ class SearchPageView extends StatelessWidget {
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: controller.searchResult!.hashtags.length,
+                      padding: const EdgeInsets.all(8.0),
                       itemBuilder: (context, i) => Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(64),
-                          onTap: () => controller.goToHashtag(
-                              controller.searchResult!.hashtags[i].name),
-                          child: Chip(
-                            backgroundColor:
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Center(
+                          child: Material(
+                            color:
                                 Theme.of(context).appBarTheme.backgroundColor,
-                            elevation: 3,
-                            label: Text(
-                              '#${controller.searchResult!.hashtags[i].name}',
-                              style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
+                            borderRadius: BorderRadius.circular(64),
+                            elevation: 2,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(64),
+                              onTap: () => controller.goToHashtag(
+                                  controller.searchResult!.hashtags[i].name),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0,
+                                  vertical: 4.0,
+                                ),
+                                child: Text(
+                                  '#${controller.searchResult!.hashtags[i].name}',
+                                  style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                  ),
+                                ),
                               ),
                             ),
                           ),

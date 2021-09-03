@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/pages/views/home_view.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
@@ -50,9 +52,14 @@ class HomePageController extends State<HomePage> {
       });
       return;
     }
-    setState(() {
-      timeline[timeline.indexWhere((s) => s.id == status.id)] = status;
-    });
+    final index = timeline.indexWhere((s) => s.id == status.id);
+    if (index == -1) {
+      refreshController.requestRefresh();
+    } else {
+      setState(() {
+        timeline[index] = status;
+      });
+    }
   }
 
   void loadMore() async {
@@ -87,6 +94,7 @@ class HomePageController extends State<HomePage> {
 
     // For sharing images coming from outside the app while the app is closed
     ReceiveSharingIntent.getInitialMedia().then((List<SharedMediaFile> value) {
+      if (value.isEmpty) return;
       Navigator.of(context).pushNamedAndRemoveUntil(
           '/sharemedia', (r) => r.isFirst,
           arguments: value);
@@ -95,6 +103,7 @@ class HomePageController extends State<HomePage> {
     // For sharing or opening urls/text coming from outside the app while the app is in the memory
     _intentTextStreamSubscription =
         ReceiveSharingIntent.getTextStream().listen((String value) {
+      if (value.isEmpty) return;
       Navigator.of(context).pushNamedAndRemoveUntil(
           '/sharetext', (r) => r.isFirst,
           arguments: value);
@@ -102,7 +111,7 @@ class HomePageController extends State<HomePage> {
 
     // For sharing or opening urls/text coming from outside the app while the app is closed
     ReceiveSharingIntent.getInitialText().then((String? value) {
-      if (value == null) return;
+      if (value?.isEmpty ?? true) return;
       Navigator.of(context).pushNamedAndRemoveUntil(
           '/sharetext', (r) => r.isFirst,
           arguments: value);
@@ -114,7 +123,9 @@ class HomePageController extends State<HomePage> {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       refreshController.requestRefresh();
     });
-    _initReceiveSharingIntent();
+    if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
+      _initReceiveSharingIntent();
+    }
     super.initState();
   }
 

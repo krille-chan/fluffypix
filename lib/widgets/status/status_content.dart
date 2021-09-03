@@ -1,8 +1,10 @@
 import 'package:fluffypix/model/status.dart';
+import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/status/image_status_content.dart';
 import 'package:fluffypix/widgets/status/sensitive_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_html_css/simple_html_css.dart';
 
 enum ImageStatusMode { timeline, reply, discover }
 
@@ -23,14 +25,38 @@ class _StatusContentState extends State<StatusContent> {
   bool unlocked = false;
   @override
   Widget build(BuildContext context) {
-    if (widget.status.sensitive && !unlocked) {
-      return SensitiveContent(
-        onUnlock: () => setState(() => unlocked = true),
-      );
-    }
-    return ImageStatusContent(
-      status: widget.status,
-      imageStatusMode: widget.imageStatusMode,
+    final hide = widget.status.sensitive && !unlocked;
+    final content = hide
+        ? SensitiveContent(
+            onUnlock: () => setState(() => unlocked = true),
+          )
+        : ImageStatusContent(
+            status: widget.status,
+            imageStatusMode: widget.imageStatusMode,
+          );
+    if (widget.imageStatusMode == ImageStatusMode.discover) return content;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        content,
+        Container(
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
+          child: RichText(
+            text: HTML.toTextSpan(
+                context,
+                '<b>${widget.status.account.displayName.isNotEmpty ? widget.status.account.displayName : widget.status.account.username}</b>: ' +
+                    (widget.status.content ?? ''),
+                linksCallback: (link) => linksCallback(link, context),
+                overrideStyle: {
+                  'a': TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    decoration: TextDecoration.none,
+                  ),
+                }),
+          ),
+        ),
+      ],
     );
   }
 }

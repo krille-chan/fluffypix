@@ -20,10 +20,11 @@ class UserPageView extends StatelessWidget {
       appBar: AppBar(
         title: Text(L10n.of(context)!.profile),
         actions: [
-          IconButton(
-            onPressed: controller.sendMessage,
-            icon: const Icon(CupertinoIcons.mail),
-          ),
+          if (!controller.isOwnUser)
+            IconButton(
+              onPressed: controller.sendMessage,
+              icon: const Icon(CupertinoIcons.mail),
+            ),
         ],
       ),
       body: SmartRefresher(
@@ -67,7 +68,9 @@ class UserPageView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            controller.account!.displayName,
+                            controller.account!.displayName.isNotEmpty
+                                ? controller.account!.displayName
+                                : controller.account!.username,
                             style: const TextStyle(fontSize: 24),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,

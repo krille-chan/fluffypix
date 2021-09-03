@@ -23,8 +23,11 @@ class _InstanceListItemState extends State<InstanceListItem> {
 
   void _loginAction() async {
     setState(() => _loginLoading = true);
-    await widget.controller.loginAction(widget.instance.name);
-    setState(() => _loginLoading = false);
+    try {
+      await widget.controller.loginAction(widget.instance.name);
+    } finally {
+      setState(() => _loginLoading = false);
+    }
   }
 
   @override

@@ -45,9 +45,14 @@ class MessagesPageController extends State<MessagesPage> {
       });
       return;
     }
-    setState(() {
-      timeline[timeline.indexWhere((s) => s.id == status.id)] = status;
-    });
+    final index = timeline.indexWhere((s) => s.id == status.id);
+    if (index == -1) {
+      refreshController.requestRefresh();
+    } else {
+      setState(() {
+        timeline[index] = status;
+      });
+    }
   }
 
   void loadMore() async {
