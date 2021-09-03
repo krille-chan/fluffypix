@@ -221,27 +221,38 @@ class _StatusWidgetState extends State<StatusWidget> {
         ListTile(
           onTap: () => Navigator.of(context).pushNamed('/user/${author.id}'),
           leading: Avatar(account: author),
-          title: Text(
-            displayName,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          subtitle: Text(
-            '@${author.acct}',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
+          title: Row(
             children: [
+              Expanded(
+                child: Text(
+                  displayName,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const Spacer(),
+              Text(
+                widget.status.createdAt.localizedTimeShort(context),
+                style: const TextStyle(fontSize: 12),
+              ),
+            ],
+          ),
+          subtitle: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  '@${author.acct}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const Spacer(),
               Icon(
                 widget.status.visibility.icon,
                 size: 16,
                 color: Theme.of(context).textTheme.bodyText1?.color,
               ),
-              const SizedBox(width: 4),
-              Text(widget.status.createdAt.localizedTimeShort(context)),
             ],
           ),
         ),

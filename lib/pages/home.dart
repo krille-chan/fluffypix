@@ -167,9 +167,8 @@ class HomePageController extends State<HomePage> {
       (_) {
         if (scrollController.position.atEdge &&
             scrollController.position.pixels == 0) {
-          return;
+          refreshController.requestRefresh();
         }
-        refresh();
       },
     );
   }

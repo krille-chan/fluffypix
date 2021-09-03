@@ -66,7 +66,7 @@ class Status {
 
   factory Status.fromJson(Map<String, dynamic> json) => Status(
         id: json['id'],
-        createdAt: DateTime.parse(json['created_at']),
+        createdAt: DateTime.parse(json['created_at']).toLocal(),
         inReplyToId: json['in_reply_to_id'],
         inReplyToAccountId: json['in_reply_to_account_id'],
         sensitive: json['sensitive'],

@@ -29,6 +29,8 @@ dependencies:
   flutter_blurhash: ^0.6.0
   receive_sharing_intent: ^1.4.5
   package_info: ^2.0.2
+  webcrypto: ^0.5.2
+  firebase_messaging: ^10.0.6
 
 dev_dependencies:
   flutter_lints: ^1.0.4

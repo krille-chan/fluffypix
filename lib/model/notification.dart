@@ -33,7 +33,7 @@ class PushNotification {
         id: json['id'],
         type: NotificationType.values
             .firstWhere((n) => n.toString().split('.').last == json['type']),
-        createdAt: DateTime.parse(json['created_at']),
+        createdAt: DateTime.parse(json['created_at']).toLocal(),
         account: Account.fromJson(json['account']),
         status: json['status'] != null ? Status.fromJson(json['status']) : null,
       );

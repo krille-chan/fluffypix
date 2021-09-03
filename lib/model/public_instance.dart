@@ -40,13 +40,14 @@ class PublicInstance {
   factory PublicInstance.fromJson(Map<String, dynamic> json) => PublicInstance(
         id: json['id'],
         name: json['name'],
-        addedAt:
-            json['added_at'] != null ? DateTime.parse(json['added_at']) : null,
+        addedAt: json['added_at'] != null
+            ? DateTime.parse(json['added_at']).toLocal()
+            : null,
         updatedAt: json['updated_at'] != null
-            ? DateTime.parse(json['updated_at'])
+            ? DateTime.parse(json['updated_at']).toLocal()
             : null,
         checkedAt: json['checked_at'] != null
-            ? DateTime.parse(json['checked_at'])
+            ? DateTime.parse(json['checked_at']).toLocal()
             : null,
         uptime: json['uptime'],
         dead: json['dead'],
