@@ -36,6 +36,7 @@ abstract class AppThemes {
       contentTextStyle: TextStyle(color: Colors.black),
     ),
     backgroundColor: Colors.white,
+    scaffoldBackgroundColor: Colors.white,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: false,

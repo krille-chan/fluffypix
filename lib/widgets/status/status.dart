@@ -219,8 +219,7 @@ class _StatusWidgetState extends State<StatusWidget> {
             ),
           ),
         ListTile(
-          onTap: () => Navigator.of(context)
-              .pushNamed('/user/${widget.status.account.id}'),
+          onTap: () => Navigator.of(context).pushNamed('/user/${author.id}'),
           leading: Avatar(account: author),
           title: Text(
             displayName,

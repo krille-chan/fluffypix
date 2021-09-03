@@ -95,9 +95,11 @@ class ImageStatusContent extends StatelessWidget {
     if (_type != ImageType.missing &&
         (imageStatusMode != ImageStatusMode.reply ||
             _type == ImageType.image)) {
+      final displayBigText =
+          status.mediaAttachments.isEmpty && status.card?.image == null;
       return Stack(
         children: [
-          if (_type == ImageType.image)
+          if (!displayBigText)
             CachedNetworkImage(
               imageUrl: _imageUrl(context),
               width: imageStatusMode == ImageStatusMode.discover
@@ -107,38 +109,32 @@ class ImageStatusContent extends StatelessWidget {
               progressIndicatorBuilder: blurHashBuilder,
               errorWidget: blurHashBuilder,
             ),
-          if (_type != ImageType.image)
-            ClipRRect(
-              clipBehavior: Clip.hardEdge,
-              child: Container(
-                padding: const EdgeInsets.all(12.0),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(
-                        Colors.black.withOpacity(0.3), BlendMode.dstATop),
-                    image: CachedNetworkImageProvider(
-                      _imageUrl(context),
-                    ),
+          if (displayBigText)
+            Container(
+              padding: const EdgeInsets.all(12.0),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.15), BlendMode.dstATop),
+                  image: CachedNetworkImageProvider(
+                    _imageUrl(context),
                   ),
                 ),
-                constraints: const BoxConstraints(minHeight: 256),
-                alignment: Alignment.center,
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                  child: RichText(
-                    text: HTML.toTextSpan(context, status.content ?? '',
-                        linksCallback: (link) => linksCallback(link, context),
-                        defaultTextStyle: const TextStyle(fontSize: 21),
-                        overrideStyle: {
-                          'a': TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            decoration: TextDecoration.none,
-                          ),
-                        }),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+              ),
+              constraints: const BoxConstraints(minHeight: 256),
+              alignment: Alignment.center,
+              child: RichText(
+                text: HTML.toTextSpan(context, status.content ?? '',
+                    linksCallback: (link) => linksCallback(link, context),
+                    defaultTextStyle: const TextStyle(fontSize: 21),
+                    overrideStyle: {
+                      'a': TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        decoration: TextDecoration.none,
+                      ),
+                    }),
+                textAlign: TextAlign.center,
               ),
             ),
         ],

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:fluffypix/model/account.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/search_result.dart';
 import 'package:fluffypix/model/status.dart';
@@ -31,6 +32,7 @@ class HomePageController extends State<HomePage> {
   List<Status> localReplies(String statusId) =>
       timeline.where((status) => status.inReplyToId == statusId).toList();
   List<Hashtag> trends = [];
+  List<Account> trendAccounts = [];
 
   final refreshController = RefreshController(initialRefresh: false);
   final scrollController = ScrollController();
@@ -46,14 +48,18 @@ class HomePageController extends State<HomePage> {
   void refresh() async {
     try {
       timeline = await FluffyPix.of(context).requestHomeTimeline();
+      setState(() {});
       try {
-        if (!wideColumnMode) trends = await FluffyPix.of(context).getTrends();
+        if (!wideColumnMode) {
+          trends = await FluffyPix.of(context).getTrends();
+          trendAccounts = await FluffyPix.of(context).getTrendAccounts();
+          setState(() {});
+        }
       } catch (e, s) {
         log('Unable to load trends', error: e, stackTrace: s);
       }
       FluffyPix.of(context)
           .storeCachedTimeline<Status>('home', timeline, (t) => t.toJson());
-      setState(() {});
       refreshController.refreshCompleted();
     } catch (_) {
       refreshController.refreshFailed();
@@ -97,6 +103,7 @@ class HomePageController extends State<HomePage> {
   void settingsAction() => Navigator.of(context).pushNamed('/settings');
   void goToHashtag(String tag) => Navigator.of(context).pushNamed('/tags/$tag');
   void goToMessages() => Navigator.of(context).pushNamed('/messages');
+  void goToUser(String id) => Navigator.of(context).pushNamed('/user/$id');
 
   StreamSubscription? _intentTextStreamSubscription;
   StreamSubscription? _intentFileStreamSubscription;

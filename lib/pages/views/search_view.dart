@@ -1,4 +1,4 @@
-import 'package:fluffypix/widgets/avatar.dart';
+import 'package:fluffypix/widgets/horizontal_account_list.dart';
 import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:fluffypix/widgets/status/status.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
@@ -58,52 +58,10 @@ class SearchPageView extends StatelessWidget {
                         ),
                       ),
                       const Divider(height: 1),
-                      SizedBox(
-                        height: 94,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: controller.searchResult!.accounts.length,
-                          itemBuilder: (context, i) => Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(8),
-                              onTap: () => controller.goToUser(
-                                  controller.searchResult!.accounts[i].id),
-                              child: SizedBox(
-                                width: 94,
-                                height: 94,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Material(
-                                      borderRadius: BorderRadius.circular(64),
-                                      elevation: 2,
-                                      child: Avatar(
-                                        account: controller.timeline[i].account,
-                                        radius: 32,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      controller.searchResult!.accounts[i]
-                                              .displayName.isNotEmpty
-                                          ? controller.searchResult!.accounts[i]
-                                              .displayName
-                                          : controller.searchResult!.accounts[i]
-                                              .username,
-                                      maxLines: 1,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      HorizontalAccountList(
+                        accounts: controller.searchResult!.accounts,
+                        onTap: controller.goToUser,
+                      )
                     ],
                     if (controller.searchResult!.hashtags.isNotEmpty) ...[
                       Material(
@@ -132,7 +90,7 @@ class SearchPageView extends StatelessWidget {
                                     .appBarTheme
                                     .backgroundColor,
                                 borderRadius: BorderRadius.circular(64),
-                                elevation: 2,
+                                elevation: 1,
                                 child: InkWell(
                                   borderRadius: BorderRadius.circular(64),
                                   onTap: () => controller.goToHashtag(controller

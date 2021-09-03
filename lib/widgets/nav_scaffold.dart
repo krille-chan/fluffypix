@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 import 'avatar.dart';
+import 'discover_accounts_card.dart';
 
 class NavScaffold extends StatelessWidget {
   final AppBar? appBar;
@@ -200,12 +201,15 @@ class NavScaffold extends StatelessWidget {
                 child: ListView(
                   children: const [
                     TrendingHashtagsCard(),
+                    SizedBox(height: 12),
+                    DiscoverAccountsCard(),
                   ],
                 ),
               ),
             const Spacer(),
           ],
         ),
+        backgroundColor: Theme.of(context).secondaryHeaderColor.withAlpha(64),
       );
     });
   }

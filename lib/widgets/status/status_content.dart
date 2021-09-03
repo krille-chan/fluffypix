@@ -40,6 +40,7 @@ class _StatusContentState extends State<StatusContent> {
       children: [
         content,
         if (widget.status.mediaAttachments.isNotEmpty ||
+            widget.status.card?.image != null ||
             widget.imageStatusMode == ImageStatusMode.reply)
           Container(
             alignment: Alignment.centerLeft,

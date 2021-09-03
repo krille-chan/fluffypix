@@ -101,4 +101,6 @@ class Account {
         'emojis': List<Object>.from(emojis),
         if (fields != null) 'fields': fields!.map((i) => i.toJson()).toList(),
       };
+
+  String get pureNote => note.replaceAll(RegExp(r'<[^>]*>'), '');
 }

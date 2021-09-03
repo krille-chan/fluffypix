@@ -19,10 +19,16 @@ class _TrendingHashtagsCardState extends State<TrendingHashtagsCard> {
     trendsFuture ??= FluffyPix.of(context).getTrends();
 
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0, top: 16.0),
-      child: Card(
-        elevation: 0,
-        color: Theme.of(context).appBarTheme.backgroundColor,
+      padding: const EdgeInsets.only(left: 16.0, top: 6.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            width: 1,
+            color: Theme.of(context).dividerColor,
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -35,11 +41,11 @@ class _TrendingHashtagsCardState extends State<TrendingHashtagsCard> {
               trailing: IconButton(
                 icon: const Icon(CupertinoIcons.refresh_circled),
                 onPressed: () => setState(
-                  () =>
-                      trendsFuture = FluffyPix.of(context).getTrends(limit: 30),
+                  () => trendsFuture = null,
                 ),
               ),
             ),
+            const Divider(height: 1),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: FutureBuilder<List<Hashtag>>(

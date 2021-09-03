@@ -1,4 +1,5 @@
 import 'package:fluffypix/config/app_configs.dart';
+import 'package:fluffypix/widgets/horizontal_account_list.dart';
 import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:fluffypix/widgets/status/status.dart';
 import 'package:flutter/cupertino.dart';
@@ -48,65 +49,83 @@ class HomePageView extends StatelessWidget {
         child: ListView.builder(
           controller: controller.scrollController,
           itemCount: controller.filteredTimeline.length,
-          itemBuilder: (context, i) => i == 1 &&
-                  !controller.wideColumnMode &&
-                  controller.trends.isNotEmpty
+          itemBuilder: (context, i) => i == 1 && !controller.wideColumnMode
               ? Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          L10n.of(context)!.trendingHashtags,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
+                    if (controller.trendAccounts.isNotEmpty) ...[
+                      SizedBox(
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
+                          child: Text(
+                            L10n.of(context)!.discoverUsers,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Wrap(
-                        alignment: WrapAlignment.center,
-                        children: [
-                          for (final hashtag in controller.trends)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8.0,
-                                vertical: 4.0,
-                              ),
-                              child: Material(
-                                color: Theme.of(context)
-                                    .appBarTheme
-                                    .backgroundColor,
-                                borderRadius: BorderRadius.circular(64),
-                                elevation: 2,
-                                child: InkWell(
+                      HorizontalAccountList(
+                        accounts: controller.trendAccounts,
+                        onTap: controller.goToUser,
+                      ),
+                      const Divider(height: 1),
+                    ],
+                    if (controller.trends.isNotEmpty) ...[
+                      SizedBox(
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
+                          child: Text(
+                            L10n.of(context)!.trendingHashtags,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Wrap(
+                          alignment: WrapAlignment.center,
+                          children: [
+                            for (final hashtag in controller.trends)
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 4.0,
+                                  vertical: 4.0,
+                                ),
+                                child: Material(
+                                  color: Theme.of(context)
+                                      .appBarTheme
+                                      .backgroundColor,
                                   borderRadius: BorderRadius.circular(64),
-                                  onTap: () =>
-                                      controller.goToHashtag(hashtag.name),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0,
-                                      vertical: 4.0,
-                                    ),
-                                    child: Text(
-                                      '#${hashtag.name}',
-                                      style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16,
+                                  elevation: 1,
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(64),
+                                    onTap: () =>
+                                        controller.goToHashtag(hashtag.name),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0,
+                                        vertical: 4.0,
+                                      ),
+                                      child: Text(
+                                        '#${hashtag.name}',
+                                        style: TextStyle(
+                                          color: Theme.of(context).primaryColor,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    const Divider(height: 1),
+                      const Divider(height: 1),
+                    ],
                     StatusWidget(
                       status: controller.filteredTimeline[i],
                       onUpdate: controller.onUpdateStatus,

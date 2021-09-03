@@ -440,6 +440,13 @@ class FluffyPix {
             (json['chunk'] as List).map((j) => Hashtag.fromJson(j)).toList(),
       );
 
+  Future<List<Account>> getTrendAccounts({int limit = 10}) =>
+      request(RequestType.get, '/api/v1/directory',
+          query: {'limit': limit.toString()}).then(
+        (json) =>
+            (json['chunk'] as List).map((j) => Account.fromJson(j)).toList(),
+      );
+
   Future<AccessTokenCredentials> obtainToken(
     String clientId,
     String clientSecret,

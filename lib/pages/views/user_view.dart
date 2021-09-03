@@ -87,6 +87,7 @@ class UserPageView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Spacer(),
                     Material(
@@ -112,6 +113,15 @@ class UserPageView extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text('@${controller.account?.acct}'),
+                        if (controller.account?.note.isNotEmpty ?? false)
+                          SizedBox(
+                            width: 256,
+                            child: Text(
+                              controller.account!.pureNote,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                          ),
                         const SizedBox(height: 16),
                         if (controller.isOwnUser)
                           OutlinedButton.icon(
