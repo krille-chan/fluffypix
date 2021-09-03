@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/widgets/avatar.dart';
 import 'package:fluffypix/widgets/nav_scaffold.dart';
@@ -6,6 +7,7 @@ import 'package:fluffypix/widgets/status/status.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import '../../utils/int_short_string_extension.dart';
@@ -82,6 +84,12 @@ class UserPageView extends StatelessWidget {
                         ? controller.account!.header
                         : controller.account!.headerStatic,
                     fit: BoxFit.cover,
+                    progressIndicatorBuilder: (_, __, ___) => const SizedBox(
+                      height: 128,
+                      child: BlurHash(
+                        hash: AppConfigs.fallbackBlurHash,
+                      ),
+                    ),
                   ),
                 ),
               Padding(

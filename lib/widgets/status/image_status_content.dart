@@ -1,14 +1,12 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:simple_html_css/simple_html_css.dart';
 
 enum ImageType { image, avatar, missing }
@@ -57,20 +55,6 @@ class ImageStatusContent extends StatelessWidget {
     return ImageType.missing;
   }
 
-  Widget blurHashBuilder(_, __, ___) => SizedBox(
-        height: imageStatusMode == ImageStatusMode.discover ? null : 256,
-        child: Stack(
-          children: [
-            BlurHash(
-                hash: status.mediaAttachments.isEmpty
-                    ? AppConfigs.fallbackBlurHash
-                    : status.mediaAttachments.first.blurhash ??
-                        AppConfigs.fallbackBlurHash),
-            if (imageStatusMode != ImageStatusMode.discover)
-              const Center(child: CupertinoActivityIndicator()),
-          ],
-        ),
-      );
   @override
   Widget build(BuildContext context) {
     if (imageStatusMode == ImageStatusMode.discover) {
@@ -78,8 +62,6 @@ class ImageStatusContent extends StatelessWidget {
         onTap: () => Navigator.of(context).pushNamed('/status/${status.id}'),
         child: CachedNetworkImage(
           imageUrl: _imageUrl(context),
-          progressIndicatorBuilder: blurHashBuilder,
-          errorWidget: blurHashBuilder,
           fit: BoxFit.cover,
         ),
       );
@@ -106,8 +88,6 @@ class ImageStatusContent extends StatelessWidget {
                   ? null
                   : double.infinity,
               fit: BoxFit.fill,
-              progressIndicatorBuilder: blurHashBuilder,
-              errorWidget: blurHashBuilder,
             ),
           if (displayBigText)
             Container(

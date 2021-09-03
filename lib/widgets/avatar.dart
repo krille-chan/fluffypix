@@ -12,6 +12,7 @@ class Avatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
+      backgroundColor: Theme.of(context).secondaryHeaderColor,
       backgroundImage: CachedNetworkImageProvider(
         FluffyPix.of(context).allowAnimatedAvatars
             ? account.avatar

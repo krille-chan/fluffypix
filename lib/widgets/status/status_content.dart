@@ -1,3 +1,4 @@
+import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/status/image_status_content.dart';
@@ -28,6 +29,10 @@ class _StatusContentState extends State<StatusContent> {
     final hide = widget.status.sensitive && !unlocked;
     final content = hide
         ? SensitiveContent(
+            blurHash: widget.status.mediaAttachments.isEmpty
+                ? AppConfigs.fallbackBlurHash
+                : widget.status.mediaAttachments.first.blurhash ??
+                    AppConfigs.fallbackBlurHash,
             onUnlock: () => setState(() => unlocked = true),
           )
         : ImageStatusContent(
