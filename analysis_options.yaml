@@ -3,3 +3,6 @@ include: package:flutter_lints/flutter.yaml
 linter:
   rules:
     avoid_print: true
+analyzer:
+  exclude:
+    - "lib/generated_plugin_registrant.dart"
