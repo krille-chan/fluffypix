@@ -157,19 +157,21 @@ class SearchPageView extends StatelessWidget {
                           enablePullUp: controller.timeline.isNotEmpty,
                           onRefresh: controller.refresh,
                           onLoading: controller.loadMore,
-                          child: GridView.builder(
-                            controller: controller.scrollController,
-                            itemCount: controller.timeline.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              childAspectRatio: 1,
-                            ),
-                            itemBuilder: (context, i) => StatusContent(
-                              status: controller.timeline[i],
-                              imageStatusMode: ImageStatusMode.discover,
-                            ),
-                          ),
+                          child: controller.timeline.isEmpty
+                              ? Center(child: Text(L10n.of(context)!.suchEmpty))
+                              : GridView.builder(
+                                  controller: controller.scrollController,
+                                  itemCount: controller.timeline.length,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    childAspectRatio: 1,
+                                  ),
+                                  itemBuilder: (context, i) => StatusContent(
+                                    status: controller.timeline[i],
+                                    imageStatusMode: ImageStatusMode.discover,
+                                  ),
+                                ),
                         )
                       : SmartRefresher(
                           controller: controller.refreshController,
@@ -177,14 +179,16 @@ class SearchPageView extends StatelessWidget {
                           enablePullUp: controller.timeline.isNotEmpty,
                           onRefresh: controller.refresh,
                           onLoading: controller.loadMore,
-                          child: ListView.builder(
-                            controller: controller.scrollController,
-                            itemCount: controller.timeline.length,
-                            itemBuilder: (context, i) => StatusWidget(
-                              status: controller.timeline[i],
-                              onUpdate: controller.onUpdateStatus,
-                            ),
-                          ),
+                          child: controller.timeline.isEmpty
+                              ? Center(child: Text(L10n.of(context)!.suchEmpty))
+                              : ListView.builder(
+                                  controller: controller.scrollController,
+                                  itemCount: controller.timeline.length,
+                                  itemBuilder: (context, i) => StatusWidget(
+                                    status: controller.timeline[i],
+                                    onUpdate: controller.onUpdateStatus,
+                                  ),
+                                ),
                         ),
                 ),
                 const Divider(height: 1),

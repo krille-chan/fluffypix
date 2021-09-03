@@ -146,22 +146,24 @@ class FluffyPix {
       );
       ownAccount = await verifyAccountCredentials();
     } catch (_) {
-      await logout();
+      await logout(revoke: false);
       rethrow;
     }
     return _save();
   }
 
-  Future<void> logout() async {
+  Future<void> logout({bool revoke = true}) async {
     try {
       final createApplicationResponse = CreateApplicationResponse.fromJson(
         convertToJson(_box.get('createApplicationResponse')),
       );
-      await revokeToken(
-        createApplicationResponse.clientId,
-        createApplicationResponse.clientSecret,
-        accessTokenCredentials!.accessToken,
-      );
+      if (revoke) {
+        await revokeToken(
+          createApplicationResponse.clientId,
+          createApplicationResponse.clientSecret,
+          accessTokenCredentials!.accessToken,
+        );
+      }
     } finally {
       accessTokenCredentials = instance = ownAccount = null;
       await _box.delete(AppConfigs.hiveBoxAccountKey);

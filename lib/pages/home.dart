@@ -51,8 +51,8 @@ class HomePageController extends State<HomePage> {
       setState(() {});
       try {
         if (!wideColumnMode) {
-          trends = await FluffyPix.of(context).getTrends();
           trendAccounts = await FluffyPix.of(context).getTrendAccounts();
+          trends = await FluffyPix.of(context).getTrends();
           setState(() {});
         }
       } catch (e, s) {

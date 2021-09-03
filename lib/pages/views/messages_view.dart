@@ -22,15 +22,17 @@ class MessagesPageView extends StatelessWidget {
         enablePullUp: controller.timeline.isNotEmpty,
         onRefresh: controller.refresh,
         onLoading: controller.loadMore,
-        child: ListView.builder(
-          controller: controller.scrollController,
-          itemCount: controller.timeline.length,
-          itemBuilder: (context, i) => StatusWidget(
-            status: controller.timeline[i],
-            onUpdate: controller.onUpdateStatus,
-            replyMode: true,
-          ),
-        ),
+        child: controller.timeline.isEmpty
+            ? Center(child: Text(L10n.of(context)!.suchEmpty))
+            : ListView.builder(
+                controller: controller.scrollController,
+                itemCount: controller.timeline.length,
+                itemBuilder: (context, i) => StatusWidget(
+                  status: controller.timeline[i],
+                  onUpdate: controller.onUpdateStatus,
+                  replyMode: true,
+                ),
+              ),
       ),
       scrollController: controller.scrollController,
       currentIndex: 6,

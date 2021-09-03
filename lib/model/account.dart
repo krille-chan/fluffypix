@@ -5,8 +5,8 @@ class Account {
   final String username;
   final String acct;
   final String displayName;
-  final bool locked;
-  final bool bot;
+  final bool? locked;
+  final bool? bot;
   final bool? discoverable;
   final bool? group;
   final String createdAt;
@@ -21,7 +21,7 @@ class Account {
   final int? statusesCount;
   final String? lastStatusAt;
   final List<Object> emojis;
-  final List<Field>? fields;
+  final List<Field> fields;
 
   const Account({
     required this.id,
@@ -51,29 +51,29 @@ class Account {
         id: json['id'],
         username: json['username'],
         acct: json['acct'],
-        displayName: json['display_name'],
+        displayName: json['display_name'] ?? '',
         locked: json['locked'],
         bot: json['bot'],
         discoverable: json['discoverable'],
         group: json['group'],
-        createdAt: json['created_at'],
-        note: json['note'],
-        url: json['url'],
-        avatar: json['avatar'],
-        avatarStatic: json['avatar_static'],
-        header: json['header'],
-        headerStatic: json['header_static'],
+        createdAt: json['created_at'] ?? '',
+        note: json['note'] ?? '',
+        url: json['url'] ?? '',
+        avatar: json['avatar'] ?? '',
+        avatarStatic: json['avatar_static'] ?? '',
+        header: json['header'] ?? '',
+        headerStatic: json['header_static'] ?? '',
         followersCount: json['followers_count'] is String
             ? int.parse(json['followers_count'])
             : json['followers_count'],
         followingCount: json['following_count'] is String
             ? int.parse(json['following_count'])
             : json['following_count'],
-        statusesCount: json['statuses_count'],
-        lastStatusAt: json['last_status_at'],
-        emojis: List<Object>.from(json['emojis']),
+        statusesCount: json['statuses_count'] ?? 0,
+        lastStatusAt: json['last_status_at'] ?? '',
+        emojis: json['emojis'] == null ? [] : List<Object>.from(json['emojis']),
         fields: json['fields'] == null
-            ? null
+            ? []
             : (json['fields'] as List)
                 .map((i) => Field.fromJson(Map<String, dynamic>.from(i)))
                 .toList(),
@@ -83,8 +83,8 @@ class Account {
         'username': username,
         'acct': acct,
         'display_name': displayName,
-        'locked': locked,
-        'bot': bot,
+        if (locked != null) 'locked': locked,
+        if (bot != null) 'bot': bot,
         if (discoverable != null) 'discoverable': discoverable,
         if (group != null) 'group': group,
         'created_at': createdAt,
@@ -99,7 +99,7 @@ class Account {
         if (statusesCount != null) 'statuses_count': statusesCount,
         if (lastStatusAt != null) 'last_status_at': lastStatusAt,
         'emojis': List<Object>.from(emojis),
-        if (fields != null) 'fields': fields!.map((i) => i.toJson()).toList(),
+        'fields': fields.map((i) => i.toJson()).toList(),
       };
 
   String get pureNote => note.replaceAll(RegExp(r'<[^>]*>'), '');

@@ -194,7 +194,7 @@ class UserPageView extends StatelessWidget {
                   child: Wrap(
                     alignment: WrapAlignment.center,
                     children: [
-                      for (final field in controller.account!.fields!)
+                      for (final field in controller.account!.fields)
                         Padding(
                           padding: const EdgeInsets.all(0.0),
                           child: InkWell(

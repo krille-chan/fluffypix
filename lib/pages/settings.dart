@@ -56,13 +56,16 @@ class SettingsPageController extends State<SettingsPage> {
     setState(() {
       logoutLoading = true;
     });
-    await FluffyPix.of(context).logout();
-    setState(() {
-      logoutLoading = false;
-    });
-    await Navigator.of(context).pushAndRemoveUntil(
-        CupertinoPageRoute(builder: (_) => const LoginPage()),
-        (route) => false);
+    try {
+      await FluffyPix.of(context).logout();
+    } finally {
+      setState(() {
+        logoutLoading = false;
+      });
+      await Navigator.of(context).pushAndRemoveUntil(
+          CupertinoPageRoute(builder: (_) => const LoginPage()),
+          (route) => false);
+    }
   }
 
   void aboutAction() async {
