@@ -181,16 +181,35 @@ class _StatusWidgetState extends State<StatusWidget> {
   @override
   Widget build(BuildContext context) {
     final badgePosition = BadgePosition.topEnd(top: 0, end: 0);
-    final displayName = widget.status.account.displayName.isEmpty
-        ? widget.status.account.username
-        : widget.status.account.displayName;
+    final author = widget.status.reblog?.account ?? widget.status.account;
+    final displayName =
+        author.displayName.isEmpty ? author.username : author.displayName;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        if (widget.status.reblog != null)
+          ListTile(
+            leading: const Padding(
+              padding: EdgeInsets.only(left: 18.0),
+              child: Icon(
+                CupertinoIcons.repeat,
+                color: Colors.green,
+                size: 20,
+              ),
+            ),
+            title: Text(
+              L10n.of(context)!.userShared(
+                widget.status.account.displayName.isNotEmpty
+                    ? widget.status.account.displayName
+                    : widget.status.account.username,
+              ),
+              style: const TextStyle(fontSize: 12),
+            ),
+          ),
         ListTile(
           onTap: () => Navigator.of(context)
               .pushNamed('/user/${widget.status.account.id}'),
-          leading: Avatar(account: widget.status.account),
+          leading: Avatar(account: author),
           title: Text(
             displayName,
             style: const TextStyle(fontWeight: FontWeight.bold),
@@ -198,7 +217,7 @@ class _StatusWidgetState extends State<StatusWidget> {
             overflow: TextOverflow.ellipsis,
           ),
           subtitle: Text(
-            '@${widget.status.account.acct}',
+            '@${author.acct}',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),

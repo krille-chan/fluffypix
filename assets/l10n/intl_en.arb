@@ -109,6 +109,13 @@
         "name": {}
         }
     },
+    "userShared": "{name} shared",
+    "@userShared": {
+        "type": "text",
+        "placeholders": {
+        "name": {}
+        }
+    },
     "sharedYourPost": "<b>{name}</b> shared your post.",
     "@sharedYourPost": {
         "type": "text",

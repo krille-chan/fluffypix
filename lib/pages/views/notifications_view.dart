@@ -137,7 +137,7 @@ extension on PushNotification {
       case NotificationType.follow_request:
         return CupertinoIcons.square_favorites_alt;
       case NotificationType.reblog:
-        return CupertinoIcons.share_solid;
+        return CupertinoIcons.repeat;
       case NotificationType.poll:
         return CupertinoIcons.info_circle_fill;
       case NotificationType.status:

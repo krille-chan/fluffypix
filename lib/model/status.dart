@@ -24,7 +24,7 @@ class Status {
   final bool? muted;
   final bool? bookmarked;
   final String? content;
-  final Object? reblog;
+  final Status? reblog;
   final Application? application;
   final Account account;
   final List<MediaAttachment> mediaAttachments;
@@ -84,7 +84,7 @@ class Status {
         muted: json['muted'],
         bookmarked: json['bookmarked'],
         content: json['content'],
-        reblog: json['reblog'],
+        reblog: json['reblog'] != null ? Status.fromJson(json['reblog']) : null,
         application: json['application'] == null
             ? null
             : Application.fromJson(json['application']),
@@ -120,7 +120,7 @@ class Status {
         'muted': muted,
         'bookmarked': bookmarked,
         'content': content,
-        if (reblog != null) 'reblog': reblog,
+        if (reblog != null) 'reblog': reblog!.toJson(),
         if (application != null) 'application': application!.toJson(),
         'account': account.toJson(),
         'media_attachments': mediaAttachments.map((m) => m.toJson()).toList(),
