@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/widgets/avatar.dart';
-import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
+import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:fluffypix/widgets/status/status.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,7 +20,7 @@ class UserPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return NavScaffold(
       appBar: AppBar(
         title: Text(L10n.of(context)!.profile),
         actions: [
@@ -341,10 +341,8 @@ class UserPageView extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: DefaultBottomBar(
-        currentIndex: controller.isOwnUser ? 4 : null,
-        scrollController: controller.scrollController,
-      ),
+      currentIndex: controller.isOwnUser ? 4 : null,
+      scrollController: controller.scrollController,
     );
   }
 }

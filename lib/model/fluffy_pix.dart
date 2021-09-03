@@ -433,6 +433,12 @@ class FluffyPix {
         (json) => SearchResult.fromJson(json),
       );
 
+  Future<List<Hashtag>> getTrends() =>
+      request(RequestType.get, '/api/v1/trends').then(
+        (json) =>
+            (json['chunk'] as List).map((j) => Hashtag.fromJson(j)).toList(),
+      );
+
   Future<AccessTokenCredentials> obtainToken(
     String clientId,
     String clientSecret,

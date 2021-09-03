@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:fluffypix/model/fluffy_pix.dart';
+import 'package:fluffypix/model/search_result.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/pages/views/home_view.dart';
+import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -27,13 +30,25 @@ class HomePageController extends State<HomePage> {
       timeline.where((status) => status.inReplyToId == null).toList();
   List<Status> localReplies(String statusId) =>
       timeline.where((status) => status.inReplyToId == statusId).toList();
+  List<Hashtag> trends = [];
 
   final refreshController = RefreshController(initialRefresh: false);
   final scrollController = ScrollController();
 
+  bool get columnMode =>
+      MediaQuery.of(context).size.width > NavScaffold.columnWidth * 3 + 3;
+
+  bool get wideColumnMode =>
+      MediaQuery.of(context).size.width > NavScaffold.columnWidth * 4 + 3;
+
   void refresh() async {
     try {
       timeline = await FluffyPix.of(context).requestHomeTimeline();
+      try {
+        if (!wideColumnMode) trends = await FluffyPix.of(context).getTrends();
+      } catch (e, s) {
+        log('Unable to load trends', error: e, stackTrace: s);
+      }
       FluffyPix.of(context)
           .storeCachedTimeline<Status>('home', timeline, (t) => t.toJson());
       setState(() {});
@@ -83,7 +98,7 @@ class HomePageController extends State<HomePage> {
   }
 
   void settingsAction() => Navigator.of(context).pushNamed('/settings');
-
+  void goToHashtag(String tag) => Navigator.of(context).pushNamed('/tags/$tag');
   void goToMessages() => Navigator.of(context).pushNamed('/messages');
 
   StreamSubscription? _intentTextStreamSubscription;
@@ -124,6 +139,12 @@ class HomePageController extends State<HomePage> {
           arguments: value);
     });
   }
+
+  void scrollTop() => scrollController.animateTo(
+        0,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.ease,
+      );
 
   @override
   void initState() {

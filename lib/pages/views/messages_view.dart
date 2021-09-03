@@ -1,4 +1,4 @@
-import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
+import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:fluffypix/widgets/status/status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -12,7 +12,7 @@ class MessagesPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return NavScaffold(
       appBar: AppBar(
         title: Text(L10n.of(context)!.messages),
       ),
@@ -32,9 +32,8 @@ class MessagesPageView extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: DefaultBottomBar(
-        scrollController: controller.scrollController,
-      ),
+      scrollController: controller.scrollController,
+      currentIndex: 6,
     );
   }
 }

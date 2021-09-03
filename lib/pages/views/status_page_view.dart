@@ -1,5 +1,5 @@
 import 'package:fluffypix/pages/status.dart';
-import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
+import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:fluffypix/widgets/status/status.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ class StatusPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return NavScaffold(
       appBar: AppBar(title: Text(L10n.of(context)!.viewPost)),
       body: SmartRefresher(
         controller: controller.refreshController,
@@ -88,9 +88,7 @@ class StatusPageView extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: DefaultBottomBar(
-        scrollController: controller.scrollController,
-      ),
+      scrollController: controller.scrollController,
     );
   }
 }

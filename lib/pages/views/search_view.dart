@@ -1,5 +1,5 @@
 import 'package:fluffypix/widgets/avatar.dart';
-import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
+import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:fluffypix/widgets/status/status.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,7 +15,7 @@ class SearchPageView extends StatelessWidget {
   const SearchPageView(this.controller, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return NavScaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         titleSpacing: 0,
@@ -203,10 +203,8 @@ class SearchPageView extends StatelessWidget {
                 ),
               ),
             ),
-      bottomNavigationBar: DefaultBottomBar(
-        currentIndex: 1,
-        scrollController: controller.scrollController,
-      ),
+      currentIndex: 1,
+      scrollController: controller.scrollController,
     );
   }
 }

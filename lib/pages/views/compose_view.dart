@@ -1,4 +1,4 @@
-import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
+import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -12,7 +12,7 @@ class ComposePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return NavScaffold(
       appBar: AppBar(
         title: Text(controller.widget.dmUser != null
             ? L10n.of(context)!.newMessage
@@ -104,7 +104,7 @@ class ComposePageView extends StatelessWidget {
                 ),
               ],
             ),
-      bottomNavigationBar: const DefaultBottomBar(currentIndex: 2),
+      currentIndex: 2,
     );
   }
 }

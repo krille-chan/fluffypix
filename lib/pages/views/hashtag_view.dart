@@ -1,5 +1,5 @@
 import 'package:fluffypix/pages/hashtag.dart';
-import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
+import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:fluffypix/widgets/status/status.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -11,7 +11,7 @@ class HashtagPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return NavScaffold(
       appBar: AppBar(
         title: Text('#${controller.widget.hashtag}'),
       ),
@@ -32,9 +32,7 @@ class HashtagPageView extends StatelessWidget {
                 ),
               ),
       ),
-      bottomNavigationBar: DefaultBottomBar(
-        scrollController: controller.scrollController,
-      ),
+      scrollController: controller.scrollController,
     );
   }
 }

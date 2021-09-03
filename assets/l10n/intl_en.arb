@@ -67,6 +67,8 @@
     "about": "About",
     "help": "Help",
     "privacy": "Privacy",
+    "notifications": "Notifications",
+    "home": "Home",
     "allowAnimatedAvatars": "Allow animated avatars",
     "displayThumbnailsOnly": "Display thumbnails only",
     "openCamera": "Open camera",

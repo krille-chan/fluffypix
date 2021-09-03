@@ -1,3 +1,4 @@
+import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
@@ -10,7 +11,7 @@ class SettingsPageView extends StatelessWidget {
   const SettingsPageView(this.controller, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return NavScaffold(
       appBar: AppBar(
         title: Text(L10n.of(context)!.settings),
       ),
@@ -57,6 +58,7 @@ class SettingsPageView extends StatelessWidget {
           ),
         ],
       ),
+      currentIndex: 5,
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:fluffypix/model/notification.dart';
 import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/avatar.dart';
-import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
+import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:fluffypix/widgets/status/image_status_content.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +19,7 @@ class NotificationsPageView extends StatelessWidget {
   const NotificationsPageView(this.controller, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return NavScaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text('Notifications'),
@@ -83,10 +83,8 @@ class NotificationsPageView extends StatelessWidget {
                 ),
               ),
       ),
-      bottomNavigationBar: DefaultBottomBar(
-        currentIndex: 3,
-        scrollController: controller.scrollController,
-      ),
+      currentIndex: 3,
+      scrollController: controller.scrollController,
     );
   }
 }

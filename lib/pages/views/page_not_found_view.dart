@@ -1,4 +1,4 @@
-import 'package:fluffypix/widgets/default_bottom_navigation_bar.dart';
+import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class PageNotFoundRouteView extends StatelessWidget {
@@ -6,12 +6,11 @@ class PageNotFoundRouteView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return NavScaffold(
       appBar: AppBar(),
       body: const Center(
         child: Text('Page not found...'),
       ),
-      bottomNavigationBar: const DefaultBottomBar(),
     );
   }
 }
