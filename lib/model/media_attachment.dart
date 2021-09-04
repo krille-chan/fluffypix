@@ -34,7 +34,7 @@ class MediaAttachment {
         remoteUrl = Uri.tryParse(json['remote_url'] ?? ''),
         previewRemoteUrl = Uri.tryParse(json['prewview_remote_url'] ?? ''),
         textUrl = Uri.tryParse(json['text_url'] ?? ''),
-        meta = (json['meta'] as Map).toJson(),
+        meta = json['meta'] == null ? null : (json['meta'] as Map).toJson(),
         description = json['description'],
         blurhash = json['blurhash'];
 

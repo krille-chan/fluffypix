@@ -52,23 +52,25 @@ class _TrendingHashtagsCardState extends State<TrendingHashtagsCard> {
                 future: trendsFuture,
                 builder: (context, snapshot) =>
                     snapshot.connectionState == ConnectionState.done
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: snapshot.data!
-                                .map(
-                                  (tag) => ListTile(
-                                    title: Text(
-                                      '#${tag.name}',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    onTap: () => Navigator.of(context)
-                                        .pushNamed('/tags/${tag.name}'),
-                                  ),
-                                )
-                                .toList(),
-                          )
+                        ? snapshot.data?.isEmpty ?? true
+                            ? Text(L10n.of(context)!.suchEmpty)
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: snapshot.data!
+                                    .map(
+                                      (tag) => ListTile(
+                                        title: Text(
+                                          '#${tag.name}',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        onTap: () => Navigator.of(context)
+                                            .pushNamed('/tags/${tag.name}'),
+                                      ),
+                                    )
+                                    .toList(),
+                              )
                         : const Center(child: CupertinoActivityIndicator()),
               ),
             ),

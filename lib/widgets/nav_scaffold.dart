@@ -160,10 +160,12 @@ class NavScaffold extends StatelessWidget {
                     selected: currentIndex == 6,
                   ),
                   ListTile(
-                    leading: Avatar(
-                      account: FluffyPix.of(context).ownAccount!,
-                      radius: 12,
-                    ),
+                    leading: FluffyPix.of(context).ownAccount == null
+                        ? null
+                        : Avatar(
+                            account: FluffyPix.of(context).ownAccount!,
+                            radius: 12,
+                          ),
                     title: Text(L10n.of(context)!.account),
                     selected: currentIndex == 4,
                     onTap: () => onTap(4, context),

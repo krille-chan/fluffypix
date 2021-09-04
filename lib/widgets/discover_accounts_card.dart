@@ -49,14 +49,16 @@ class _DiscoverAccountsCardState extends State<DiscoverAccountsCard> {
               padding: const EdgeInsets.all(8.0),
               child: FutureBuilder<List<Account>>(
                 future: trendsFuture,
-                builder: (context, snapshot) =>
-                    snapshot.connectionState == ConnectionState.done
-                        ? HorizontalAccountList(
+                builder: (context, snapshot) => snapshot.connectionState ==
+                        ConnectionState.done
+                    ? snapshot.data?.isEmpty ?? true
+                        ? Text(L10n.of(context)!.suchEmpty)
+                        : HorizontalAccountList(
                             accounts: snapshot.data!,
                             onTap: (id) =>
                                 Navigator.of(context).pushNamed('/user/$id'),
                           )
-                        : const Center(child: CupertinoActivityIndicator()),
+                    : const Center(child: CupertinoActivityIndicator()),
               ),
             ),
           ],
