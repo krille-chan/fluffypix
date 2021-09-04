@@ -50,7 +50,6 @@ class _InstanceListItemState extends State<InstanceListItem> {
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,
-              loadingBuilder: _placeholderBuilder,
               errorBuilder: _placeholderBuilder,
             ),
             Positioned(
