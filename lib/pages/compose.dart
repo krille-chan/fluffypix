@@ -31,12 +31,12 @@ class ComposePage extends StatefulWidget {
 }
 
 class ComposePageController extends State<ComposePage> {
-  final TextEditingController statusController = TextEditingController();
-  bool sensitive = false;
-  StatusVisibility visibility = StatusVisibility.public;
+  static final TextEditingController statusController = TextEditingController();
+  static bool sensitive = false;
+  static StatusVisibility visibility = StatusVisibility.public;
   bool loading = false;
   bool loadingPhoto = false;
-  List<ToUploadFile> media = [];
+  static List<ToUploadFile> media = [];
 
   void toggleSensitive([_]) => setState(() => sensitive = !sensitive);
 
