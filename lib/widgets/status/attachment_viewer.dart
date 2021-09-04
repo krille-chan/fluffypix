@@ -33,12 +33,13 @@ class AttachmentViewer extends StatelessWidget {
         );
       case MediaType.video:
         if (imageStatusMode == ImageStatusMode.discover) continue image;
-        if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
+        //TODO: Fix videoplayer
+        /*if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
           return _AttachVideoViewer(
             attachment: attachment,
             imageStatusMode: imageStatusMode,
           );
-        }
+        }*/
         return _PlayInBrowserButton(
           attachment: attachment,
           imageStatusMode: imageStatusMode,
@@ -125,6 +126,8 @@ class _AttachmentImageViewer extends StatelessWidget {
       imageUrl: thumbnailOnly
           ? attachment.previewUrl.toString()
           : attachment.url.toString(),
+      progressIndicatorBuilder: (_, __, ___) =>
+          const Center(child: CupertinoActivityIndicator()),
       width:
           imageStatusMode == ImageStatusMode.discover ? double.infinity : width,
       height: imageStatusMode == ImageStatusMode.discover
