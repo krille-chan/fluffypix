@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -17,6 +18,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:webcrypto/webcrypto.dart';
+import 'package:firebase_core/firebase_core.dart';
 import '../utils/convert_to_json.dart';
 import 'account.dart';
 import 'conversation.dart';

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final fluffyPix = FluffyPix();
   await fluffyPix.initialized;
   runApp(FluffyPixApp(fluffyPix: fluffyPix));
