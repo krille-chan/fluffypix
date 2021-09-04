@@ -1,10 +1,9 @@
+import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/widgets/status/attachment_viewer.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../nav_scaffold.dart';
 
 class StatusContentSlider extends StatefulWidget {
   final ImageStatusMode imageStatusMode;
@@ -68,10 +67,9 @@ class _StatusContentSliderState extends State<StatusContentSlider> {
         imageStatusMode: widget.imageStatusMode,
       );
     }
-    final width =
-        (MediaQuery.of(context).size.width > (NavScaffold.columnWidth * 3 + 3))
-            ? NavScaffold.columnWidth * 2
-            : MediaQuery.of(context).size.width;
+    final width = AppThemes.isColumnMode(context)
+        ? AppThemes.columnWidth * 2
+        : MediaQuery.of(context).size.width;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

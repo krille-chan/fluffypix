@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
@@ -66,26 +65,6 @@ class SettingsPageController extends State<SettingsPage> {
           CupertinoPageRoute(builder: (_) => const LoginPage()),
           (route) => false);
     }
-  }
-
-  void aboutAction() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    showAboutDialog(
-      context: context,
-      applicationName: AppConfigs.applicationName,
-      applicationVersion: packageInfo.version,
-      applicationIcon: Image.asset(
-        'assets/images/logo.png',
-        width: 56,
-        height: 56,
-      ),
-      children: [
-        OutlinedButton(
-          onPressed: () => launch(AppConfigs.applicationWebsite),
-          child: Text(L10n.of(context)!.website),
-        ),
-      ],
-    );
   }
 
   void helpAction() => launch(AppConfigs.issueUrl);

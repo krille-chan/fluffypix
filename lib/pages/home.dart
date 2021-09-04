@@ -2,13 +2,13 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/model/account.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/search_result.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/model/status_visibility.dart';
 import 'package:fluffypix/pages/views/home_view.dart';
-import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -41,18 +41,12 @@ class HomePageController extends State<HomePage> {
   final refreshController = RefreshController(initialRefresh: false);
   final scrollController = ScrollController();
 
-  bool get columnMode =>
-      MediaQuery.of(context).size.width > NavScaffold.columnWidth * 3 + 3;
-
-  bool get wideColumnMode =>
-      MediaQuery.of(context).size.width > NavScaffold.columnWidth * 4 + 3;
-
   void refresh() async {
     try {
       timeline = await FluffyPix.of(context).requestHomeTimeline();
       setState(() {});
       try {
-        if (!wideColumnMode) {
+        if (!AppThemes.isWideColumnMode(context)) {
           trendAccounts = await FluffyPix.of(context).getTrendAccounts();
           trends = await FluffyPix.of(context).getTrends();
           setState(() {});

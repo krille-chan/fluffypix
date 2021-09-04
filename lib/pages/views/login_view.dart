@@ -1,9 +1,14 @@
+import 'package:fluffypix/config/app_configs.dart';
+import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/model/public_instance.dart';
 import 'package:fluffypix/pages/login.dart';
+import 'package:fluffypix/utils/custom_about_dialog.dart';
 import 'package:fluffypix/widgets/instance_list_item.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginPageView extends StatelessWidget {
   final LoginPageController controller;
@@ -11,10 +16,16 @@ class LoginPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final scaffold = Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(L10n.of(context)!.pickACommunity),
+        actions: [
+          IconButton(
+            icon: const Icon(CupertinoIcons.info),
+            onPressed: () => showCustomAboutDialog(context),
+          ),
+        ],
       ),
       body: FutureBuilder<List<PublicInstance>>(
           future: controller.publicInstancesFuture,
@@ -99,6 +110,63 @@ class LoginPageView extends StatelessWidget {
               ],
             );
           }),
+    );
+    if (!AppThemes.isColumnMode(context)) {
+      return scaffold;
+    }
+    return Scaffold(
+      body: Row(
+        children: [
+          const Spacer(),
+          SizedBox(
+            width: AppThemes.columnWidth,
+            child: ListView(
+              padding: const EdgeInsets.all(12.0),
+              children: [
+                Image.asset(
+                  'assets/images/logo.png',
+                  width: 56,
+                  height: 56,
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  AppConfigs.applicationName,
+                  style: TextStyle(fontSize: 24),
+                  textAlign: TextAlign.center,
+                ),
+                if (kIsWeb) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    L10n.of(context)!.tryOutMobileApps,
+                    textAlign: TextAlign.center,
+                  ),
+                  for (final app in AppConfigs.mobileApps)
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          onTap:
+                              app.link == null ? null : () => launch(app.link!),
+                          child: Opacity(
+                            opacity: app.link == null ? 0.5 : 1,
+                            child: Image.asset(
+                              app.asset,
+                              width: 164,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ],
+            ),
+          ),
+          Container(width: 1, color: Theme.of(context).dividerColor),
+          SizedBox(width: AppThemes.mainColumnWidth, child: scaffold),
+          Container(width: 1, color: Theme.of(context).dividerColor),
+          const Spacer(),
+        ],
+      ),
     );
   }
 }

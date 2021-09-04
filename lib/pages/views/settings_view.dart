@@ -1,3 +1,4 @@
+import 'package:fluffypix/utils/custom_about_dialog.dart';
 import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ class SettingsPageView extends StatelessWidget {
           ListTile(
             leading: const Icon(CupertinoIcons.info_circle),
             title: Text(L10n.of(context)!.about),
-            onTap: controller.aboutAction,
+            onTap: () => showCustomAboutDialog(context),
           ),
           ListTile(
             leading: const Icon(CupertinoIcons.question_circle),

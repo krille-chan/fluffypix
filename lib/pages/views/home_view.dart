@@ -1,4 +1,5 @@
 import 'package:fluffypix/config/app_configs.dart';
+import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/widgets/horizontal_account_list.dart';
 import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:fluffypix/widgets/status/status.dart';
@@ -17,7 +18,7 @@ class HomePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return NavScaffold(
       appBar: AppBar(
-        leading: controller.columnMode
+        leading: AppThemes.isColumnMode(context)
             ? IconButton(
                 icon: const Icon(CupertinoIcons.home),
                 onPressed: controller.scrollTop,
@@ -28,12 +29,12 @@ class HomePageView extends StatelessWidget {
               ),
         title: const Text(AppConfigs.applicationName),
         actions: [
-          if (controller.columnMode)
+          if (AppThemes.isColumnMode(context))
             IconButton(
               onPressed: controller.refreshController.requestRefresh,
               icon: const Icon(CupertinoIcons.refresh_circled),
             ),
-          if (!controller.columnMode)
+          if (!AppThemes.isColumnMode(context))
             IconButton(
               icon: const Icon(CupertinoIcons.mail),
               onPressed: controller.goToMessages,
@@ -49,7 +50,8 @@ class HomePageView extends StatelessWidget {
         child: ListView.builder(
           controller: controller.scrollController,
           itemCount: controller.filteredTimeline.length,
-          itemBuilder: (context, i) => i == 1 && !controller.wideColumnMode
+          itemBuilder: (context, i) => i == 1 &&
+                  !AppThemes.isWideColumnMode(context)
               ? Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

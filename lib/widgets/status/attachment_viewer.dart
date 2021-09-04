@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
+import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/media_attachment.dart';
 import 'package:fluffypix/utils/links_callback.dart';
-import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -112,10 +110,9 @@ class _AttachmentImageViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width =
-        (MediaQuery.of(context).size.width > (NavScaffold.columnWidth * 3 + 3))
-            ? NavScaffold.columnWidth * 2
-            : MediaQuery.of(context).size.width;
+    final width = AppThemes.isColumnMode(context)
+        ? AppThemes.columnWidth * 2
+        : MediaQuery.of(context).size.width;
     final thumbnailOnly = attachment.type != MediaType.image ||
         imageStatusMode == ImageStatusMode.discover ||
         FluffyPix.of(context).displayThumbnailsOnly;
@@ -153,10 +150,9 @@ class _PlayInBrowserButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width =
-        (MediaQuery.of(context).size.width > (NavScaffold.columnWidth * 3 + 3))
-            ? NavScaffold.columnWidth * 2
-            : MediaQuery.of(context).size.width;
+    final width = AppThemes.isColumnMode(context)
+        ? AppThemes.columnWidth * 2
+        : MediaQuery.of(context).size.width;
     final metaInfo =
         attachment.imageMeta.small ?? attachment.imageMeta.original;
     return SizedBox(

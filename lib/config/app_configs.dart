@@ -15,4 +15,25 @@ abstract class AppConfigs {
   static const Color primaryColorLight = Color(0xFFCCBDEA);
   static const Color secondaryColor = Color(0xFF41a2bc);
   static const String fallbackBlurHash = 'L5H2EC=PM+yV0g-mq.wG9c010J}I';
+  static const List<MobileApp> mobileApps = [
+    MobileApp(
+      null,
+      'assets/images/google-play-badge.png',
+    ),
+    MobileApp(
+      null,
+      'assets/images/fdroid-badge.png',
+    ),
+    MobileApp(
+      null,
+      'assets/images/appstore-badge.png',
+    ),
+  ];
+}
+
+class MobileApp {
+  final String? link;
+  final String asset;
+
+  const MobileApp(this.link, this.asset);
 }

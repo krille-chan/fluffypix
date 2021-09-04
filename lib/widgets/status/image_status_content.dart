@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/utils/links_callback.dart';
@@ -8,8 +9,6 @@ import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_html_css/simple_html_css.dart';
-
-import '../nav_scaffold.dart';
 
 enum ImageType { image, avatar, missing }
 
@@ -74,9 +73,8 @@ class ImageStatusContent extends StatelessWidget {
     if (_type != ImageType.missing &&
         (imageStatusMode != ImageStatusMode.reply ||
             _type == ImageType.image)) {
-      final width = (MediaQuery.of(context).size.width >
-              (NavScaffold.columnWidth * 3 + 3))
-          ? NavScaffold.columnWidth * 2
+      final width = AppThemes.isColumnMode(context)
+          ? AppThemes.mainColumnWidth
           : MediaQuery.of(context).size.width;
       final displayBigText =
           status.mediaAttachments.isEmpty && status.card?.image == null;

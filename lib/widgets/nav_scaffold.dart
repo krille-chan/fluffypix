@@ -1,3 +1,4 @@
+import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/widgets/trending_hashtags_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,8 +22,6 @@ class NavScaffold extends StatelessWidget {
     this.body,
     this.backgroundColor,
   }) : super(key: key);
-
-  static const double columnWidth = 300;
 
   void onTap(int index, BuildContext context) {
     if (index == currentIndex) {
@@ -72,19 +71,18 @@ class NavScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      final columnMode = constraints.maxWidth >= columnWidth * 3 + 3;
-      final wideColumnMode = constraints.maxWidth >= columnWidth * 4 + 3;
       final scaffold = Scaffold(
         appBar: appBar,
         body: body,
         backgroundColor: backgroundColor,
-        bottomNavigationBar: columnMode
+        bottomNavigationBar: AppThemes.isColumnMode(context)
             ? null
             : BottomNavigationBar(
-                currentIndex:
-                    (!columnMode && currentIndex != null && currentIndex! > 4)
-                        ? 4
-                        : currentIndex ?? 4,
+                currentIndex: (!AppThemes.isColumnMode(context) &&
+                        currentIndex != null &&
+                        currentIndex! > 4)
+                    ? 4
+                    : currentIndex ?? 4,
                 onTap: (i) => onTap(i, context),
                 items: [
                   BottomNavigationBarItem(
@@ -117,13 +115,13 @@ class NavScaffold extends StatelessWidget {
                 ],
               ),
       );
-      if (!columnMode) return scaffold;
+      if (!AppThemes.isColumnMode(context)) return scaffold;
       return Scaffold(
         body: Row(
           children: [
             const Spacer(),
             SizedBox(
-              width: columnWidth,
+              width: AppThemes.columnWidth,
               child: Column(
                 children: [
                   ListTile(
@@ -191,13 +189,13 @@ class NavScaffold extends StatelessWidget {
             ),
             Container(width: 1, color: Theme.of(context).dividerColor),
             SizedBox(
-              width: columnWidth * 2,
+              width: AppThemes.mainColumnWidth,
               child: scaffold,
             ),
             Container(width: 1, color: Theme.of(context).dividerColor),
-            if (wideColumnMode)
+            if (AppThemes.isWideColumnMode(context))
               SizedBox(
-                width: columnWidth * 1.25,
+                width: AppThemes.columnWidth * 1.25,
                 child: ListView(
                   children: const [
                     TrendingHashtagsCard(),

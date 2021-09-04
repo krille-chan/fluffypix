@@ -111,4 +111,13 @@ abstract class AppThemes {
         ),
     secondaryHeaderColor: const Color(0xff232543),
   );
+
+  static const double columnWidth = 300;
+  static const double mainColumnWidth = columnWidth * 2;
+
+  static bool isColumnMode(BuildContext context) =>
+      MediaQuery.of(context).size.width >= columnWidth * 3 + 3;
+
+  static bool isWideColumnMode(BuildContext context) =>
+      MediaQuery.of(context).size.width >= columnWidth * 4 + 3;
 }
