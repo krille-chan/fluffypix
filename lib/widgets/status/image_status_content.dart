@@ -63,15 +63,6 @@ class ImageStatusContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (imageStatusMode == ImageStatusMode.discover) {
-      return InkWell(
-        onTap: () => Navigator.of(context).pushNamed('/status/${status.id}'),
-        child: CachedNetworkImage(
-          imageUrl: _imageUrl(context),
-          fit: BoxFit.cover,
-        ),
-      );
-    }
     if (_type == ImageType.missing) {
       return Center(
           child: Image.asset(

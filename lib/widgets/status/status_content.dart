@@ -40,7 +40,7 @@ class _StatusContentState extends State<StatusContent> {
       );
     } else if (contentStatus.mediaAttachments.isNotEmpty) {
       content = StatusContentSlider(
-        attachments: contentStatus.mediaAttachments,
+        status: contentStatus,
         imageStatusMode: widget.imageStatusMode,
       );
     } else {

@@ -133,7 +133,7 @@ class Status {
         'media_attachments': mediaAttachments.map((m) => m.toJson()).toList(),
         'mentions': mentions.map((m) => m.toJson()).toList(),
         'tags': tags.map((m) => m.toJson()).toList(),
-        'emojis': List<Object>.from(emojis),
+        'emojis': emojis.map((m) => m.toJson()).toList(),
         if (card != null) 'card': card!.toJson(),
         if (poll != null) 'poll': poll,
       };

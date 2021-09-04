@@ -1,9 +1,17 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chewie/chewie.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/media_attachment.dart';
+import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:video_player/video_player.dart';
 
 class AttachmentViewer extends StatelessWidget {
   final MediaAttachment attachment;
@@ -16,36 +24,150 @@ class AttachmentViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final thumbnailOnly = imageStatusMode == ImageStatusMode.discover ||
-        FluffyPix.of(context).displayThumbnailsOnly;
+    switch (attachment.type) {
+      image:
+      case MediaType.image:
+        return _AttachmentImageViewer(
+          attachment: attachment,
+          imageStatusMode: imageStatusMode,
+        );
+      case MediaType.video:
+        if (imageStatusMode == ImageStatusMode.discover) continue image;
+        if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
+          return _AttachVideoViewer(
+            attachment: attachment,
+            imageStatusMode: imageStatusMode,
+          );
+        }
+        return _PlayInBrowserButton(
+          attachment: attachment,
+          imageStatusMode: imageStatusMode,
+        );
+      case MediaType.gifv:
+      case MediaType.audio:
+      case MediaType.unknown:
+        if (imageStatusMode == ImageStatusMode.discover) continue image;
+        return _PlayInBrowserButton(
+          attachment: attachment,
+          imageStatusMode: imageStatusMode,
+        );
+    }
+  }
+}
+
+class _AttachVideoViewer extends StatefulWidget {
+  final MediaAttachment attachment;
+  final ImageStatusMode imageStatusMode;
+  const _AttachVideoViewer({
+    required this.attachment,
+    required this.imageStatusMode,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  __AttachVideoViewerState createState() => __AttachVideoViewerState();
+}
+
+class __AttachVideoViewerState extends State<_AttachVideoViewer> {
+  late final VideoPlayerController _videoPlayerController;
+  ChewieController? _chewieController;
+
+  @override
+  void initState() {
+    super.initState();
+    _videoPlayerController =
+        VideoPlayerController.network(widget.attachment.url.toString());
+    _videoPlayerController.initialize().then((_) {
+      setState(() {
+        _chewieController = ChewieController(
+          videoPlayerController: _videoPlayerController,
+          autoPlay: !FluffyPix.of(context).displayThumbnailsOnly,
+          looping: true,
+        );
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final chewie = _chewieController;
+    if (chewie == null) {
+      return AttachmentViewer(
+          attachment: widget.attachment,
+          imageStatusMode: widget.imageStatusMode);
+    }
+    return Chewie(controller: chewie);
+  }
+}
+
+class _AttachmentImageViewer extends StatelessWidget {
+  final MediaAttachment attachment;
+  final ImageStatusMode imageStatusMode;
+  const _AttachmentImageViewer({
+    required this.attachment,
+    required this.imageStatusMode,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     final width =
         (MediaQuery.of(context).size.width > (NavScaffold.columnWidth * 3 + 3))
             ? NavScaffold.columnWidth * 2
             : MediaQuery.of(context).size.width;
-    switch (attachment.type) {
-      image:
-      case MediaType.image:
-      case MediaType.unknown:
-        final metaInfo = thumbnailOnly
-            ? attachment.imageMeta.small ?? attachment.imageMeta.original
-            : attachment.imageMeta.original;
-        return CachedNetworkImage(
-          imageUrl: thumbnailOnly
-              ? attachment.previewUrl.toString()
-              : attachment.url.toString(),
-          width: imageStatusMode == ImageStatusMode.discover ? null : width,
-          height: metaInfo?.aspect == null ? width : width / metaInfo!.aspect!,
-          fit: BoxFit.fill,
-        );
-      case MediaType.video:
-        // TODO: Handle this case.
-        continue image;
-      case MediaType.gifv:
-        // TODO: Handle this case.
-        continue image;
-      case MediaType.audio:
-        // TODO: Handle this case.
-        continue image;
-    }
+    final thumbnailOnly = imageStatusMode == ImageStatusMode.discover ||
+        FluffyPix.of(context).displayThumbnailsOnly;
+    final metaInfo = thumbnailOnly
+        ? attachment.imageMeta.small ?? attachment.imageMeta.original
+        : attachment.imageMeta.original;
+    return CachedNetworkImage(
+      imageUrl: thumbnailOnly
+          ? attachment.previewUrl.toString()
+          : attachment.url.toString(),
+      width:
+          imageStatusMode == ImageStatusMode.discover ? double.infinity : width,
+      height: imageStatusMode == ImageStatusMode.discover
+          ? double.infinity
+          : metaInfo?.aspect == null
+              ? width
+              : width / metaInfo!.aspect!,
+      fit: imageStatusMode == ImageStatusMode.discover
+          ? BoxFit.cover
+          : BoxFit.fill,
+    );
+  }
+}
+
+class _PlayInBrowserButton extends StatelessWidget {
+  final MediaAttachment attachment;
+  final ImageStatusMode imageStatusMode;
+  const _PlayInBrowserButton({
+    required this.attachment,
+    required this.imageStatusMode,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        _AttachmentImageViewer(
+          attachment: attachment,
+          imageStatusMode: imageStatusMode,
+        ),
+        Center(
+          child: FloatingActionButton.extended(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            foregroundColor: Theme.of(context).primaryColor,
+            icon: const Icon(CupertinoIcons.videocam),
+            label: Text(L10n.of(context)!.playInBrowser),
+            onPressed: () => linksCallback(
+              attachment.url.toString(),
+              context,
+            ),
+          ),
+        )
+      ],
+    );
   }
 }
