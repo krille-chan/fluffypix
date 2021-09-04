@@ -85,7 +85,7 @@ class __AttachVideoViewerState extends State<_AttachVideoViewer> {
           videoPlayerController: _videoPlayerController,
           autoPlay: !FluffyPix.of(context).displayThumbnailsOnly,
           looping: true,
-        );
+        )..setVolume(0);
       });
     });
   }

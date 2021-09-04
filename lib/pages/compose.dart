@@ -40,11 +40,12 @@ class ComposePageController extends State<ComposePage> {
 
   void toggleSensitive([_]) => setState(() => sensitive = !sensitive);
 
-  void addMedia() async {
+  void addMedia({bool video = false}) async {
     final source = (!kIsWeb && (Platform.isAndroid || Platform.isIOS))
         ? await showModalActionSheet<ImageSource>(
             context: context,
-            title: L10n.of(context)!.addMedia,
+            title:
+                video ? L10n.of(context)!.addVideo : L10n.of(context)!.addPhoto,
             actions: [
               SheetAction(
                 label: L10n.of(context)!.openCamera,
@@ -61,15 +62,21 @@ class ComposePageController extends State<ComposePage> {
         : ImageSource.gallery;
     if (source == null) return;
     setState(() => loadingPhoto = true);
-    final pick = await ImagePicker().pickImage(
-      source: source,
-      maxHeight: 2048,
-      maxWidth: 2048,
-      preferredCameraDevice: CameraDevice.front,
-    );
+    const maxSize = 2048.0;
+    final pick = video
+        ? await ImagePicker().pickVideo(
+            source: source,
+            preferredCameraDevice: CameraDevice.front,
+          )
+        : await ImagePicker().pickImage(
+            source: source,
+            maxHeight: maxSize,
+            maxWidth: maxSize,
+            preferredCameraDevice: CameraDevice.front,
+          );
     if (pick != null) {
       final bytes = await pick.readAsBytes();
-      setState(() => media.add(ToUploadFile(bytes, pick.name)));
+      setState(() => media.add(ToUploadFile(bytes, pick.name, video: video)));
     }
     setState(() => loadingPhoto = false);
   }
@@ -185,6 +192,7 @@ class ComposePageController extends State<ComposePage> {
 class ToUploadFile {
   final Uint8List bytes;
   final String filename;
+  final bool video;
 
-  ToUploadFile(this.bytes, this.filename);
+  ToUploadFile(this.bytes, this.filename, {this.video = false});
 }
