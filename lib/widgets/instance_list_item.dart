@@ -1,10 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/public_instance.dart';
 import 'package:fluffypix/pages/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 class InstanceListItem extends StatefulWidget {
@@ -30,6 +28,13 @@ class _InstanceListItemState extends State<InstanceListItem> {
     }
   }
 
+  Widget _placeholderBuilder(_, __, [___]) => Image.asset(
+        'assets/images/banner.png',
+        fit: BoxFit.cover,
+        height: double.infinity,
+        width: double.infinity,
+      );
+
   @override
   Widget build(BuildContext context) {
     final description = widget.instance.shortDescription ??
@@ -43,12 +48,10 @@ class _InstanceListItemState extends State<InstanceListItem> {
           children: [
             CachedNetworkImage(
               imageUrl: widget.instance.thumbnail ?? '',
-              progressIndicatorBuilder: (context, s, p) =>
-                  const Center(child: CupertinoActivityIndicator()),
               fit: BoxFit.cover,
               height: double.infinity,
-              errorWidget: (_, __, ___) =>
-                  const BlurHash(hash: AppConfigs.fallbackBlurHash),
+              placeholder: _placeholderBuilder,
+              errorWidget: _placeholderBuilder,
             ),
             Positioned(
               bottom: 0,
