@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
@@ -10,12 +11,14 @@ import 'package:fluffypix/model/relationships.dart';
 import 'package:fluffypix/model/search_result.dart';
 import 'package:fluffypix/model/status_context.dart';
 import 'package:fluffypix/model/status_visibility.dart';
+import 'package:fluffypix/model/stream_update.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
+import 'package:web_socket_channel/io.dart';
 import 'package:webcrypto/webcrypto.dart';
 import '../utils/convert_to_json.dart';
 import 'account.dart';
@@ -51,6 +54,7 @@ class FluffyPix {
     _box = await Hive.openBox(AppConfigs.hiveBoxName);
     final json = _box.get(AppConfigs.hiveBoxAccountKey);
     if (json != null) _loadFromJson(Map<String, dynamic>.from(json));
+    if (isLogged) subscribeToWebsocket();
     return;
   }
 
@@ -164,11 +168,12 @@ class FluffyPix {
         scope: 'read write follow push',
       );
       ownAccount = await verifyAccountCredentials();
+      subscribeToWebsocket();
+      return _save();
     } catch (_) {
       await logout(revoke: false);
       rethrow;
     }
-    return _save();
   }
 
   Future<void> logout({bool revoke = true}) async {
@@ -184,6 +189,7 @@ class FluffyPix {
         );
       }
     } finally {
+      unsubscribeToWebsocket();
       accessTokenCredentials = instance = ownAccount = null;
       await _box.delete(AppConfigs.hiveBoxAccountKey);
     }
@@ -635,4 +641,58 @@ class FluffyPix {
 
   bool get useDiscoverGridView => _box.get('useDiscoverGridView') ?? true;
   set useDiscoverGridView(bool b) => _box.put('useDiscoverGridView', b);
+
+  StreamSubscription? onUpdateSub;
+  IOWebSocketChannel? channel;
+
+  final StreamController<Status> onHomeTimelineUpdate =
+      StreamController.broadcast();
+  final StreamController<PushNotification> onNotificationUpdate =
+      StreamController.broadcast();
+  final StreamController<String> onDeleteStatusUpdate =
+      StreamController.broadcast();
+  final StreamController<void> onChangeFilterUpdate =
+      StreamController.broadcast();
+
+  void subscribeToWebsocket() async {
+    final uri = instance!.resolveUri(
+      Uri(
+        scheme: 'wss',
+        host: instance!.host,
+        path: '${instance!.path}api/v1/streaming',
+        queryParameters: {
+          'access_token': accessTokenCredentials!.accessToken,
+          'stream': 'user',
+        },
+      ),
+    );
+    final channel = IOWebSocketChannel.connect(uri.toString());
+    onUpdateSub = channel.stream.listen(_handleWebsocketUpdate);
+  }
+
+  void _handleWebsocketUpdate(dynamic data) {
+    final json = jsonDecode(data.toString()) as Map<String, dynamic>;
+    final update = StreamUpdate.fromJson(json);
+    switch (update.event) {
+      case StreamUpdateEvent.update:
+        onHomeTimelineUpdate.sink
+            .add(Status.fromJson(jsonDecode(update.payload)));
+        break;
+      case StreamUpdateEvent.notification:
+        onNotificationUpdate.sink
+            .add(PushNotification.fromJson(jsonDecode(update.payload)));
+        break;
+      case StreamUpdateEvent.delete:
+        onDeleteStatusUpdate.sink.add(update.payload);
+        break;
+      case StreamUpdateEvent.filters_changed:
+        onChangeFilterUpdate.sink.add(null);
+        break;
+    }
+  }
+
+  void unsubscribeToWebsocket() {
+    onUpdateSub?.cancel();
+    channel?.sink.close();
+  }
 }

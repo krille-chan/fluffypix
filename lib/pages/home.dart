@@ -37,6 +37,7 @@ class HomePageController extends State<HomePage> {
       timeline.where((status) => status.inReplyToId == statusId).toList();
   List<Hashtag> trends = [];
   List<Account> trendAccounts = [];
+  bool seeNewStatuses = false;
 
   final refreshController = RefreshController(initialRefresh: false);
   final scrollController = ScrollController();
@@ -147,11 +148,13 @@ class HomePageController extends State<HomePage> {
         curve: Curves.ease,
       );
 
-  void refreshIfScrolledTop() {
-    if (scrollController.position.atEdge &&
-        scrollController.position.pixels == 0) {
-      refreshController.requestRefresh();
-    }
+  late final StreamSubscription onHomeTimelineUpdate;
+
+  void seeNewStatusesAction() {
+    setState(() {
+      seeNewStatuses = false;
+    });
+    refreshController.requestRefresh();
   }
 
   @override
@@ -163,17 +166,25 @@ class HomePageController extends State<HomePage> {
       _initReceiveSharingIntent();
     }
     super.initState();
+    onHomeTimelineUpdate = FluffyPix.of(context)
+        .onHomeTimelineUpdate
+        .stream
+        .where((status) => status.visibility != StatusVisibility.direct)
+        .listen((_) {
+      setState(() {
+        seeNewStatuses = true;
+      });
+    });
     timeline = FluffyPix.of(context)
             .getCachedTimeline<Status>('home', (j) => Status.fromJson(j)) ??
         [];
-    scrollController.addListener(refreshIfScrolledTop);
   }
 
   @override
   void dispose() {
     _intentTextStreamSubscription?.cancel();
     _intentFileStreamSubscription?.cancel();
-    scrollController.removeListener(refreshIfScrolledTop);
+    onHomeTimelineUpdate.cancel();
     super.dispose();
   }
 

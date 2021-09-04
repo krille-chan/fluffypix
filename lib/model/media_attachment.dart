@@ -30,7 +30,7 @@ class MediaAttachment {
         type = MediaType.values
             .firstWhere((v) => v.toString().split('.').last == json['type']),
         url = Uri.parse(json['url']),
-        previewUrl = Uri.parse(json['preview_url']),
+        previewUrl = Uri.parse(json['preview_url'] ?? ''),
         remoteUrl = Uri.tryParse(json['remote_url'] ?? ''),
         previewRemoteUrl = Uri.tryParse(json['prewview_remote_url'] ?? ''),
         textUrl = Uri.tryParse(json['text_url'] ?? ''),

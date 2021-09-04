@@ -14,6 +14,8 @@ class NavScaffold extends StatelessWidget {
   final int? currentIndex;
   final ScrollController? scrollController;
   final Color? backgroundColor;
+  final FloatingActionButton? floatingActionButton;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
   const NavScaffold({
     Key? key,
     this.currentIndex,
@@ -21,6 +23,8 @@ class NavScaffold extends StatelessWidget {
     this.appBar,
     this.body,
     this.backgroundColor,
+    this.floatingActionButton,
+    this.floatingActionButtonLocation,
   }) : super(key: key);
 
   void onTap(int index, BuildContext context) {
@@ -75,6 +79,8 @@ class NavScaffold extends StatelessWidget {
         appBar: appBar,
         body: body,
         backgroundColor: backgroundColor,
+        floatingActionButton: floatingActionButton,
+        floatingActionButtonLocation: floatingActionButtonLocation,
         bottomNavigationBar: AppThemes.isColumnMode(context)
             ? null
             : BottomNavigationBar(
