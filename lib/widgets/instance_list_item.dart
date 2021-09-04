@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/model/public_instance.dart';
 import 'package:fluffypix/pages/login.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,13 +45,13 @@ class _InstanceListItemState extends State<InstanceListItem> {
         height: 256,
         child: Stack(
           children: [
-            CachedNetworkImage(
-              imageUrl: widget.instance.thumbnail ?? '',
+            Image.network(
+              widget.instance.thumbnail ?? '',
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,
-              placeholder: _placeholderBuilder,
-              errorWidget: _placeholderBuilder,
+              loadingBuilder: _placeholderBuilder,
+              errorBuilder: _placeholderBuilder,
             ),
             Positioned(
               bottom: 0,
