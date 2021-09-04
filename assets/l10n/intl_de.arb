@@ -1,3 +1,12 @@
 {
-    "helloWorld": "Hallo Welt"
+  "helloWorld": "Hallo Welt",
+  "@helloWorld": {},
+  "search": "Suchen",
+  "@search": {},
+  "oopsSomethingWentWrong": "Hoppla ... da ist etwas schief gelaufen!",
+  "@oopsSomethingWentWrong": {},
+  "pickACommunityDescription": "Willkommen in unserem dezentralen sozialen Netzwerk. Schnapp dir einfach eine Community und tauche ein in den Spaß.",
+  "@pickACommunityDescription": {},
+  "pickACommunity": "Schnapp dir eine Community",
+  "@pickACommunity": {}
 }
