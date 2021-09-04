@@ -25,7 +25,7 @@ build_web:
   before_script: [*add_api_key]
   script:
     - flutter pub get
-    - flutter build web --release --verbose
+    - flutter build web --web-renderer html --release --verbose
   artifacts:
     paths:
       - build/web/
