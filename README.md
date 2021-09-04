@@ -4,7 +4,7 @@ FluffyPix aims to be a client for Mastodon / Pixelfed / Pleroma by using the Mas
 
 ## Install
 
-- [Download latest APK](https://gitlab.com/krillefear/fluffypix/-/jobs/artifacts/main/browse?job=build_android_apk)
+- [Download latest APK](https://gitlab.com/krillefear/fluffypix/-/jobs/artifacts/main/browse?job=build_apk)
 
 ## Develop
 

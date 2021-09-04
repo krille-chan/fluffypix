@@ -30,7 +30,7 @@ build_web:
     paths:
       - build/web/
 
-build_android_apk_debug:
+build_apk_debug:
   stage: coverage
   before_script:
     - *add_api_key
@@ -46,7 +46,7 @@ build_android_apk_debug:
     - main
     - tags
 
-build_android_apk:
+build_apk:
   stage: coverage
   before_script:
     - *add_api_key
@@ -62,7 +62,7 @@ build_android_apk:
     - main
     - tags
 
-build_android_appbundle:
+build_appbundle:
   stage: coverage
   before_script:
     - *add_api_key
@@ -73,7 +73,8 @@ build_android_appbundle:
   artifacts:
     when: on_success
     paths:
-      - build/app/outputs/apk/release/app-release.apk
+      - build/android/app-release.aab
+  resource_group: playstore_release
   only:
     - main
     - tags
