@@ -57,7 +57,6 @@ class UserPageController extends State<UserPage> {
         case UserViewColumn.statuses:
           timeline = await FluffyPix.of(context).requestUserTimeline(
             widget.id,
-            excludeReplies: userStatusesView == UserStatusesView.grid,
             onlyMedia: userStatusesView == UserStatusesView.grid,
           );
           break;

@@ -158,6 +158,16 @@ class HomePageController extends State<HomePage> {
     refreshController.requestRefresh();
   }
 
+  void _onNewStatusUpdate(Status status) {
+    if (status.inReplyToId != null) {
+      timeline.add(status);
+      return;
+    }
+    setState(() {
+      seeNewStatuses = true;
+    });
+  }
+
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
@@ -171,11 +181,7 @@ class HomePageController extends State<HomePage> {
         .onHomeTimelineUpdate
         .stream
         .where((status) => status.visibility != StatusVisibility.direct)
-        .listen((_) {
-      setState(() {
-        seeNewStatuses = true;
-      });
-    });
+        .listen(_onNewStatusUpdate);
     SystemChannels.lifecycle.setMessageHandler((msg) async {
       if (mounted && msg == AppLifecycleState.resumed.toString()) {
         refreshController.requestRefresh();
