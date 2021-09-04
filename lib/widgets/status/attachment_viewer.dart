@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
 import 'package:fluffypix/config/app_configs.dart';
@@ -34,12 +36,12 @@ class AttachmentViewer extends StatelessWidget {
       case MediaType.video:
         if (imageStatusMode == ImageStatusMode.discover) continue image;
         //TODO: Fix videoplayer
-        /*if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
+        if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
           return _AttachVideoViewer(
             attachment: attachment,
             imageStatusMode: imageStatusMode,
           );
-        }*/
+        }
         return _PlayInBrowserButton(
           attachment: attachment,
           imageStatusMode: imageStatusMode,
@@ -93,11 +95,19 @@ class __AttachVideoViewerState extends State<_AttachVideoViewer> {
   Widget build(BuildContext context) {
     final chewie = _chewieController;
     if (chewie == null) {
-      return AttachmentViewer(
+      return _AttachmentImageViewer(
           attachment: widget.attachment,
           imageStatusMode: widget.imageStatusMode);
     }
-    return Chewie(controller: chewie);
+    final width = AppThemes.isColumnMode(context)
+        ? AppThemes.columnWidth * 2
+        : MediaQuery.of(context).size.width;
+    return SizedBox(
+        width: width,
+        height: widget.attachment.videoMeta.small?.aspect == null
+            ? width
+            : width / widget.attachment.videoMeta.small!.aspect!,
+        child: Chewie(controller: chewie));
   }
 }
 
@@ -169,6 +179,7 @@ class _PlayInBrowserButton extends StatelessWidget {
           ),
           Center(
             child: FloatingActionButton.extended(
+              heroTag: null,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               foregroundColor: Theme.of(context).primaryColor,
               icon: const Icon(CupertinoIcons.videocam),
