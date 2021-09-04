@@ -122,100 +122,103 @@ class NavScaffold extends StatelessWidget {
               ),
       );
       if (!AppThemes.isColumnMode(context)) return scaffold;
-      return Scaffold(
-        body: Row(
-          children: [
-            const Spacer(),
-            SizedBox(
-              width: AppThemes.columnWidth,
-              child: Column(
-                children: [
-                  ListTile(
-                    leading: Image.asset(
-                      'assets/images/logo.png',
-                      width: 24,
-                      height: 24,
-                    ),
-                  ),
-                  ListTile(
-                    leading: const Icon(CupertinoIcons.home),
-                    title: Text(L10n.of(context)!.home),
-                    selected: currentIndex == 0,
-                    onTap: () => onTap(0, context),
-                  ),
-                  ListTile(
-                    leading: const Icon(CupertinoIcons.search),
-                    title: Text(L10n.of(context)!.search),
-                    selected: currentIndex == 1,
-                    onTap: () => onTap(1, context),
-                  ),
-                  ListTile(
-                    leading: Icon(currentIndex == 3
-                        ? CupertinoIcons.heart_fill
-                        : CupertinoIcons.heart),
-                    title: Text(L10n.of(context)!.notifications),
-                    selected: currentIndex == 3,
-                    onTap: () => onTap(3, context),
-                  ),
-                  ListTile(
-                    leading: Icon(currentIndex == 6
-                        ? CupertinoIcons.mail_solid
-                        : CupertinoIcons.mail),
-                    title: Text(L10n.of(context)!.messages),
-                    onTap: () => onTap(6, context),
-                    selected: currentIndex == 6,
-                  ),
-                  ListTile(
-                    leading: FluffyPix.of(context).ownAccount == null
-                        ? null
-                        : Avatar(
-                            account: FluffyPix.of(context).ownAccount!,
-                            radius: 12,
-                          ),
-                    title: Text(L10n.of(context)!.account),
-                    selected: currentIndex == 4,
-                    onTap: () => onTap(4, context),
-                  ),
-                  ListTile(
-                    leading: Icon(currentIndex == 5
-                        ? CupertinoIcons.settings_solid
-                        : CupertinoIcons.settings),
-                    title: Text(L10n.of(context)!.settings),
-                    onTap: () => onTap(5, context),
-                    selected: currentIndex == 5,
-                  ),
-                  ListTile(
-                    leading: Icon(currentIndex == 2
-                        ? CupertinoIcons.add_circled_solid
-                        : CupertinoIcons.add_circled),
-                    title: Text(L10n.of(context)!.newStatus),
-                    selected: currentIndex == 2,
-                    onTap: () => onTap(2, context),
-                  ),
-                ],
-              ),
-            ),
-            Container(width: 1, color: Theme.of(context).dividerColor),
-            SizedBox(
-              width: AppThemes.mainColumnWidth,
-              child: scaffold,
-            ),
-            Container(width: 1, color: Theme.of(context).dividerColor),
-            if (AppThemes.isWideColumnMode(context))
+      return Material(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: Scaffold(
+          body: Row(
+            children: [
+              const Spacer(),
               SizedBox(
-                width: AppThemes.columnWidth * 1.25,
-                child: ListView(
-                  children: const [
-                    TrendingHashtagsCard(),
-                    SizedBox(height: 12),
-                    DiscoverAccountsCard(),
+                width: AppThemes.columnWidth,
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: Image.asset(
+                        'assets/images/logo.png',
+                        width: 24,
+                        height: 24,
+                      ),
+                    ),
+                    ListTile(
+                      leading: const Icon(CupertinoIcons.home),
+                      title: Text(L10n.of(context)!.home),
+                      selected: currentIndex == 0,
+                      onTap: () => onTap(0, context),
+                    ),
+                    ListTile(
+                      leading: const Icon(CupertinoIcons.search),
+                      title: Text(L10n.of(context)!.search),
+                      selected: currentIndex == 1,
+                      onTap: () => onTap(1, context),
+                    ),
+                    ListTile(
+                      leading: Icon(currentIndex == 3
+                          ? CupertinoIcons.heart_fill
+                          : CupertinoIcons.heart),
+                      title: Text(L10n.of(context)!.notifications),
+                      selected: currentIndex == 3,
+                      onTap: () => onTap(3, context),
+                    ),
+                    ListTile(
+                      leading: Icon(currentIndex == 6
+                          ? CupertinoIcons.mail_solid
+                          : CupertinoIcons.mail),
+                      title: Text(L10n.of(context)!.messages),
+                      onTap: () => onTap(6, context),
+                      selected: currentIndex == 6,
+                    ),
+                    ListTile(
+                      leading: FluffyPix.of(context).ownAccount == null
+                          ? null
+                          : Avatar(
+                              account: FluffyPix.of(context).ownAccount!,
+                              radius: 12,
+                            ),
+                      title: Text(L10n.of(context)!.account),
+                      selected: currentIndex == 4,
+                      onTap: () => onTap(4, context),
+                    ),
+                    ListTile(
+                      leading: Icon(currentIndex == 5
+                          ? CupertinoIcons.settings_solid
+                          : CupertinoIcons.settings),
+                      title: Text(L10n.of(context)!.settings),
+                      onTap: () => onTap(5, context),
+                      selected: currentIndex == 5,
+                    ),
+                    ListTile(
+                      leading: Icon(currentIndex == 2
+                          ? CupertinoIcons.add_circled_solid
+                          : CupertinoIcons.add_circled),
+                      title: Text(L10n.of(context)!.newStatus),
+                      selected: currentIndex == 2,
+                      onTap: () => onTap(2, context),
+                    ),
                   ],
                 ),
               ),
-            const Spacer(),
-          ],
+              Container(width: 1, color: Theme.of(context).dividerColor),
+              SizedBox(
+                width: AppThemes.mainColumnWidth,
+                child: scaffold,
+              ),
+              Container(width: 1, color: Theme.of(context).dividerColor),
+              if (AppThemes.isWideColumnMode(context))
+                SizedBox(
+                  width: AppThemes.columnWidth * 1.25,
+                  child: ListView(
+                    children: const [
+                      TrendingHashtagsCard(),
+                      SizedBox(height: 12),
+                      DiscoverAccountsCard(),
+                    ],
+                  ),
+                ),
+              const Spacer(),
+            ],
+          ),
+          backgroundColor: Theme.of(context).secondaryHeaderColor.withAlpha(64),
         ),
-        backgroundColor: Theme.of(context).secondaryHeaderColor.withAlpha(64),
       );
     });
   }
