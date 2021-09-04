@@ -70,6 +70,7 @@ build_appbundle:
   script:
     - flutter pub get
     - flutter build appbundle --target-platform android-arm,android-arm64,android-x64
+    - cp build/app/outputs/bundle/release/app-release.aab build/android/
   artifacts:
     when: on_success
     paths:
