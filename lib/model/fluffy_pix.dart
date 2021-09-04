@@ -191,7 +191,7 @@ class FluffyPix {
     } finally {
       unsubscribeToWebsocket();
       accessTokenCredentials = instance = ownAccount = null;
-      await _box.delete(AppConfigs.hiveBoxAccountKey);
+      await _box.deleteAll(_box.keys);
     }
   }
 
