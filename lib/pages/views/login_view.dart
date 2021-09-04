@@ -30,11 +30,6 @@ class LoginPageView extends StatelessWidget {
       body: FutureBuilder<List<PublicInstance>>(
           future: controller.publicInstancesFuture,
           builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Center(
-                child: Text(L10n.of(context)!.oopsSomethingWentWrong),
-              );
-            }
             final isLoading =
                 snapshot.connectionState == ConnectionState.waiting;
             final instances = snapshot.data ?? [];

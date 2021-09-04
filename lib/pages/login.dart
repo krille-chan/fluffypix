@@ -43,19 +43,23 @@ class LoginPageController extends State<LoginPage> {
   }
 
   Future<List<PublicInstance>> _requestInstances(String query) async {
-    final instances = await FluffyPix.of(context)
-        .requestInstances(L10n.of(context)!.localeName, query);
-    if (instances.isEmpty &&
-        query.isNotEmpty &&
-        !instances.any((instance) => instance.name == query)) {
-      instances.add(
-        PublicInstance(
-          id: query,
-          name: query,
-        ),
-      );
+    List<PublicInstance> instances = [];
+    try {
+      instances = await FluffyPix.of(context)
+          .requestInstances(L10n.of(context)!.localeName, query);
+    } finally {
+      if (query.isNotEmpty &&
+          !instances.any((instance) => instance.name == query)) {
+        instances.add(
+          PublicInstance(
+            id: query,
+            name: query,
+          ),
+        );
+      }
+      // ignore: control_flow_in_finally
+      return instances;
     }
-    return instances;
   }
 
   void _initReceiveUri() {

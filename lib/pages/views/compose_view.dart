@@ -116,20 +116,23 @@ class _PickedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Image.memory(
-          controller.media[i].bytes,
-          fit: BoxFit.cover,
-        ),
-        FloatingActionButton(
-          mini: true,
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          child: const Icon(Icons.close),
-          onPressed: () => controller.removeMedia(i),
-        ),
-      ],
+    return SizedBox(
+      height: 256,
+      child: Stack(
+        children: [
+          Image.memory(
+            controller.media[i].bytes,
+            fit: BoxFit.cover,
+          ),
+          FloatingActionButton(
+            mini: true,
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            child: const Icon(Icons.close),
+            onPressed: () => controller.removeMedia(i),
+          ),
+        ],
+      ),
     );
   }
 }

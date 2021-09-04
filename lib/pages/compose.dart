@@ -10,7 +10,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mime/mime.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
 import 'views/compose_view.dart';
@@ -70,7 +69,7 @@ class ComposePageController extends State<ComposePage> {
     );
     if (pick != null) {
       final bytes = await pick.readAsBytes();
-      setState(() => media.add(ToUploadFile(bytes, pick.mimeType)));
+      setState(() => media.add(ToUploadFile(bytes, pick.name)));
     }
     setState(() => loadingPhoto = false);
   }
@@ -101,7 +100,7 @@ class ComposePageController extends State<ComposePage> {
             () => media.add(
               ToUploadFile(
                 bytes,
-                lookupMimeType(sharedMediaFile.path),
+                sharedMediaFile.path.split('/').last,
               ),
             ),
           );
@@ -151,10 +150,10 @@ class ComposePageController extends State<ComposePage> {
       final mediaIds = <String>[];
       for (final file in media) {
         final result =
-            await FluffyPix.of(context).upload(file.bytes, file.mimeType);
+            await FluffyPix.of(context).upload(file.bytes, file.filename);
         mediaIds.add(result.id);
       }
-      await FluffyPix.of(context).publishNewStatus(
+      final newStatus = await FluffyPix.of(context).publishNewStatus(
         status: statusController.text,
         sensitive: sensitive,
         visibility: visibility,
@@ -165,6 +164,7 @@ class ComposePageController extends State<ComposePage> {
           content: Text(L10n.of(context)!.newPostPublished),
         ),
       );
+      FluffyPix.of(context).onHomeTimelineUpdate.sink.add(newStatus);
       Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -184,8 +184,7 @@ class ComposePageController extends State<ComposePage> {
 
 class ToUploadFile {
   final Uint8List bytes;
-  final String mimeType;
+  final String filename;
 
-  ToUploadFile(this.bytes, String? mimeType)
-      : mimeType = mimeType ?? 'image/png';
+  ToUploadFile(this.bytes, this.filename);
 }
