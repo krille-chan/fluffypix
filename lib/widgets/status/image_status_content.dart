@@ -9,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_html_css/simple_html_css.dart';
 
+import '../nav_scaffold.dart';
+
 enum ImageType { image, avatar, missing }
 
 class ImageStatusContent extends StatelessWidget {
@@ -24,13 +26,15 @@ class ImageStatusContent extends StatelessWidget {
   String _imageUrl(BuildContext context) {
     final author = status.reblog?.account ?? status.account;
     if (status.mediaAttachments.isNotEmpty &&
-        status.mediaAttachments.first.url != null) {
+        !status.mediaAttachments.first.url.toString().endsWith('missing.png')) {
       if ((imageStatusMode == ImageStatusMode.discover ||
               FluffyPix.of(context).displayThumbnailsOnly) &&
-          status.mediaAttachments.first.previewUrl != null) {
-        return status.mediaAttachments.first.previewUrl!.toString();
+          !status.mediaAttachments.first.previewUrl
+              .toString()
+              .endsWith('missing.png')) {
+        return status.mediaAttachments.first.previewUrl.toString();
       }
-      return status.mediaAttachments.first.url!.toString();
+      return status.mediaAttachments.first.url.toString();
     }
     if (status.card?.image != null) {
       return status.card!.image!;
@@ -44,7 +48,9 @@ class ImageStatusContent extends StatelessWidget {
 
   ImageType get _type {
     if ((status.mediaAttachments.isNotEmpty &&
-        status.mediaAttachments.first.url != null)) {
+        !status.mediaAttachments.first.url
+            .toString()
+            .endsWith('missing.png'))) {
       return ImageType.image;
     }
     if (status.account.headerStatic.isNotEmpty &&
@@ -77,6 +83,10 @@ class ImageStatusContent extends StatelessWidget {
     if (_type != ImageType.missing &&
         (imageStatusMode != ImageStatusMode.reply ||
             _type == ImageType.image)) {
+      final width = (MediaQuery.of(context).size.width >
+              (NavScaffold.columnWidth * 3 + 3))
+          ? NavScaffold.columnWidth * 2
+          : MediaQuery.of(context).size.width;
       final displayBigText =
           status.mediaAttachments.isEmpty && status.card?.image == null;
       return Stack(
@@ -88,6 +98,14 @@ class ImageStatusContent extends StatelessWidget {
                   ? null
                   : double.infinity,
               fit: BoxFit.fill,
+              progressIndicatorBuilder: (_, __, ___) => SizedBox(
+                height: imageStatusMode == ImageStatusMode.discover
+                    ? null
+                    : width * 2 / 3,
+                child: const Center(
+                  child: CupertinoActivityIndicator(),
+                ),
+              ),
             ),
           if (displayBigText)
             Container(

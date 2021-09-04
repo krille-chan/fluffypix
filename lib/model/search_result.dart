@@ -31,25 +31,29 @@ class SearchResult {
 class Hashtag {
   final String name;
   final String url;
-  final List<History> history;
+  final List<History>? history;
 
   const Hashtag({
     required this.name,
     required this.url,
-    required this.history,
+    this.history,
   });
 
   factory Hashtag.fromJson(Map<String, dynamic> json) => Hashtag(
         name: json['name'],
         url: json['url'],
-        history:
-            (json['history'] as List).map((i) => History.fromJson(i)).toList(),
+        history: json['history'] == null
+            ? null
+            : (json['history'] as List)
+                .map((i) => History.fromJson(i))
+                .toList(),
       );
 
   Map<String, dynamic> toJson() => {
         'name': name,
         'url': url,
-        'history': history.map((i) => i.toJson()).toList(),
+        if (history != null)
+          'history': history!.map((i) => i.toJson()).toList(),
       };
 }
 

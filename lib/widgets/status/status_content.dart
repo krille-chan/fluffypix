@@ -3,6 +3,7 @@ import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/status/image_status_content.dart';
 import 'package:fluffypix/widgets/status/sensitive_content.dart';
+import 'package:fluffypix/widgets/status/status_content_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_html_css/simple_html_css.dart';
@@ -28,18 +29,26 @@ class _StatusContentState extends State<StatusContent> {
   Widget build(BuildContext context) {
     final contentStatus = widget.status.reblog ?? widget.status;
     final hide = contentStatus.sensitive && !unlocked;
-    final content = hide
-        ? SensitiveContent(
-            blurHash: contentStatus.mediaAttachments.isEmpty
-                ? AppConfigs.fallbackBlurHash
-                : contentStatus.mediaAttachments.first.blurhash ??
-                    AppConfigs.fallbackBlurHash,
-            onUnlock: () => setState(() => unlocked = true),
-          )
-        : ImageStatusContent(
-            status: contentStatus,
-            imageStatusMode: widget.imageStatusMode,
-          );
+    late final Widget content;
+    if (hide) {
+      content = SensitiveContent(
+        blurHash: contentStatus.mediaAttachments.isEmpty
+            ? AppConfigs.fallbackBlurHash
+            : contentStatus.mediaAttachments.first.blurhash ??
+                AppConfigs.fallbackBlurHash,
+        onUnlock: () => setState(() => unlocked = true),
+      );
+    } else if (contentStatus.mediaAttachments.isNotEmpty) {
+      content = StatusContentSlider(
+        attachments: contentStatus.mediaAttachments,
+        imageStatusMode: widget.imageStatusMode,
+      );
+    } else {
+      content = ImageStatusContent(
+        status: contentStatus,
+        imageStatusMode: widget.imageStatusMode,
+      );
+    }
     if (widget.imageStatusMode == ImageStatusMode.discover) return content;
     return Column(
       mainAxisSize: MainAxisSize.min,

@@ -1,3 +1,4 @@
+import 'package:fluffypix/model/search_result.dart';
 import 'package:fluffypix/model/status_visibility.dart';
 
 import 'account.dart';
@@ -28,9 +29,9 @@ class Status {
   final Application? application;
   final Account account;
   final List<MediaAttachment> mediaAttachments;
-  final List<Object> mentions;
-  final List<Object> tags;
-  final List<Object> emojis;
+  final List<Mention> mentions;
+  final List<Hashtag> tags;
+  final List<Emoji> emojis;
   final Card? card;
   final Map? poll;
 
@@ -93,9 +94,15 @@ class Status {
             List<Map<String, dynamic>>.from(json['media_attachments'])
                 .map((json) => MediaAttachment.fromJson(json))
                 .toList(),
-        mentions: List<Object>.from(json['mentions']),
-        tags: List<Object>.from(json['tags']),
-        emojis: List<Object>.from(json['emojis']),
+        mentions: List<Map<String, dynamic>>.from(json['mentions'])
+            .map((json) => Mention.fromJson(json))
+            .toList(),
+        tags: List<Map<String, dynamic>>.from(json['tags'])
+            .map((json) => Hashtag.fromJson(json))
+            .toList(),
+        emojis: List<Map<String, dynamic>>.from(json['emojis'])
+            .map((json) => Emoji.fromJson(json))
+            .toList(),
         card: json['card'] == null ? null : Card.fromJson(json['card']),
         poll: json['poll'],
       );
@@ -124,10 +131,70 @@ class Status {
         if (application != null) 'application': application!.toJson(),
         'account': account.toJson(),
         'media_attachments': mediaAttachments.map((m) => m.toJson()).toList(),
-        'mentions': List<Object>.from(mentions),
-        'tags': List<Object>.from(tags),
+        'mentions': mentions.map((m) => m.toJson()).toList(),
+        'tags': tags.map((m) => m.toJson()).toList(),
         'emojis': List<Object>.from(emojis),
         if (card != null) 'card': card!.toJson(),
         if (poll != null) 'poll': poll,
+      };
+}
+
+class Mention {
+  final String id;
+  final String username;
+  final String url;
+  final String acct;
+
+  const Mention({
+    required this.id,
+    required this.username,
+    required this.url,
+    required this.acct,
+  });
+
+  factory Mention.fromJson(Map<String, dynamic> json) => Mention(
+        id: json['id'],
+        username: json['username'],
+        url: json['url'],
+        acct: json['acct'],
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'username': username,
+        'url': url,
+        'acct': acct,
+      };
+}
+
+class Emoji {
+  final String shortcode;
+  final String url;
+  final String staticUrl;
+  final bool visibleInPicker;
+  final String? category;
+
+  const Emoji({
+    required this.shortcode,
+    required this.url,
+    required this.staticUrl,
+    required this.visibleInPicker,
+    this.category,
+  });
+
+  factory Emoji.fromJson(Map<String, dynamic> json) => Emoji(
+        shortcode: json['shortcode'],
+        url: json['url'],
+        staticUrl: json['static_url'],
+        visibleInPicker: json['visible_in_picker'],
+        category: json['category'],
+      );
+
+  Map<String, dynamic> toJson() => {
+        'shortcode': shortcode,
+        'url': url,
+        'static_url': staticUrl,
+        'visible_in_picker': visibleInPicker,
+        if (category != null) 'category': category,
       };
 }

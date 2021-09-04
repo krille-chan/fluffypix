@@ -17,7 +17,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:webcrypto/webcrypto.dart';
-
+import '../utils/convert_to_json.dart';
 import 'account.dart';
 import 'conversation.dart';
 import 'create_application_response.dart';
@@ -174,7 +174,7 @@ class FluffyPix {
   Future<void> logout({bool revoke = true}) async {
     try {
       final createApplicationResponse = CreateApplicationResponse.fromJson(
-        convertToJson(_box.get('createApplicationResponse')),
+        (_box.get('createApplicationResponse') as Map).toJson(),
       );
       if (revoke) {
         await revokeToken(
@@ -618,7 +618,7 @@ class FluffyPix {
   ) {
     final raw = _box.get(key);
     if (raw == null || raw is! List) return null;
-    return raw.map((json) => parser(convertToJson(json))).toList();
+    return raw.map((json) => parser((json as Map).toJson())).toList();
   }
 
   bool get allowAnimatedAvatars => _box.get('allowAnimatedAvatars') ?? true;
@@ -635,25 +635,4 @@ class FluffyPix {
 
   bool get useDiscoverGridView => _box.get('useDiscoverGridView') ?? true;
   set useDiscoverGridView(bool b) => _box.put('useDiscoverGridView', b);
-}
-
-dynamic _castValue(dynamic value) {
-  if (value is Map) {
-    return convertToJson(value);
-  }
-  if (value is List) {
-    return value.map(_castValue).toList();
-  }
-  return value;
-}
-
-/// Hive always gives back an `_InternalLinkedHasMap<dynamic, dynamic>`. This
-/// creates a deep copy of the json and makes sure that the format is always
-/// `Map<String, dynamic>`.
-Map<String, dynamic> convertToJson(Map map) {
-  final copy = Map<String, dynamic>.from(map);
-  for (final entry in copy.entries) {
-    copy[entry.key] = _castValue(entry.value);
-  }
-  return copy;
 }
