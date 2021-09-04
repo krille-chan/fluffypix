@@ -66,6 +66,7 @@ pages:
   stage: deploy
   image: ruby:latest
   script:
+    - sed -i 's/href="\/"/href="\/fluffypix\/"/' build/web/index.html
     - mv build/web/ public/
   artifacts:
     paths:
