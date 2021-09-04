@@ -6,6 +6,7 @@ import 'package:fluffypix/model/account.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/search_result.dart';
 import 'package:fluffypix/model/status.dart';
+import 'package:fluffypix/model/status_visibility.dart';
 import 'package:fluffypix/pages/views/home_view.dart';
 import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,8 +28,11 @@ enum HomePagePopupMenuButtonAction {
 
 class HomePageController extends State<HomePage> {
   List<Status> timeline = [];
-  List<Status> get filteredTimeline =>
-      timeline.where((status) => status.inReplyToId == null).toList();
+  List<Status> get filteredTimeline => timeline
+      .where((status) =>
+          status.inReplyToId == null &&
+          status.visibility != StatusVisibility.direct)
+      .toList();
   List<Status> localReplies(String statusId) =>
       timeline.where((status) => status.inReplyToId == statusId).toList();
   List<Hashtag> trends = [];
@@ -36,8 +40,6 @@ class HomePageController extends State<HomePage> {
 
   final refreshController = RefreshController(initialRefresh: false);
   final scrollController = ScrollController();
-
-  late final Timer refreshTimer;
 
   bool get columnMode =>
       MediaQuery.of(context).size.width > NavScaffold.columnWidth * 3 + 3;
@@ -55,7 +57,7 @@ class HomePageController extends State<HomePage> {
           trends = await FluffyPix.of(context).getTrends();
           setState(() {});
         }
-      } catch (e, s) {
+      } on FormatException catch (_) {} catch (e, s) {
         log('Unable to load trends', error: e, stackTrace: s);
       }
       FluffyPix.of(context)
@@ -151,6 +153,13 @@ class HomePageController extends State<HomePage> {
         curve: Curves.ease,
       );
 
+  void refreshIfScrolledTop() {
+    if (scrollController.position.atEdge &&
+        scrollController.position.pixels == 0) {
+      refreshController.requestRefresh();
+    }
+  }
+
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
@@ -163,22 +172,14 @@ class HomePageController extends State<HomePage> {
     timeline = FluffyPix.of(context)
             .getCachedTimeline<Status>('home', (j) => Status.fromJson(j)) ??
         [];
-    refreshTimer = Timer.periodic(
-      const Duration(seconds: 30),
-      (_) {
-        if (scrollController.position.atEdge &&
-            scrollController.position.pixels == 0) {
-          refreshController.requestRefresh();
-        }
-      },
-    );
+    scrollController.addListener(refreshIfScrolledTop);
   }
 
   @override
   void dispose() {
     _intentTextStreamSubscription?.cancel();
     _intentFileStreamSubscription?.cancel();
-    refreshTimer.cancel();
+    scrollController.removeListener(refreshIfScrolledTop);
     super.dispose();
   }
 

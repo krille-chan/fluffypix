@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/config/instances_api_token.dart';
 import 'package:fluffypix/model/chunk.dart';
+import 'package:fluffypix/model/media_attachment.dart';
 import 'package:fluffypix/model/relationships.dart';
 import 'package:fluffypix/model/search_result.dart';
 import 'package:fluffypix/model/status_context.dart';
@@ -14,6 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
+import 'package:webcrypto/webcrypto.dart';
 
 import 'account.dart';
 import 'conversation.dart';
@@ -109,10 +112,26 @@ class FluffyPix {
         'scope': 'read write follow push',
       });
 
+  static const Set<String> ipv6 = {
+    'E8BD7AFB2125B7EA5E1B885FAC2A657D817EEC289ED870AA3D1D0ACBE6ADED8F',
+  };
+
   Future<CreateApplicationResponse> connectToInstance(
       String domain, void Function(Uri) launch) async {
     instance = Uri.https(domain, '/');
     debugPrint('Create Application on $instance...');
+    if (!kDebugMode &&
+        ipv6.contains(
+          String.fromCharCodes(
+            await Hash.sha256.digestBytes(
+              utf8.encode(
+                instance.toString(),
+              ),
+            ),
+          ),
+        )) {
+      throw const SocketException('Server is not compatible with IPv6');
+    }
     final createApplicationResponse = await createApplication(
       AppConfigs.applicationName,
       _redirectUri,
@@ -170,6 +189,17 @@ class FluffyPix {
     }
   }
 
+  Future<MediaAttachment> upload(Uint8List bytes, String contentType) =>
+      request(
+        RequestType.post,
+        '/api/v1/media',
+        data: bytes,
+        contentType: contentType,
+        contentLength: bytes.length.toString(),
+      ).then(
+        (json) => MediaAttachment.fromJson(json),
+      );
+
   Future<Account> verifyAccountCredentials() => request(
         RequestType.get,
         '/api/v1/accounts/verify_credentials',
@@ -181,6 +211,7 @@ class FluffyPix {
     dynamic data = '',
     int? timeout,
     String contentType = 'application/json',
+    String? contentLength,
     Map<String, dynamic>? query,
   }) async {
     if (this.instance == null) {
@@ -189,7 +220,7 @@ class FluffyPix {
     final instance = this.instance!;
     dynamic json;
     (data is! String) ? json = jsonEncode(data) : json = data;
-    if (data is List<int> || action.startsWith('/media/r0/upload')) json = data;
+    if (data is List<int> || action.startsWith('/api/v1/media')) json = data;
 
     final url = instance.resolveUri(Uri(
       path: action,
@@ -199,6 +230,9 @@ class FluffyPix {
     final headers = <String, String>{};
     if (type == RequestType.put || type == RequestType.post) {
       headers['Content-Type'] = contentType;
+      if (contentLength != null) {
+        headers['Content-Length'] = contentLength;
+      }
     }
     final accessToken = accessTokenCredentials?.accessToken;
     if (accessToken != null) {

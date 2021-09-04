@@ -119,7 +119,7 @@ class _PickedImage extends StatelessWidget {
     return Stack(
       children: [
         Image.memory(
-          controller.media[i],
+          controller.media[i].bytes,
           fit: BoxFit.cover,
         ),
         FloatingActionButton(

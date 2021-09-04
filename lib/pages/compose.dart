@@ -10,6 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
 import 'views/compose_view.dart';
@@ -36,7 +37,7 @@ class ComposePageController extends State<ComposePage> {
   StatusVisibility visibility = StatusVisibility.public;
   bool loading = false;
   bool loadingPhoto = false;
-  List<Uint8List> media = [];
+  List<ToUploadFile> media = [];
 
   void toggleSensitive([_]) => setState(() => sensitive = !sensitive);
 
@@ -69,7 +70,7 @@ class ComposePageController extends State<ComposePage> {
     );
     if (pick != null) {
       final bytes = await pick.readAsBytes();
-      setState(() => media.add(bytes));
+      setState(() => media.add(ToUploadFile(bytes, pick.mimeType)));
     }
     setState(() => loadingPhoto = false);
   }
@@ -96,7 +97,14 @@ class ComposePageController extends State<ComposePage> {
       for (final sharedMediaFile in widget.sharedMediaFiles!) {
         try {
           final bytes = await File(sharedMediaFile.path).readAsBytes();
-          setState(() => media.add(bytes));
+          setState(
+            () => media.add(
+              ToUploadFile(
+                bytes,
+                lookupMimeType(sharedMediaFile.path),
+              ),
+            ),
+          );
         } catch (_) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -140,10 +148,17 @@ class ComposePageController extends State<ComposePage> {
     }
     setState(() => loading = true);
     try {
+      final mediaIds = <String>[];
+      for (final file in media) {
+        final result =
+            await FluffyPix.of(context).upload(file.bytes, file.mimeType);
+        mediaIds.add(result.id);
+      }
       await FluffyPix.of(context).publishNewStatus(
         status: statusController.text,
         sensitive: sensitive,
         visibility: visibility,
+        mediaIds: mediaIds,
       );
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -165,4 +180,12 @@ class ComposePageController extends State<ComposePage> {
 
   @override
   Widget build(BuildContext context) => ComposePageView(this);
+}
+
+class ToUploadFile {
+  final Uint8List bytes;
+  final String mimeType;
+
+  ToUploadFile(this.bytes, String? mimeType)
+      : mimeType = mimeType ?? 'image/png';
 }
