@@ -49,6 +49,7 @@ class _InstanceListItemState extends State<InstanceListItem> {
             CachedNetworkImage(
               imageUrl: widget.instance.thumbnail ?? '',
               fit: BoxFit.cover,
+              width: double.infinity,
               height: double.infinity,
               placeholder: _placeholderBuilder,
               errorWidget: _placeholderBuilder,
