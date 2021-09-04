@@ -115,7 +115,8 @@ class _AttachmentImageViewer extends StatelessWidget {
         (MediaQuery.of(context).size.width > (NavScaffold.columnWidth * 3 + 3))
             ? NavScaffold.columnWidth * 2
             : MediaQuery.of(context).size.width;
-    final thumbnailOnly = imageStatusMode == ImageStatusMode.discover ||
+    final thumbnailOnly = attachment.type != MediaType.image ||
+        imageStatusMode == ImageStatusMode.discover ||
         FluffyPix.of(context).displayThumbnailsOnly;
     final metaInfo = thumbnailOnly
         ? attachment.imageMeta.small ?? attachment.imageMeta.original
@@ -149,25 +150,35 @@ class _PlayInBrowserButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        _AttachmentImageViewer(
-          attachment: attachment,
-          imageStatusMode: imageStatusMode,
-        ),
-        Center(
-          child: FloatingActionButton.extended(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            foregroundColor: Theme.of(context).primaryColor,
-            icon: const Icon(CupertinoIcons.videocam),
-            label: Text(L10n.of(context)!.playInBrowser),
-            onPressed: () => linksCallback(
-              attachment.url.toString(),
-              context,
-            ),
+    final width =
+        (MediaQuery.of(context).size.width > (NavScaffold.columnWidth * 3 + 3))
+            ? NavScaffold.columnWidth * 2
+            : MediaQuery.of(context).size.width;
+    final metaInfo =
+        attachment.imageMeta.small ?? attachment.imageMeta.original;
+    return SizedBox(
+      width: width,
+      height: metaInfo?.aspect == null ? width : width / metaInfo!.aspect!,
+      child: Stack(
+        children: [
+          _AttachmentImageViewer(
+            attachment: attachment,
+            imageStatusMode: imageStatusMode,
           ),
-        )
-      ],
+          Center(
+            child: FloatingActionButton.extended(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              foregroundColor: Theme.of(context).primaryColor,
+              icon: const Icon(CupertinoIcons.videocam),
+              label: Text(L10n.of(context)!.playInBrowser),
+              onPressed: () => linksCallback(
+                attachment.url.toString(),
+                context,
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
