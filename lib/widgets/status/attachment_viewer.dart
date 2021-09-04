@@ -35,7 +35,6 @@ class AttachmentViewer extends StatelessWidget {
         );
       case MediaType.video:
         if (imageStatusMode == ImageStatusMode.discover) continue image;
-        //TODO: Fix videoplayer
         if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
           return _AttachVideoViewer(
             attachment: attachment,

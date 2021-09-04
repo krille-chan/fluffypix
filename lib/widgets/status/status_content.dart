@@ -49,7 +49,12 @@ class _StatusContentState extends State<StatusContent> {
         imageStatusMode: widget.imageStatusMode,
       );
     }
-    if (widget.imageStatusMode == ImageStatusMode.discover) return content;
+    if (widget.imageStatusMode == ImageStatusMode.discover) {
+      return InkWell(
+          onTap: () =>
+              Navigator.of(context).pushNamed('/status/${widget.status.id}'),
+          child: content);
+    }
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

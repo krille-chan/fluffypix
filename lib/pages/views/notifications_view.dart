@@ -2,7 +2,6 @@ import 'package:fluffypix/model/notification.dart';
 import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/avatar.dart';
 import 'package:fluffypix/widgets/nav_scaffold.dart';
-import 'package:fluffypix/widgets/status/image_status_content.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +77,7 @@ class NotificationsPageView extends StatelessWidget {
                       : SizedBox(
                           width: 42,
                           height: 42,
-                          child: TextStatusContent(
+                          child: StatusContent(
                             status: controller.timeline[i].status!,
                             imageStatusMode: ImageStatusMode.discover,
                           ),

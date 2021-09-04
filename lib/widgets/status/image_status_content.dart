@@ -64,58 +64,56 @@ class TextStatusContent extends StatelessWidget {
       final width = AppThemes.isColumnMode(context)
           ? AppThemes.mainColumnWidth
           : MediaQuery.of(context).size.width;
-      final displayBigText =
-          status.mediaAttachments.isEmpty && status.card?.image == null;
-      return Stack(
-        children: [
-          if (!displayBigText)
-            CachedNetworkImage(
-              imageUrl: _imageUrl(context),
-              width: imageStatusMode == ImageStatusMode.discover
-                  ? null
-                  : double.infinity,
-              fit: BoxFit.fill,
-              progressIndicatorBuilder: (_, __, ___) => SizedBox(
-                height: imageStatusMode == ImageStatusMode.discover
-                    ? null
-                    : width * 2 / 3,
-                child: const Center(
-                  child: CupertinoActivityIndicator(),
-                ),
+      final displayBigText = status.mediaAttachments.isEmpty &&
+          status.card?.image == null &&
+          imageStatusMode != ImageStatusMode.discover;
+
+      if (!displayBigText) {
+        return CachedNetworkImage(
+          imageUrl: _imageUrl(context),
+          width: double.infinity,
+          fit: BoxFit.cover,
+          placeholder: (_, __) => SizedBox(
+            height: imageStatusMode == ImageStatusMode.discover
+                ? null
+                : width * 2 / 3,
+            child: const Center(
+              child: CupertinoActivityIndicator(),
+            ),
+          ),
+        );
+      }
+      if (displayBigText) {
+        return Container(
+          padding: const EdgeInsets.all(12.0),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.15), BlendMode.dstATop),
+              image: CachedNetworkImageProvider(
+                _imageUrl(context),
               ),
             ),
-          if (displayBigText)
-            Container(
-              padding: const EdgeInsets.all(12.0),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.15), BlendMode.dstATop),
-                  image: CachedNetworkImageProvider(
-                    _imageUrl(context),
+          ),
+          constraints: const BoxConstraints(minHeight: 256),
+          alignment: Alignment.center,
+          child: RichText(
+            text: HTML.toTextSpan(context, status.content ?? '',
+                linksCallback: (link) => linksCallback(link, context),
+                defaultTextStyle: TextStyle(
+                    fontSize: 21,
+                    color: Theme.of(context).textTheme.bodyText1?.color),
+                overrideStyle: {
+                  'a': TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    decoration: TextDecoration.none,
                   ),
-                ),
-              ),
-              constraints: const BoxConstraints(minHeight: 256),
-              alignment: Alignment.center,
-              child: RichText(
-                text: HTML.toTextSpan(context, status.content ?? '',
-                    linksCallback: (link) => linksCallback(link, context),
-                    defaultTextStyle: TextStyle(
-                        fontSize: 21,
-                        color: Theme.of(context).textTheme.bodyText1?.color),
-                    overrideStyle: {
-                      'a': TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        decoration: TextDecoration.none,
-                      ),
-                    }),
-                textAlign: TextAlign.center,
-              ),
-            ),
-        ],
-      );
+                }),
+            textAlign: TextAlign.center,
+          ),
+        );
+      }
     }
     return Container();
   }

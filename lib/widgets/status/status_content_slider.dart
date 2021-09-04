@@ -39,26 +39,22 @@ class _StatusContentSliderState extends State<StatusContentSlider> {
   @override
   Widget build(BuildContext context) {
     if (widget.imageStatusMode == ImageStatusMode.discover) {
-      return InkWell(
-        onTap: () =>
-            Navigator.of(context).pushNamed('/status/${widget.status.id}'),
-        child: Stack(
-          children: [
-            AttachmentViewer(
-              attachment: widget.status.mediaAttachments.first,
-              imageStatusMode: widget.imageStatusMode,
-            ),
-            if (widget.status.mediaAttachments.length > 1)
-              const Positioned(
-                top: 12,
-                right: 12,
-                child: Icon(
-                  CupertinoIcons.square_stack_fill,
-                  color: Colors.white,
-                ),
-              )
-          ],
-        ),
+      return Stack(
+        children: [
+          AttachmentViewer(
+            attachment: widget.status.mediaAttachments.first,
+            imageStatusMode: widget.imageStatusMode,
+          ),
+          if (widget.status.mediaAttachments.length > 1)
+            const Positioned(
+              top: 12,
+              right: 12,
+              child: Icon(
+                CupertinoIcons.square_stack_fill,
+                color: Colors.white,
+              ),
+            )
+        ],
       );
     }
     if (widget.status.mediaAttachments.length == 1) {
