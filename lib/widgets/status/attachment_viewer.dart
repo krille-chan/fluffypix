@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
+import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/media_attachment.dart';
@@ -8,6 +9,7 @@ import 'package:fluffypix/widgets/status/status_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:video_player/video_player.dart';
 
@@ -123,8 +125,9 @@ class _AttachmentImageViewer extends StatelessWidget {
       imageUrl: thumbnailOnly
           ? attachment.previewUrl.toString()
           : attachment.url.toString(),
-      progressIndicatorBuilder: (_, __, ___) =>
-          const Center(child: CupertinoActivityIndicator()),
+      placeholder: (_, __) => const Center(child: CupertinoActivityIndicator()),
+      errorWidget: (_, __, [___]) =>
+          BlurHash(hash: attachment.blurhash ?? AppConfigs.fallbackBlurHash),
       width:
           imageStatusMode == ImageStatusMode.discover ? double.infinity : width,
       height: imageStatusMode == ImageStatusMode.discover

@@ -44,7 +44,7 @@ class _StatusContentState extends State<StatusContent> {
         imageStatusMode: widget.imageStatusMode,
       );
     } else {
-      content = ImageStatusContent(
+      content = TextStatusContent(
         status: contentStatus,
         imageStatusMode: widget.imageStatusMode,
       );

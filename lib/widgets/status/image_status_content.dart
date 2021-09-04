@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluffypix/config/app_themes.dart';
-import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
@@ -12,11 +11,11 @@ import 'package:simple_html_css/simple_html_css.dart';
 
 enum ImageType { image, avatar, missing }
 
-class ImageStatusContent extends StatelessWidget {
+class TextStatusContent extends StatelessWidget {
   final Status status;
   final ImageStatusMode imageStatusMode;
 
-  const ImageStatusContent({
+  const TextStatusContent({
     Key? key,
     required this.status,
     required this.imageStatusMode,
@@ -24,17 +23,6 @@ class ImageStatusContent extends StatelessWidget {
 
   String _imageUrl(BuildContext context) {
     final author = status.reblog?.account ?? status.account;
-    if (status.mediaAttachments.isNotEmpty &&
-        !status.mediaAttachments.first.url.toString().endsWith('missing.png')) {
-      if ((imageStatusMode == ImageStatusMode.discover ||
-              FluffyPix.of(context).displayThumbnailsOnly) &&
-          !status.mediaAttachments.first.previewUrl
-              .toString()
-              .endsWith('missing.png')) {
-        return status.mediaAttachments.first.previewUrl.toString();
-      }
-      return status.mediaAttachments.first.url.toString();
-    }
     if (status.card?.image != null) {
       return status.card!.image!;
     }

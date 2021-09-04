@@ -78,7 +78,7 @@ class NotificationsPageView extends StatelessWidget {
                       : SizedBox(
                           width: 42,
                           height: 42,
-                          child: ImageStatusContent(
+                          child: TextStatusContent(
                             status: controller.timeline[i].status!,
                             imageStatusMode: ImageStatusMode.discover,
                           ),
