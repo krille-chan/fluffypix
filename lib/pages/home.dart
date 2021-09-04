@@ -160,7 +160,9 @@ class HomePageController extends State<HomePage> {
 
   void _onNewStatusUpdate(Status status) {
     if (status.inReplyToId != null) {
-      timeline.add(status);
+      setState(() {
+        timeline.add(status);
+      });
       return;
     }
     setState(() {
