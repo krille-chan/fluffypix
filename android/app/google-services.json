@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "248308891322",
+    "project_id": "fluffypix-11c3d",
+    "storage_bucket": "fluffypix-11c3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:248308891322:android:60ac1f7d11845153758c83",
+        "android_client_info": {
+          "package_name": "io.fluffypix.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "248308891322-26l1ne8jamj2s4m3to7m4if5f8g498ae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQ2i-Ienba9HQzDwDE483OdGokK0dqT80"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "248308891322-26l1ne8jamj2s4m3to7m4if5f8g498ae.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
