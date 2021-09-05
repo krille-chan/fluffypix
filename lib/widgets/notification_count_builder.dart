@@ -4,6 +4,7 @@ import 'package:badges/badges.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/fluffy_pix_notification_count_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../utils/int_short_string_extension.dart';
 
 class NotificationCountBuilder extends StatefulWidget {
@@ -26,6 +27,13 @@ class _NotificationCountBuilderState extends State<NotificationCountBuilder> {
           (notification) => setState(() => FluffyPix.of(context)
               .unreadNotifications = notification == null ? [] : null),
         );
+    SystemChannels.lifecycle.setMessageHandler((msg) async {
+      if (msg == AppLifecycleState.resumed.toString()) {
+        setState(() {
+          FluffyPix.of(context).unreadNotifications = null;
+        });
+      }
+    });
   }
 
   @override
