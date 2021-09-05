@@ -309,7 +309,7 @@ extension FluffyPixApiExtension on FluffyPix {
               'auth': pushToken,
             },
           },
-          if (alerts != null) 'alerts': alerts.toJson(),
+          if (alerts != null) 'data': {'alerts': alerts.toJson()},
         },
       ).then((json) => PushSubscription.fromJson(json));
 }

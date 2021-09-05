@@ -1,9 +1,12 @@
-import 'dart:developer';
-
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fluffypix/config/app_configs.dart';
+import 'package:fluffypix/model/push_subscription.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:webcrypto/webcrypto.dart';
 import 'fluffy_pix.dart';
 import 'fluffy_pix_api_extension.dart';
@@ -25,7 +28,7 @@ extension FluffyPixPushExtension on FluffyPix {
       sound: true,
     );
     if (settings.authorizationStatus != AuthorizationStatus.authorized) {
-      log('Notification permissions have been declined. Stop initPush!');
+      debugPrint('Notification permissions have been declined. Stop initPush!');
       return;
     }
 
@@ -34,7 +37,7 @@ extension FluffyPixPushExtension on FluffyPix {
       token = await messaging.getToken();
       if (token == null) throw 'Token is NULL';
     } catch (e, s) {
-      log('Unable to get Firebase Messaging token!', error: e, stackTrace: s);
+      debugPrint('Unable to get Firebase Messaging token!$e $s');
       rethrow;
     }
 
@@ -42,7 +45,8 @@ extension FluffyPixPushExtension on FluffyPix {
     if (pushCredentials != null &&
         pushCredentials.endpoint == AppConfigs.pushGatewayUrl &&
         pushCredentials.token == token) {
-      log('Push notifications already initialized!');
+      debugPrint('Push notifications already initialized!');
+      return;
     }
 
     final keyPair = await EcdhPrivateKey.generateKey(EllipticCurve.p256);
@@ -53,28 +57,55 @@ extension FluffyPixPushExtension on FluffyPix {
     final privateKey = const Base64Encoder().convert(
       await keyPair.privateKey.exportPkcs8Key(),
     );
+    final bytes = Uint8List(16);
+    fillRandomBytes(bytes);
+    final auth = base64.encode(bytes);
+
+    final platform = kIsWeb
+        ? 'web'
+        : Platform.isIOS
+            ? 'ios'
+            : Platform.isAndroid
+                ? 'android'
+                : 'unknown';
+
+    final endpoint = '${AppConfigs.pushGatewayUrl}/$platform/$token';
+
     await setPushSubcription(
-      AppConfigs.pushGatewayUrl,
+      endpoint.toString(),
       publicKey,
-      token,
+      auth,
+      alerts: const PushSubscriptionAlerts(
+        follow: true,
+        favourite: true,
+        reblog: true,
+        mention: true,
+        poll: true,
+      ),
     );
 
     await _saveCredentials(PushCredentials(
       token: token,
       publickey: publicKey,
       privatekey: privateKey,
+      auth: auth,
       endpoint: AppConfigs.pushGatewayUrl,
     ));
-    log('Push notifications initialized!');
+    debugPrint('Push notifications initialized!');
   }
 
   PushCredentials? loadCredentials() {
     final raw = box.get('pushCredentials');
-    return raw == null
-        ? null
-        : PushCredentials.fromJson(
-            (raw as Map).toJson(),
-          );
+    if (raw == null) return null;
+    try {
+      return PushCredentials.fromJson(
+        (raw as Map).toJson(),
+      );
+    } catch (_) {
+      debugPrint('Push credentials in Hive box are compromised!');
+      box.delete('pushCredentials');
+    }
+    return null;
   }
 
   Future<void> _saveCredentials(PushCredentials credentials) => box.put(

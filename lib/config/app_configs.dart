@@ -15,7 +15,7 @@ abstract class AppConfigs {
   static const Color primaryColorLight = Color(0xFFCCBDEA);
   static const Color secondaryColor = Color(0xFF41a2bc);
   static const String fallbackBlurHash = 'L5H2EC=PM+yV0g-mq.wG9c010J}I';
-  static const String pushGatewayUrl = 'https://janian.de:7070';
+  static const String pushGatewayUrl = 'https://janian.de/push/notify';
   static const List<MobileApp> mobileApps = [
     MobileApp(
       null,
