@@ -4,6 +4,7 @@ import 'package:fluffypix/widgets/horizontal_account_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import '../model/fluffy_pix_api_extension.dart';
 
 class DiscoverAccountsCard extends StatefulWidget {
   const DiscoverAccountsCard({Key? key}) : super(key: key);

@@ -9,6 +9,7 @@ import 'package:uni_links/uni_links.dart';
 
 import 'package:fluffypix/model/create_application_response.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
+import 'package:fluffypix/model/fluffy_pix_login_extension.dart';
 import 'package:fluffypix/model/public_instance.dart';
 import 'package:fluffypix/pages/views/login_view.dart';
 import 'package:flutter/foundation.dart';

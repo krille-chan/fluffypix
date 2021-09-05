@@ -16,6 +16,7 @@ import 'package:simple_html_css/simple_html_css.dart';
 import '../../utils/date_time_extension.dart';
 import '../../utils/int_short_string_extension.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import '../../model/fluffy_pix_api_extension.dart';
 
 class StatusWidget extends StatefulWidget {
   final Status status;

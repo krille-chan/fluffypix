@@ -4,6 +4,7 @@ import 'package:fluffypix/model/status_context.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import '../model/fluffy_pix_api_extension.dart';
 
 import 'views/status_page_view.dart';
 

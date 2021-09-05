@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
+import '../model/fluffy_pix_api_extension.dart';
+import '../model/fluffy_pix_upload_extension.dart';
 
 import 'views/compose_view.dart';
 

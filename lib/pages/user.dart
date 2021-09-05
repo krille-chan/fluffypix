@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:share/share.dart';
+import '../model/fluffy_pix_api_extension.dart';
 
 import 'views/user_view.dart';
 
