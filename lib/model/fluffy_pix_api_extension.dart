@@ -1,4 +1,5 @@
 import 'package:fluffypix/model/push_subscription.dart';
+import 'package:fluffypix/model/read_markers.dart';
 
 import 'account.dart';
 import 'chunk.dart';
@@ -83,9 +84,15 @@ extension FluffyPixApiExtension on FluffyPix {
             (json['chunk'] as List).map((j) => Status.fromJson(j)).toList(),
       );
 
-  Future<Chunk<PushNotification>> getNotifications({String? maxId}) =>
+  Future<Chunk<PushNotification>> getNotifications({
+    String? maxId,
+    String? sinceId,
+    String? limit,
+  }) =>
       request(RequestType.get, '/api/v1/notifications', query: {
         if (maxId != null) 'max_id': maxId,
+        if (sinceId != null) 'since_id': sinceId,
+        if (limit != null) 'limit': limit,
       }).then(
         (json) => Chunk.fromJson(json, (m) => PushNotification.fromJson(m)),
       );
@@ -322,4 +329,15 @@ extension FluffyPixApiExtension on FluffyPix {
           'data': {'alerts': alerts.toJson()}
         },
       ).then((json) => PushSubscription.fromJson(json));
+
+  Future<ReadMarkers> getMarkers(String timeline) =>
+      request(RequestType.get, '/api/v1/markers', query: {
+        'timeline': 'notifications',
+      }).then((json) => ReadMarkers.fromJson(json));
+
+  Future<ReadMarkers> setMarkers(ReadMarkers readMarkers) => request(
+        RequestType.post,
+        '/api/v1/markers',
+        data: readMarkers.toJson(),
+      ).then((json) => ReadMarkers.fromJson(json));
 }

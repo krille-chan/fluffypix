@@ -11,6 +11,7 @@ import 'package:web_socket_channel/io.dart';
 import '../utils/convert_to_json.dart';
 import 'account.dart';
 import 'obtain_token_response.dart';
+import 'read_markers.dart';
 import 'status.dart';
 import 'notification.dart';
 import 'fluffy_pix_websocket_extension.dart';
@@ -122,6 +123,8 @@ class FluffyPix {
       headers['Authorization'] = 'Bearer $accessToken';
     }
 
+    // print(url.toString());
+
     Response resp;
     var jsonResp = <String, dynamic>{};
     switch (type) {
@@ -198,6 +201,9 @@ class FluffyPix {
     return raw.map((json) => parser((json as Map).toJson())).toList();
   }
 
+  ReadMarkers? unreadMarker;
+  List<PushNotification>? unreadNotifications;
+
   bool get allowAnimatedAvatars => _box.get('allowAnimatedAvatars') ?? true;
   set allowAnimatedAvatars(bool b) => _box.put('allowAnimatedAvatars', b);
 
@@ -218,7 +224,7 @@ class FluffyPix {
 
   final StreamController<Status> onHomeTimelineUpdate =
       StreamController.broadcast();
-  final StreamController<PushNotification> onNotificationUpdate =
+  final StreamController<PushNotification?> onNotificationUpdate =
       StreamController.broadcast();
   final StreamController<String> onDeleteStatusUpdate =
       StreamController.broadcast();

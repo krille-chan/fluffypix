@@ -1,5 +1,6 @@
 import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
+import 'package:fluffypix/widgets/notification_count_builder.dart';
 import 'package:fluffypix/widgets/trending_hashtags_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -115,11 +116,13 @@ class NavScaffold extends StatelessWidget {
                     label: L10n.of(context)!.newStatus,
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(
-                      currentIndex == 3
-                          ? CupertinoIcons.heart_fill
-                          : CupertinoIcons.heart,
-                      size: 28,
+                    icon: NotificationCountBuilder(
+                      builder: (_) => Icon(
+                        currentIndex == 3
+                            ? CupertinoIcons.heart_fill
+                            : CupertinoIcons.heart,
+                        size: 28,
+                      ),
                     ),
                     label: L10n.of(context)!.notifications,
                   ),
@@ -165,9 +168,11 @@ class NavScaffold extends StatelessWidget {
                       onTap: () => onTap(1, context),
                     ),
                     ListTile(
-                      leading: Icon(currentIndex == 3
-                          ? CupertinoIcons.heart_fill
-                          : CupertinoIcons.heart),
+                      leading: NotificationCountBuilder(
+                        builder: (_) => Icon(currentIndex == 3
+                            ? CupertinoIcons.heart_fill
+                            : CupertinoIcons.heart),
+                      ),
                       title: Text(L10n.of(context)!.notifications),
                       selected: currentIndex == 3,
                       onTap: () => onTap(3, context),

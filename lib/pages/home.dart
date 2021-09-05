@@ -50,6 +50,7 @@ class HomePageController extends State<HomePage> {
           seeNewStatuses = false;
         });
       }
+      FluffyPix.of(context).getMarkers('notifications');
       timeline = await FluffyPix.of(context).requestHomeTimeline();
       setState(() {});
       try {

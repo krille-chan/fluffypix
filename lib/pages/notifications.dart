@@ -5,6 +5,7 @@ import 'package:fluffypix/model/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../model/fluffy_pix_api_extension.dart';
+import '../model/fluffy_pix_notification_count_extension.dart';
 
 import 'views/notifications_view.dart';
 
@@ -29,6 +30,7 @@ class NotificationsPageController extends State<NotificationsPage> {
       timeline = chunk.chunk;
       next = chunk.next;
       setState(() {});
+      await FluffyPix.of(context).markNotificationsAsRead();
       refreshController.refreshCompleted();
     } catch (_) {
       refreshController.refreshFailed();
