@@ -97,8 +97,10 @@ extension FluffyPixPushExtension on FluffyPix {
     debugPrint('Push notifications initialized!');
   }
 
-  _handleForegroundRemoteMessage(RemoteMessage message) =>
-      updateNotificationCount();
+  _handleForegroundRemoteMessage(RemoteMessage message) {
+    unreadNotifications = null;
+    updateNotificationCount();
+  }
 /*
   static Future<void> _handleRemoteMessage(RemoteMessage message, [Box? box]) async {
     debugPrint('New remote message');
