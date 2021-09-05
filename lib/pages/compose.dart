@@ -174,7 +174,12 @@ class ComposePageController extends State<ComposePage> {
         ),
       );
       FluffyPix.of(context).onHomeTimelineUpdate.sink.add(newStatus);
-      Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+      if (visibility == StatusVisibility.direct) {
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/messages', (route) => route.isFirst);
+      } else {
+        Navigator.of(context).pushNamedAndRemoveUntil('/', (_) => false);
+      }
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

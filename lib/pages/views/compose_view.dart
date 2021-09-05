@@ -16,7 +16,7 @@ class ComposePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return NavScaffold(
       appBar: AppBar(
-        title: Text(controller.widget.dmUser != null
+        title: Text(ComposePageController.visibility == StatusVisibility.direct
             ? L10n.of(context)!.newMessage
             : L10n.of(context)!.newStatus),
         automaticallyImplyLeading: false,

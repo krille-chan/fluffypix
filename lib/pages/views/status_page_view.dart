@@ -44,6 +44,7 @@ class StatusPageView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextField(
                   controller: controller.textEditingController,
+                  focusNode: controller.focusNode,
                   minLines: 5,
                   maxLines: 8,
                   maxLength: 500,

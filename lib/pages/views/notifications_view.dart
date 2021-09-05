@@ -96,19 +96,20 @@ extension on PushNotification {
     switch (type) {
       case NotificationType.mention:
         return L10n.of(context)!
-            .mentioned(account.displayName, status?.content ?? '');
+            .mentioned(account.calcedDisplayname, status?.content ?? '');
       case NotificationType.favourite:
-        return L10n.of(context)!.likesYourPost(account.displayName);
+        return L10n.of(context)!.likesYourPost(account.calcedDisplayname);
       case NotificationType.follow:
-        return L10n.of(context)!.isFollowingYouNow(account.displayName);
+        return L10n.of(context)!.isFollowingYouNow(account.calcedDisplayname);
       case NotificationType.follow_request:
-        return L10n.of(context)!.wouldLikeToFollowYou(account.displayName);
+        return L10n.of(context)!
+            .wouldLikeToFollowYou(account.calcedDisplayname);
       case NotificationType.reblog:
-        return L10n.of(context)!.sharedYourPost(account.displayName);
+        return L10n.of(context)!.sharedYourPost(account.calcedDisplayname);
       case NotificationType.poll:
         return L10n.of(context)!.pollEnded;
       case NotificationType.status:
-        return L10n.of(context)!.hasPosted(account.displayName);
+        return L10n.of(context)!.hasPosted(account.calcedDisplayname);
     }
   }
 

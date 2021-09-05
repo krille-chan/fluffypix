@@ -28,8 +28,10 @@ class StatusPageController extends State<StatusPage> {
   final TextEditingController textEditingController = TextEditingController();
   bool commentLoading = false;
 
-  final refreshController = RefreshController(initialRefresh: false);
-  final scrollController = ScrollController();
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: false);
+  final ScrollController scrollController = ScrollController();
+  final FocusNode focusNode = FocusNode();
 
   void refresh() async {
     try {
@@ -86,6 +88,7 @@ class StatusPageController extends State<StatusPage> {
         ),
       );
       textEditingController.clear();
+      focusNode.unfocus();
       refreshController.requestRefresh();
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
