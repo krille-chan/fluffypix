@@ -16,7 +16,7 @@ class ComposePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return NavScaffold(
       appBar: AppBar(
-        title: Text(ComposePageController.visibility == StatusVisibility.direct
+        title: Text(controller.visibility == StatusVisibility.direct
             ? L10n.of(context)!.newMessage
             : L10n.of(context)!.newStatus),
         automaticallyImplyLeading: false,
@@ -47,14 +47,14 @@ class ComposePageView extends StatelessWidget {
           : ListView(
               padding: const EdgeInsets.all(12),
               children: [
-                if (ComposePageController.media.isNotEmpty) ...[
-                  ComposePageController.media.length == 1
+                if (controller.media.isNotEmpty) ...[
+                  controller.media.length == 1
                       ? Center(child: _PickedImage(controller, 0))
                       : SizedBox(
                           height: 256,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: ComposePageController.media.length,
+                            itemCount: controller.media.length,
                             itemBuilder: (context, i) =>
                                 _PickedImage(controller, i),
                           ),
@@ -67,7 +67,7 @@ class ComposePageView extends StatelessWidget {
                   maxLength: 500,
                   textAlign: TextAlign.center,
                   textAlignVertical: TextAlignVertical.center,
-                  controller: ComposePageController.statusController,
+                  controller: controller.statusController,
                   decoration: InputDecoration(
                     hintText: L10n.of(context)!.howDoYouFeel,
                     contentPadding: const EdgeInsets.all(12),
@@ -111,16 +111,16 @@ class ComposePageView extends StatelessWidget {
                   onTap: controller.setVisibility,
                   trailing: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Icon(ComposePageController.visibility.icon),
+                    child: Icon(controller.visibility.icon),
                   ),
                   title: Text(L10n.of(context)!.visibility),
-                  subtitle: Text(ComposePageController.visibility
-                      .toLocalizedString(context)),
+                  subtitle:
+                      Text(controller.visibility.toLocalizedString(context)),
                 ),
                 const SizedBox(height: 12),
                 SwitchListTile(
                   controlAffinity: ListTileControlAffinity.trailing,
-                  value: ComposePageController.sensitive,
+                  value: controller.sensitive,
                   onChanged: controller.toggleSensitive,
                   title: Text(L10n.of(context)!.nsfw),
                 ),
@@ -160,7 +160,7 @@ class _PickedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final media = ComposePageController.media[i];
+    final media = controller.media[i];
     return Stack(
       children: [
         media.video

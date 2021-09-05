@@ -92,23 +92,35 @@ class NavScaffold extends StatelessWidget {
                 onTap: (i) => onTap(i, context),
                 items: [
                   BottomNavigationBarItem(
-                    icon: const Icon(CupertinoIcons.home),
+                    icon: Icon(
+                      currentIndex == 0 ? Icons.home : Icons.home_outlined,
+                      size: 28,
+                    ),
                     label: L10n.of(context)!.home,
                   ),
                   BottomNavigationBarItem(
-                    icon: const Icon(CupertinoIcons.search),
+                    icon: const Icon(
+                      CupertinoIcons.search,
+                      size: 28,
+                    ),
                     label: L10n.of(context)!.account,
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(currentIndex == 2
-                        ? CupertinoIcons.add_circled_solid
-                        : CupertinoIcons.add_circled),
+                    icon: Icon(
+                      currentIndex == 2
+                          ? CupertinoIcons.add_circled_solid
+                          : CupertinoIcons.add_circled,
+                      size: 28,
+                    ),
                     label: L10n.of(context)!.newStatus,
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(currentIndex == 3
-                        ? CupertinoIcons.heart_fill
-                        : CupertinoIcons.heart),
+                    icon: Icon(
+                      currentIndex == 3
+                          ? CupertinoIcons.heart_fill
+                          : CupertinoIcons.heart,
+                      size: 28,
+                    ),
                     label: L10n.of(context)!.notifications,
                   ),
                   BottomNavigationBarItem(
@@ -140,7 +152,8 @@ class NavScaffold extends StatelessWidget {
                       ),
                     ),
                     ListTile(
-                      leading: const Icon(CupertinoIcons.home),
+                      leading: Icon(
+                          currentIndex == 0 ? Icons.home : Icons.home_outlined),
                       title: Text(L10n.of(context)!.home),
                       selected: currentIndex == 0,
                       onTap: () => onTap(0, context),

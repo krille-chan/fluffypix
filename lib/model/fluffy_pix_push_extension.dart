@@ -106,7 +106,7 @@ extension FluffyPixPushExtension on FluffyPix {
     final String? cipherText = message.data['ciphertext'];
 
     if (cipherText == null) {
-      // TODO: Display fallback notification
+      // Display fallback notification
       return;
     }
     final credentials = await loadCredentials(box);

@@ -219,9 +219,12 @@ class _StatusWidgetState extends State<StatusWidget> {
             ),
           ),
         ListTile(
-          onTap: () => Navigator.of(context)
-              .pushNamed('/user/${contentStatus.account.id}'),
-          leading: Avatar(account: contentStatus.account),
+          leading: InkWell(
+            borderRadius: BorderRadius.circular(64),
+            onTap: () => Navigator.of(context)
+                .pushNamed('/user/${contentStatus.account.id}'),
+            child: Avatar(account: contentStatus.account),
+          ),
           title: Row(
             children: [
               Expanded(

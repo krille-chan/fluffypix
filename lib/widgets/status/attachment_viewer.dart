@@ -146,7 +146,7 @@ class _AttachmentImageViewer extends StatelessWidget {
               : width / metaInfo!.aspect!,
       fit: imageStatusMode == ImageStatusMode.discover
           ? BoxFit.cover
-          : BoxFit.fill,
+          : BoxFit.contain,
     );
   }
 }
