@@ -18,6 +18,17 @@ class SettingsNotificationsPageView extends StatelessWidget {
       body: FutureBuilder<PushSubscriptionAlerts>(
           future: controller.alertsFuture,
           builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    L10n.of(context)!.oopsSomethingWentWrong,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              );
+            }
             final alerts = snapshot.data;
             if (alerts == null) {
               return const Center(child: CupertinoActivityIndicator());
