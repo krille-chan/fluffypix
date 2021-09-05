@@ -1,5 +1,5 @@
 class StreamUpdate {
-  final List<String> stream;
+  final List<String>? stream;
   final StreamUpdateEvent event;
   final dynamic payload;
 
@@ -10,14 +10,15 @@ class StreamUpdate {
   });
 
   factory StreamUpdate.fromJson(Map<String, dynamic> json) => StreamUpdate(
-        stream: List<String>.from(json['stream']),
+        stream:
+            json['stream'] == null ? null : List<String>.from(json['stream']),
         event: StreamUpdateEvent.values
             .firstWhere((t) => t.toString().split('.').last == json['event']),
         payload: json['payload'],
       );
 
   Map<String, dynamic> toJson() => {
-        'stream': List<String>.from(stream),
+        if (stream != null) 'stream': List<String>.from(stream!),
         'event': event.toString().split('.').last,
         'payload': payload,
       };
