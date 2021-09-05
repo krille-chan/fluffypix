@@ -23,7 +23,6 @@ class NotificationsPageView extends StatelessWidget {
         automaticallyImplyLeading: false,
         title: const Text('Notifications'),
       ),
-      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       body: SmartRefresher(
         controller: controller.refreshController,
         enablePullDown: true,

@@ -373,8 +373,8 @@ class _StatusWidgetState extends State<StatusWidget> {
                     value: StatusAction.shareLink,
                     child: Text(L10n.of(context)!.shareLink),
                   ),
-                  if (FluffyPix.of(context).ownAccount!.username ==
-                      widget.status.account.username)
+                  if (FluffyPix.of(context).ownAccount!.id ==
+                      widget.status.account.id)
                     PopupMenuItem(
                       value: StatusAction.delete,
                       child: Text(
