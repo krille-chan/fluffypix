@@ -8,5 +8,52 @@
   "pickACommunityDescription": "Willkommen in unserem dezentralen sozialen Netzwerk. Schnapp dir einfach eine Community und tauche ein in den Spaß.",
   "@pickACommunityDescription": {},
   "pickACommunity": "Schnapp dir eine Community",
-  "@pickACommunity": {}
+  "@pickACommunity": {},
+  "unblockUser": "Benutzer entsperren",
+  "@unblockUser": {},
+  "dateWithoutYear": "{day}.{month}",
+  "@dateWithoutYear": {
+    "type": "text",
+    "placeholders": {
+      "month": {},
+      "day": {}
+    }
+  },
+  "dateAndTimeOfDay": "{date}, {timeOfDay}",
+  "@dateAndTimeOfDay": {
+    "type": "text",
+    "placeholders": {
+      "date": {},
+      "timeOfDay": {}
+    }
+  },
+  "dateWithYear": "{day}.{month}.{year}",
+  "@dateWithYear": {
+    "type": "text",
+    "placeholders": {
+      "year": {},
+      "month": {},
+      "day": {}
+    }
+  },
+  "home": "Startseite",
+  "@home": {},
+  "notifications": "Benachrichtigungen",
+  "@notifications": {},
+  "trendingHashtags": "Trendige Schlagwörter:",
+  "@trendingHashtags": {},
+  "help": "Hilfe",
+  "@help": {},
+  "playInBrowser": "Im Browser abspielen",
+  "@playInBrowser": {},
+  "about": "Über",
+  "@about": {},
+  "hashtags": "Schlagwörter",
+  "@hashtags": {},
+  "reason": "Grund",
+  "@reason": {},
+  "tryOutMobileApps": "Probiere auch die mobilen Anwendungen aus:",
+  "@tryOutMobileApps": {},
+  "account": "Konto",
+  "@account": {}
 }
