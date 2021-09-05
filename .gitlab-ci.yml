@@ -68,8 +68,7 @@ build_appbundle:
     - *add_api_key
     - ./scripts/prepare-android-release.sh
   script:
-    - flutter pub get
-    - flutter build appbundle --target-platform android-arm,android-arm64,android-x64
+    - ./scripts/release-playstore-beta.sh
   artifacts:
     when: on_success
     paths:
