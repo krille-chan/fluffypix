@@ -8,21 +8,27 @@ class NotificationCountBuilder extends StatelessWidget {
   const NotificationCountBuilder({required this.builder, Key? key})
       : super(key: key);
 
+  static int lastCount = 0;
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<int>(
         stream: FluffyPix.of(context).onNotificationCount.stream,
         builder: (context, snapshot) {
-          final unreadCount = snapshot.data ?? 0;
+          final unreadCount = snapshot.data ?? lastCount;
+          lastCount = unreadCount;
           return Badge(
             showBadge: unreadCount > 0,
-            badgeColor: Colors.red,
-            position: BadgePosition.topEnd(top: -16, end: -16),
+            borderRadius: BorderRadius.circular(6),
+            padding: const EdgeInsets.all(2),
+            badgeColor: Colors.red[700]!,
             shape: BadgeShape.square,
-            borderRadius: BorderRadius.circular(8),
             badgeContent: Text(
               unreadCount.shortString,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             child: builder(unreadCount),
           );

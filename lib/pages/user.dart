@@ -227,7 +227,7 @@ class UserPageController extends State<UserPage> {
       timeline = null;
       userStatusesView = UserStatusesView.grid;
     });
-    refreshController.requestRefresh();
+    refresh();
   }
 
   void setStatusesTimelineView() {
@@ -236,7 +236,7 @@ class UserPageController extends State<UserPage> {
       timeline = null;
       userStatusesView = UserStatusesView.timeline;
     });
-    refreshController.requestRefresh();
+    refresh();
   }
 
   void goToSettings() => Navigator.of(context).pushNamed('/settings');
@@ -254,7 +254,7 @@ class UserPageController extends State<UserPage> {
     setState(() {
       column = newColumn;
     });
-    refreshController.requestRefresh();
+    refresh();
   }
 
   void sendMessage() =>

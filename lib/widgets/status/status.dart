@@ -288,16 +288,16 @@ class _StatusWidgetState extends State<StatusWidget> {
                   : Badge(
                       badgeContent: Text(
                         contentStatus.favouritesCount.shortString,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.red[900],
+                          color: Colors.white,
                         ),
                       ),
                       shape: BadgeShape.square,
                       borderRadius: BorderRadius.circular(6),
                       padding: const EdgeInsets.all(2),
                       position: badgePosition,
-                      badgeColor: Theme.of(context).appBarTheme.color!,
+                      badgeColor: Colors.red[700]!,
                       showBadge: contentStatus.favouritesCount > 0,
                       child: IconButton(
                         icon: Icon(
@@ -314,9 +314,9 @@ class _StatusWidgetState extends State<StatusWidget> {
               Badge(
                 badgeContent: Text(
                   contentStatus.repliesCount.shortString,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.blue[900],
+                    color: Colors.white,
                   ),
                 ),
                 shape: BadgeShape.square,
@@ -324,7 +324,7 @@ class _StatusWidgetState extends State<StatusWidget> {
                 padding: const EdgeInsets.all(2),
                 position: badgePosition,
                 showBadge: contentStatus.repliesCount > 0,
-                badgeColor: Theme.of(context).appBarTheme.color!,
+                badgeColor: Colors.orange[700]!,
                 child: IconButton(
                   icon: const Icon(CupertinoIcons.chat_bubble),
                   onPressed: commentAction,
@@ -338,16 +338,16 @@ class _StatusWidgetState extends State<StatusWidget> {
                   : Badge(
                       badgeContent: Text(
                         contentStatus.reblogsCount.shortString,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.green[900],
+                          color: Colors.white,
                         ),
                       ),
                       shape: BadgeShape.square,
                       borderRadius: BorderRadius.circular(6),
                       padding: const EdgeInsets.all(2),
                       showBadge: contentStatus.reblogsCount > 0,
-                      badgeColor: Theme.of(context).appBarTheme.color!,
+                      badgeColor: Colors.green[700]!,
                       position: badgePosition,
                       child: IconButton(
                         icon: Icon(CupertinoIcons.repeat,

@@ -115,13 +115,14 @@ extension on PushNotification {
   Color? get color {
     switch (type) {
       case NotificationType.mention:
-        return Colors.blue;
+        return Colors.orange[700];
       case NotificationType.favourite:
-        return Colors.red;
+        return Colors.red[700];
       case NotificationType.reblog:
-        return Colors.green;
-      case NotificationType.follow_request:
+        return Colors.green[700];
       case NotificationType.follow:
+        return Colors.blue[700];
+      case NotificationType.follow_request:
       case NotificationType.poll:
       case NotificationType.status:
         return null;
@@ -131,7 +132,7 @@ extension on PushNotification {
   IconData get iconData {
     switch (type) {
       case NotificationType.mention:
-        return CupertinoIcons.chat_bubble;
+        return CupertinoIcons.chat_bubble_fill;
       case NotificationType.favourite:
         return CupertinoIcons.heart_fill;
       case NotificationType.follow:
