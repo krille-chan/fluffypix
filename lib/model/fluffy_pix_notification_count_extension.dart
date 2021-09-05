@@ -13,6 +13,7 @@ extension FluffyPixNotificationCountExtension on FluffyPix {
   }
 
   void updateNotificationCount() async {
+    if (!isLogged) return;
     final count = await _getNotificationCount();
     onNotificationCount.sink.add(count);
   }

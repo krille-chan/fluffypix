@@ -6,6 +6,7 @@ import 'package:fluffypix/config/instances_api_token.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:webcrypto/webcrypto.dart';
+import 'fluffy_pix_notification_count_extension.dart';
 
 import 'create_application_response.dart';
 import 'fluffy_pix.dart';
@@ -89,6 +90,7 @@ extension FluffyPixLoginExtension on FluffyPix {
       );
       ownAccount = await verifyAccountCredentials();
       initPush();
+      updateNotificationCount();
       return save();
     } catch (_) {
       await logout(revoke: false);

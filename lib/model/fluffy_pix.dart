@@ -43,8 +43,12 @@ class FluffyPix {
     if (json != null) _loadFromJson(Map<String, dynamic>.from(json));
     if (isLogged) {
       initPush();
-      updateNotificationCount();
     }
+    SystemChannels.lifecycle.setMessageHandler((msg) async {
+      if (msg == AppLifecycleState.resumed.toString()) {
+        updateNotificationCount();
+      }
+    });
     return;
   }
 
