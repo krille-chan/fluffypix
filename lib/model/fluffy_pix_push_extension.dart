@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fluffypix/config/app_configs.dart';
+import 'package:fluffypix/model/notification.dart';
 import 'package:fluffypix/model/push_subscription.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ extension FluffyPixPushExtension on FluffyPix {
   Future<void> initPush() async {
     await Firebase.initializeApp();
     final messaging = FirebaseMessaging.instance;
-    //FirebaseMessaging.onMessage.listen(_handleForegroundRemoteMessage);
+    FirebaseMessaging.onMessage.listen(_handleForegroundRemoteMessage);
 
     final settings = await messaging.requestPermission(
       alert: true,
@@ -96,14 +97,17 @@ extension FluffyPixPushExtension on FluffyPix {
     debugPrint('Push notifications initialized!');
   }
 
-  /* _handleForegroundRemoteMessage(RemoteMessage message) => _handleRemoteMessage(
-        message,
-        box,
-      );
-
-  Future<void> _handleRemoteMessage(RemoteMessage message, [Box? box]) async {
+  _handleForegroundRemoteMessage(RemoteMessage message) =>
+      onNotificationUpdate.sink.add(PushNotification(
+        id: '',
+        type: NotificationType.status,
+        createdAt: DateTime.now(),
+        account: ownAccount!,
+      ));
+/*
+  static Future<void> _handleRemoteMessage(RemoteMessage message, [Box? box]) async {
     debugPrint('New remote message');
-    final String? cipherText = message.data['ciphertext'];
+      final String? cipherText = message.data['ciphertext'];
 
     if (cipherText == null) {
       // Display fallback notification

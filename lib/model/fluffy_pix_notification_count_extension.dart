@@ -21,6 +21,5 @@ extension FluffyPixNotificationCountExtension on FluffyPix {
       ),
     );
     unreadNotifications = [];
-    onNotificationUpdate.sink.add(null);
   }
 }

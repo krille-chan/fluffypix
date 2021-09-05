@@ -33,9 +33,15 @@ extension FluffyPixApiExtension on FluffyPix {
         if (website != null) 'website': website,
       }).then((json) => CreateApplicationResponse.fromJson(json));
 
-  Future<List<Status>> requestHomeTimeline({String? maxId}) =>
+  Future<List<Status>> requestHomeTimeline({
+    String? maxId,
+    String? sinceId,
+    String? limit,
+  }) =>
       request(RequestType.get, '/api/v1/timelines/home', query: {
         if (maxId != null) 'max_id': maxId,
+        if (sinceId != null) 'since_id': sinceId,
+        if (limit != null) 'limit': limit,
       }).then(
         (json) =>
             (json['chunk'] as List).map((j) => Status.fromJson(j)).toList(),

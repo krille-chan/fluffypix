@@ -10,7 +10,6 @@ import 'package:webcrypto/webcrypto.dart';
 import 'create_application_response.dart';
 import 'fluffy_pix.dart';
 import 'public_instance.dart';
-import 'fluffy_pix_websocket_extension.dart';
 import 'fluffy_pix_api_extension.dart';
 import 'fluffy_pix_push_extension.dart';
 import '../utils/convert_to_json.dart';
@@ -89,7 +88,6 @@ extension FluffyPixLoginExtension on FluffyPix {
         scope: 'read write follow push',
       );
       ownAccount = await verifyAccountCredentials();
-      subscribeToWebsocket();
       initPush();
       return save();
     } catch (_) {
@@ -113,7 +111,6 @@ extension FluffyPixLoginExtension on FluffyPix {
     } finally {
       accessTokenCredentials = instance = ownAccount = null;
       await box.deleteAll(box.keys);
-      unsubscribeToWebsocket();
     }
   }
 

@@ -7,14 +7,11 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
-import 'package:web_socket_channel/io.dart';
 import '../utils/convert_to_json.dart';
 import 'account.dart';
 import 'obtain_token_response.dart';
 import 'read_markers.dart';
-import 'status.dart';
 import 'notification.dart';
-import 'fluffy_pix_websocket_extension.dart';
 import 'fluffy_pix_push_extension.dart';
 
 enum RequestType { get, post, put, delete }
@@ -44,7 +41,6 @@ class FluffyPix {
     final json = _box.get(AppConfigs.hiveBoxAccountKey);
     if (json != null) _loadFromJson(Map<String, dynamic>.from(json));
     if (isLogged) {
-      subscribeToWebsocket();
       initPush();
     }
     return;
@@ -123,7 +119,7 @@ class FluffyPix {
       headers['Authorization'] = 'Bearer $accessToken';
     }
 
-    // print(url.toString());
+    //print(url.toString());
 
     Response resp;
     var jsonResp = <String, dynamic>{};
@@ -219,15 +215,6 @@ class FluffyPix {
   bool get useDiscoverGridView => _box.get('useDiscoverGridView') ?? true;
   set useDiscoverGridView(bool b) => _box.put('useDiscoverGridView', b);
 
-  StreamSubscription? onUpdateSub;
-  IOWebSocketChannel? channel;
-
-  final StreamController<Status> onHomeTimelineUpdate =
-      StreamController.broadcast();
   final StreamController<PushNotification?> onNotificationUpdate =
-      StreamController.broadcast();
-  final StreamController<String> onDeleteStatusUpdate =
-      StreamController.broadcast();
-  final StreamController<void> onChangeFilterUpdate =
       StreamController.broadcast();
 }

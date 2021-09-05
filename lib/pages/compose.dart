@@ -162,7 +162,7 @@ class ComposePageController extends State<ComposePage> {
             await FluffyPix.of(context).upload(file.bytes, file.filename);
         mediaIds.add(result.id);
       }
-      final newStatus = await FluffyPix.of(context).publishNewStatus(
+      await FluffyPix.of(context).publishNewStatus(
         status: statusController.text,
         sensitive: sensitive,
         visibility: visibility,
@@ -173,7 +173,6 @@ class ComposePageController extends State<ComposePage> {
           content: Text(L10n.of(context)!.newPostPublished),
         ),
       );
-      FluffyPix.of(context).onHomeTimelineUpdate.sink.add(newStatus);
       if (visibility == StatusVisibility.direct) {
         Navigator.of(context)
             .pushNamedAndRemoveUntil('/messages', (route) => route.isFirst);

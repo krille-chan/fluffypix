@@ -40,6 +40,8 @@ class HomePageController extends State<HomePage> {
   List<Account> trendAccounts = [];
   bool seeNewStatuses = false;
 
+  late final Timer checkUpdatesTimer;
+
   final refreshController = RefreshController(initialRefresh: false);
   final scrollController = ScrollController();
 
@@ -155,20 +157,6 @@ class HomePageController extends State<HomePage> {
         curve: Curves.ease,
       );
 
-  late final StreamSubscription onHomeTimelineUpdate;
-
-  void _onNewStatusUpdate(Status status) {
-    if (status.inReplyToId != null) {
-      setState(() {
-        timeline.add(status);
-      });
-      return;
-    }
-    setState(() {
-      seeNewStatuses = true;
-    });
-  }
-
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
@@ -178,21 +166,34 @@ class HomePageController extends State<HomePage> {
       _initReceiveSharingIntent();
     }
     super.initState();
-    onHomeTimelineUpdate = FluffyPix.of(context)
-        .onHomeTimelineUpdate
-        .stream
-        .where((status) => status.visibility != StatusVisibility.direct)
-        .listen(_onNewStatusUpdate);
+    checkUpdatesTimer = Timer.periodic(
+      const Duration(seconds: 15),
+      checkForUpdates,
+    );
     timeline = FluffyPix.of(context)
             .getCachedTimeline<Status>('home', (j) => Status.fromJson(j)) ??
         [];
+  }
+
+  void checkForUpdates(Timer _) async {
+    if (timeline.isEmpty) return;
+    final updates = await FluffyPix.of(context).requestHomeTimeline(
+      limit: '1',
+      sinceId: timeline.first.id,
+    );
+    if (updates.isNotEmpty) {
+      setState(() {
+        seeNewStatuses = true;
+      });
+    }
+    return;
   }
 
   @override
   void dispose() {
     _intentTextStreamSubscription?.cancel();
     _intentFileStreamSubscription?.cancel();
-    onHomeTimelineUpdate.cancel();
+    checkUpdatesTimer.cancel();
     super.dispose();
   }
 
