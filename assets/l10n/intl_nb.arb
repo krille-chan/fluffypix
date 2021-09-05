@@ -251,5 +251,19 @@
   "pickACommunity": "Velg en gemenskap",
   "@pickACommunity": {},
   "helloWorld": "Hei verden",
-  "@helloWorld": {}
+  "@helloWorld": {},
+  "addVideo": "Legg til video",
+  "@addVideo": {},
+  "addPhoto": "Legg til bilde",
+  "@addPhoto": {},
+  "forEndingPolls": "For sluttførte avstemninger",
+  "@forEndingPolls": {},
+  "forNewMentions": "For nye nevnelser",
+  "@forNewMentions": {},
+  "forNewSharings": "For nye delinger",
+  "@forNewSharings": {},
+  "forNewFollowers": "For nye følgere",
+  "@forNewFollowers": {},
+  "forNewLikes": "For nye begunstninger",
+  "@forNewLikes": {}
 }
