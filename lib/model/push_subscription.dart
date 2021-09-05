@@ -28,18 +28,18 @@ class PushSubscription {
 }
 
 class PushSubscriptionAlerts {
-  final bool? follow;
-  final bool? favourite;
-  final bool? reblog;
-  final bool? mention;
-  final bool? poll;
+  bool? follow;
+  bool? favourite;
+  bool? reblog;
+  bool? mention;
+  bool? poll;
 
-  const PushSubscriptionAlerts({
-    required this.follow,
-    required this.favourite,
-    required this.reblog,
-    required this.mention,
-    required this.poll,
+  PushSubscriptionAlerts({
+    this.follow,
+    this.favourite,
+    this.reblog,
+    this.mention,
+    this.poll,
   });
 
   factory PushSubscriptionAlerts.fromJson(Map<String, dynamic> json) =>

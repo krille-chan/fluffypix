@@ -9,6 +9,7 @@ import 'package:fluffypix/pages/messages.dart';
 import 'package:fluffypix/pages/notifications.dart';
 import 'package:fluffypix/pages/search.dart';
 import 'package:fluffypix/pages/settings.dart';
+import 'package:fluffypix/pages/settings_notifications.dart';
 import 'package:fluffypix/pages/status.dart';
 import 'package:fluffypix/pages/user.dart';
 import 'package:fluffypix/pages/views/page_not_found_view.dart';
@@ -47,6 +48,9 @@ class AppRoutes {
       case 'messages':
         return _fadeRoute(builder: (_) => const MessagesPage());
       case 'settings':
+        if (parts.length == 3 && parts[2] == 'notifications') {
+          return _fadeRoute(builder: (_) => const SettingsNotificationsPage());
+        }
         return _fadeRoute(builder: (_) => const SettingsPage());
       case 'tags':
         if (parts.length == 3) {

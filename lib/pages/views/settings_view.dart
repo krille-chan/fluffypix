@@ -24,6 +24,11 @@ class SettingsPageView extends StatelessWidget {
             title: Text(L10n.of(context)!.account),
             onTap: controller.settingsAction,
           ),
+          ListTile(
+            leading: const Icon(CupertinoIcons.bell),
+            title: Text(L10n.of(context)!.notifications),
+            onTap: controller.goToNotificationSettings,
+          ),
           const Divider(),
           SwitchListTile(
             value: controller.allowAnimatedAvatars,

@@ -312,4 +312,14 @@ extension FluffyPixApiExtension on FluffyPix {
           if (alerts != null) 'data': {'alerts': alerts.toJson()},
         },
       ).then((json) => PushSubscription.fromJson(json));
+
+  Future<PushSubscription> setPushsubcriptionAlerts(
+          PushSubscriptionAlerts alerts) =>
+      request(
+        RequestType.put,
+        '/api/v1/push/subscription',
+        data: {
+          'data': {'alerts': alerts.toJson()}
+        },
+      ).then((json) => PushSubscription.fromJson(json));
 }

@@ -77,7 +77,7 @@ extension FluffyPixPushExtension on FluffyPix {
       endpoint.toString(),
       publicKey,
       auth,
-      alerts: const PushSubscriptionAlerts(
+      alerts: PushSubscriptionAlerts(
         follow: true,
         favourite: true,
         reblog: true,

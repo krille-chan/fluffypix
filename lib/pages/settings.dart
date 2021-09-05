@@ -71,6 +71,9 @@ class SettingsPageController extends State<SettingsPage> {
   void helpAction() => launch(AppConfigs.issueUrl);
   void privacyAction() => launch(AppConfigs.privacyUrl);
 
+  void goToNotificationSettings() =>
+      Navigator.of(context).pushNamed('/settings/notifications');
+
   bool get allowAnimatedAvatars => FluffyPix.of(context).allowAnimatedAvatars;
   void setAllowAnimatedAvatars(bool b) => setState(() {
         FluffyPix.of(context).allowAnimatedAvatars = b;
