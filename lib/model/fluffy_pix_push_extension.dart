@@ -18,7 +18,7 @@ extension FluffyPixPushExtension on FluffyPix {
   Future<void> initPush() async {
     await Firebase.initializeApp();
     final messaging = FirebaseMessaging.instance;
-    FirebaseMessaging.onMessage.listen(_handleForegroundRemoteMessage);
+    //FirebaseMessaging.onMessage.listen(_handleForegroundRemoteMessage);
 
     final settings = await messaging.requestPermission(
       alert: true,
@@ -96,7 +96,7 @@ extension FluffyPixPushExtension on FluffyPix {
     debugPrint('Push notifications initialized!');
   }
 
-  _handleForegroundRemoteMessage(RemoteMessage message) => _handleRemoteMessage(
+  /* _handleForegroundRemoteMessage(RemoteMessage message) => _handleRemoteMessage(
         message,
         box,
       );
@@ -127,7 +127,7 @@ extension FluffyPixPushExtension on FluffyPix {
 
     final derivedBits = await privateKey.deriveBits(16, publicKey);
 
-    /*if (notification != null && android != null) {
+    if (notification != null && android != null) {
       flutterLocalNotificationsPlugin.show(
           notification.hashCode,
           notification.title,
@@ -139,9 +139,9 @@ extension FluffyPixPushExtension on FluffyPix {
               channel.description,
             ),
           ));
-    }*/
+    }
     return;
-  }
+  }*/
 
   static Future<PushCredentials?> loadCredentials([Box? box]) async {
     var closeAfterGet = false;

@@ -12,7 +12,6 @@ import 'package:fluffypix/pages/views/home_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import '../model/fluffy_pix_api_extension.dart';
@@ -46,6 +45,11 @@ class HomePageController extends State<HomePage> {
 
   void refresh() async {
     try {
+      if (seeNewStatuses) {
+        setState(() {
+          seeNewStatuses = false;
+        });
+      }
       timeline = await FluffyPix.of(context).requestHomeTimeline();
       setState(() {});
       try {
@@ -152,13 +156,6 @@ class HomePageController extends State<HomePage> {
 
   late final StreamSubscription onHomeTimelineUpdate;
 
-  void seeNewStatusesAction() {
-    setState(() {
-      seeNewStatuses = false;
-    });
-    refreshController.requestRefresh();
-  }
-
   void _onNewStatusUpdate(Status status) {
     if (status.inReplyToId != null) {
       setState(() {
@@ -185,12 +182,6 @@ class HomePageController extends State<HomePage> {
         .stream
         .where((status) => status.visibility != StatusVisibility.direct)
         .listen(_onNewStatusUpdate);
-    SystemChannels.lifecycle.setMessageHandler((msg) async {
-      if (mounted && msg == AppLifecycleState.resumed.toString()) {
-        refreshController.requestRefresh();
-      }
-      return msg;
-    });
     timeline = FluffyPix.of(context)
             .getCachedTimeline<Status>('home', (j) => Status.fromJson(j)) ??
         [];

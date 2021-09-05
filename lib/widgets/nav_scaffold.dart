@@ -14,7 +14,7 @@ class NavScaffold extends StatelessWidget {
   final int? currentIndex;
   final ScrollController? scrollController;
   final Color? backgroundColor;
-  final FloatingActionButton? floatingActionButton;
+  final Widget? floatingActionButton;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   const NavScaffold({
     Key? key,

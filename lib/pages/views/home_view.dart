@@ -42,12 +42,15 @@ class HomePageView extends StatelessWidget {
         ],
       ),
       floatingActionButton: controller.seeNewStatuses
-          ? FloatingActionButton.extended(
-              onPressed: controller.seeNewStatusesAction,
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              foregroundColor: Theme.of(context).textTheme.bodyText1?.color,
-              icon: const Icon(CupertinoIcons.up_arrow),
-              label: Text(L10n.of(context)!.seeNewPosts),
+          ? Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: FloatingActionButton.extended(
+                onPressed: controller.refreshController.requestRefresh,
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                foregroundColor: Theme.of(context).textTheme.bodyText1?.color,
+                icon: const Icon(CupertinoIcons.up_arrow),
+                label: Text(L10n.of(context)!.seeNewPosts),
+              ),
             )
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterTop,
