@@ -13,6 +13,7 @@ import 'obtain_token_response.dart';
 import 'read_markers.dart';
 import 'notification.dart';
 import 'fluffy_pix_push_extension.dart';
+import 'fluffy_pix_notification_count_extension.dart';
 
 enum RequestType { get, post, put, delete }
 
@@ -42,6 +43,7 @@ class FluffyPix {
     if (json != null) _loadFromJson(Map<String, dynamic>.from(json));
     if (isLogged) {
       initPush();
+      updateNotificationCount();
     }
     return;
   }
@@ -215,6 +217,6 @@ class FluffyPix {
   bool get useDiscoverGridView => _box.get('useDiscoverGridView') ?? true;
   set useDiscoverGridView(bool b) => _box.put('useDiscoverGridView', b);
 
-  final StreamController<PushNotification?> onNotificationUpdate =
+  final StreamController<int> onNotificationCount =
       StreamController.broadcast();
 }
