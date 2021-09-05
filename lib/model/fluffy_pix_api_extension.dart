@@ -1,3 +1,5 @@
+import 'package:fluffypix/model/push_subscription.dart';
+
 import 'account.dart';
 import 'chunk.dart';
 import 'conversation.dart';
@@ -285,4 +287,29 @@ extension FluffyPixApiExtension on FluffyPix {
         RequestType.delete,
         '/api/v1/statuses/${Uri.encodeComponent(statusId)}',
       ).then((json) => Status.fromJson(json));
+
+  Future<PushSubscription?> getCurrentPushSubscription() => request(
+        RequestType.get,
+        '/api/v1/push/subscription',
+      ).then((json) => json['error'] == 'Record not found'
+          ? null
+          : PushSubscription.fromJson(json));
+
+  Future<PushSubscription> setPushSubcription(
+          String endpoint, String publicKey, String pushToken,
+          {PushSubscriptionAlerts? alerts}) =>
+      request(
+        RequestType.post,
+        '/api/v1/push/subscription',
+        data: {
+          'subscription': {
+            'endpoint': endpoint,
+            'keys': {
+              'p256dh': publicKey,
+              'auth': pushToken,
+            },
+          },
+          if (alerts != null) 'alerts': alerts.toJson(),
+        },
+      ).then((json) => PushSubscription.fromJson(json));
 }

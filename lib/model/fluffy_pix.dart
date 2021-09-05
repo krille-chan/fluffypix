@@ -14,6 +14,7 @@ import 'obtain_token_response.dart';
 import 'status.dart';
 import 'notification.dart';
 import 'fluffy_pix_websocket_extension.dart';
+import 'fluffy_pix_push_extension.dart';
 
 enum RequestType { get, post, put, delete }
 
@@ -41,7 +42,10 @@ class FluffyPix {
     _box = await Hive.openBox(AppConfigs.hiveBoxName);
     final json = _box.get(AppConfigs.hiveBoxAccountKey);
     if (json != null) _loadFromJson(Map<String, dynamic>.from(json));
-    if (isLogged) subscribeToWebsocket();
+    if (isLogged) {
+      subscribeToWebsocket();
+      initPush();
+    }
     return;
   }
 

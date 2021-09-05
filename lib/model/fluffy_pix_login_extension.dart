@@ -12,6 +12,7 @@ import 'fluffy_pix.dart';
 import 'public_instance.dart';
 import 'fluffy_pix_websocket_extension.dart';
 import 'fluffy_pix_api_extension.dart';
+import 'fluffy_pix_push_extension.dart';
 import '../utils/convert_to_json.dart';
 
 extension FluffyPixLoginExtension on FluffyPix {
@@ -89,6 +90,7 @@ extension FluffyPixLoginExtension on FluffyPix {
       );
       ownAccount = await verifyAccountCredentials();
       subscribeToWebsocket();
+      initPush();
       return save();
     } catch (_) {
       await logout(revoke: false);
@@ -109,9 +111,9 @@ extension FluffyPixLoginExtension on FluffyPix {
         );
       }
     } finally {
-      unsubscribeToWebsocket();
       accessTokenCredentials = instance = ownAccount = null;
       await box.deleteAll(box.keys);
+      unsubscribeToWebsocket();
     }
   }
 
