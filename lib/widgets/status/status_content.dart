@@ -6,9 +6,9 @@ import 'package:simple_html_css/simple_html_css.dart';
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/utils/links_callback.dart';
-import 'package:fluffypix/widgets/status/text_status_content.dart';
 import 'package:fluffypix/widgets/status/sensitive_content.dart';
 import 'package:fluffypix/widgets/status/status_content_slider.dart';
+import 'package:fluffypix/widgets/status/text_status_content.dart';
 
 enum ImageStatusMode { timeline, reply, discover }
 
