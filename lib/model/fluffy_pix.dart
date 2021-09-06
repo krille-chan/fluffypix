@@ -13,7 +13,6 @@ import 'obtain_token_response.dart';
 import 'read_markers.dart';
 import 'notification.dart';
 import 'fluffy_pix_push_extension.dart';
-import 'fluffy_pix_notification_count_extension.dart';
 
 enum RequestType { get, post, put, delete }
 
@@ -44,11 +43,6 @@ class FluffyPix {
     if (isLogged) {
       initPush();
     }
-    SystemChannels.lifecycle.setMessageHandler((msg) async {
-      if (msg == AppLifecycleState.resumed.toString()) {
-        updateNotificationCount();
-      }
-    });
     return;
   }
 

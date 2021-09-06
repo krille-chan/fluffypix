@@ -12,9 +12,11 @@ import 'package:fluffypix/pages/views/home_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import '../model/fluffy_pix_api_extension.dart';
+import '../model/fluffy_pix_notification_count_extension.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -166,6 +168,11 @@ class HomePageController extends State<HomePage> {
       _initReceiveSharingIntent();
     }
     super.initState();
+    SystemChannels.lifecycle.setMessageHandler((msg) async {
+      if (msg == AppLifecycleState.resumed.toString()) {
+        FluffyPix.of(context).updateNotificationCount();
+      }
+    });
     checkUpdatesTimer = Timer.periodic(
       const Duration(seconds: 15),
       checkForUpdates,
@@ -176,7 +183,7 @@ class HomePageController extends State<HomePage> {
   }
 
   void checkForUpdates(Timer _) async {
-    if (timeline.isEmpty) return;
+    if (timeline.isEmpty || seeNewStatuses) return;
     final updates = await FluffyPix.of(context).requestHomeTimeline(
       limit: '1',
       sinceId: timeline.first.id,
