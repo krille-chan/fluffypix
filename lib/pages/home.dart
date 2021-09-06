@@ -56,7 +56,6 @@ class HomePageController extends State<HomePage> {
           seeNewStatuses = false;
         });
       }
-      FluffyPix.of(context).getMarkers('notifications');
       timeline = await FluffyPix.of(context).requestHomeTimeline();
       setState(() {});
       try {
@@ -170,6 +169,7 @@ class HomePageController extends State<HomePage> {
       _initReceiveSharingIntent();
     }
     super.initState();
+    FluffyPix.of(context).updateNotificationCount();
     SystemChannels.lifecycle.setMessageHandler((msg) async {
       if (msg == AppLifecycleState.resumed.toString()) {
         FluffyPix.of(context).updateNotificationCount();

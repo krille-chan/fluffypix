@@ -12,7 +12,6 @@ import '../utils/convert_to_json.dart';
 import 'create_application_response.dart';
 import 'fluffy_pix.dart';
 import 'fluffy_pix_api_extension.dart';
-import 'fluffy_pix_notification_count_extension.dart';
 import 'fluffy_pix_push_extension.dart';
 import 'public_instance.dart';
 
@@ -91,7 +90,6 @@ extension FluffyPixLoginExtension on FluffyPix {
       );
       ownAccount = await verifyAccountCredentials();
       initPush();
-      updateNotificationCount();
       return save();
     } catch (_) {
       await logout(revoke: false);
