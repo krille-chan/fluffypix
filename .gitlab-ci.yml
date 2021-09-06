@@ -13,6 +13,7 @@ stages:
 code_analyze:
   stage: coverage
   script:
+    - flutter pub get
     - flutter format lib/ test/ --set-exit-if-changed
     - flutter pub run import_sorter:main --no-comments --exit-if-changed
     - flutter analyze
