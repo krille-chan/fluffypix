@@ -121,7 +121,7 @@ class FluffyPix {
       headers['Authorization'] = 'Bearer $accessToken';
     }
 
-    print(url.toString());
+    // print(url.toString());
 
     Response resp;
     var jsonResp = <String, dynamic>{};

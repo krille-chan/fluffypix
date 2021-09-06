@@ -172,6 +172,7 @@ class HomePageController extends State<HomePage> {
     FluffyPix.of(context).updateNotificationCount();
     SystemChannels.lifecycle.setMessageHandler((msg) async {
       if (msg == AppLifecycleState.resumed.toString()) {
+        FluffyPix.of(context).unreadNotifications = null;
         FluffyPix.of(context).updateNotificationCount();
       }
     });
@@ -190,7 +191,12 @@ class HomePageController extends State<HomePage> {
       limit: '1',
       sinceId: timeline.first.id,
     );
-    if (updates.isNotEmpty) {
+    if (updates.any((s) => s.inReplyToId != null)) {
+      setState(() {
+        timeline.insertAll(0, updates.where((s) => s.inReplyToId != null));
+      });
+    }
+    if (updates.any((s) => s.inReplyToId == null)) {
       setState(() {
         seeNewStatuses = true;
       });
