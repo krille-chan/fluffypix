@@ -178,9 +178,7 @@ class FluffyPix {
     jsonResp = jsonDecode(jsonString)
         as Map<String, dynamic>; // May throw FormatException
     if (resp.statusCode >= 400 && resp.statusCode < 500) {
-      throw Exception(jsonResp['error_description'] ??
-          jsonResp['error'] ??
-          resp.reasonPhrase);
+      throw ServerErrorResponse(resp);
     }
 
     return jsonResp;
@@ -219,4 +217,21 @@ class FluffyPix {
 
   final StreamController<int> onNotificationCount =
       StreamController.broadcast();
+}
+
+class ServerErrorResponse implements Exception {
+  final Response response;
+
+  ServerErrorResponse(this.response);
+
+  @override
+  String toString() {
+    try {
+      final json = jsonDecode(response.body) as Map<String, dynamic>;
+      return json['error_description'] ?? json['error'];
+    } catch (_) {}
+    if (response.reasonPhrase?.isNotEmpty ?? false)
+      return response.reasonPhrase!;
+    return 'Server responded with status code ${response.statusCode}';
+  }
 }

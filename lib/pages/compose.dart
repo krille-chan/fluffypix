@@ -180,6 +180,13 @@ class ComposePageController extends State<ComposePage> {
       } else {
         Navigator.of(context).pushNamedAndRemoveUntil('/', (_) => false);
       }
+    } on ServerErrorResponse catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error.toString()),
+        ),
+      );
+      rethrow;
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

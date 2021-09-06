@@ -23,8 +23,6 @@ abstract class AppThemes {
     ),
     snackBarTheme: const SnackBarThemeData(
       behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.white,
-      contentTextStyle: TextStyle(color: Colors.black),
     ),
     backgroundColor: Colors.white,
     scaffoldBackgroundColor: Colors.white,
@@ -78,8 +76,6 @@ abstract class AppThemes {
     ),
     snackBarTheme: const SnackBarThemeData(
       behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.black,
-      contentTextStyle: TextStyle(color: Colors.white),
     ),
     backgroundColor: Colors.black,
     scaffoldBackgroundColor: Colors.black,
