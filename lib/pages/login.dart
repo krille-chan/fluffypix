@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:fluffypix/config/app_configs.dart';
-import 'package:fluffypix/config/app_themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +11,8 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:fluffypix/config/app_configs.dart';
+import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/model/create_application_response.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/fluffy_pix_login_extension.dart';
