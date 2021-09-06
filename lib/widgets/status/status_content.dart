@@ -66,12 +66,13 @@ class _StatusContentState extends State<StatusContent> {
             widget.imageStatusMode == ImageStatusMode.reply)
           Container(
             alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
+            padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
             child: RichText(
               text: HTML.toTextSpan(context, (contentStatus.content ?? ''),
                   linksCallback: (link) => linksCallback(link, context),
                   defaultTextStyle: TextStyle(
                     color: Theme.of(context).textTheme.bodyText1?.color,
+                    fontSize: 15,
                   ),
                   overrideStyle: {
                     'a': TextStyle(
