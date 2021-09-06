@@ -37,6 +37,7 @@ class AttachmentViewer extends StatelessWidget {
         );
       case MediaType.video:
       case MediaType.gifv:
+      case MediaType.audio:
         if (imageStatusMode == ImageStatusMode.discover) continue image;
         if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
           return _AttachVideoViewer(
@@ -48,7 +49,6 @@ class AttachmentViewer extends StatelessWidget {
           attachment: attachment,
           imageStatusMode: imageStatusMode,
         );
-      case MediaType.audio:
       case MediaType.unknown:
         if (imageStatusMode == ImageStatusMode.discover) continue image;
         return _PlayInBrowserButton(
@@ -104,11 +104,14 @@ class __AttachVideoViewerState extends State<_AttachVideoViewer> {
     final width = AppThemes.isColumnMode(context)
         ? AppThemes.columnWidth * 2
         : MediaQuery.of(context).size.width;
+    final height = widget.attachment.type == MediaType.audio
+        ? 168.0
+        : widget.attachment.videoMeta.small?.aspect == null
+            ? width
+            : width / widget.attachment.videoMeta.small!.aspect!;
     return SizedBox(
       width: width,
-      height: widget.attachment.videoMeta.small?.aspect == null
-          ? width
-          : width / widget.attachment.videoMeta.small!.aspect!,
+      height: height,
       child: FlickVideoPlayer(flickManager: flickManager),
     );
   }
