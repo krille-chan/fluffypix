@@ -64,10 +64,17 @@ class StatusPageController extends State<StatusPage> {
           this.status?.reblog?.id == status.id) {
         this.status = status;
       } else {
-        statusContext?.ancestors[statusContext!.ancestors.indexWhere(
-            (s) => s.id == status.id || s.reblog?.id == status.id)] = status;
-        statusContext?.descendants[statusContext!.descendants.indexWhere(
-            (s) => s.id == status.id || s.reblog?.id == status.id)] = status;
+        final ancestorIndex = statusContext!.ancestors
+            .indexWhere((s) => s.id == status.id || s.reblog?.id == status.id);
+        if (ancestorIndex != -1) {
+          statusContext?.ancestors[ancestorIndex] = status;
+        } else {
+          final descendantIndex = statusContext!.descendants.indexWhere(
+              (s) => s.id == status.id || s.reblog?.id == status.id);
+          if (descendantIndex != -1) {
+            statusContext?.descendants[descendantIndex] = status;
+          }
+        }
       }
     });
   }
