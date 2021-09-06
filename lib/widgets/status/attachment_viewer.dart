@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chewie/chewie.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:video_player/video_player.dart';
@@ -36,6 +36,7 @@ class AttachmentViewer extends StatelessWidget {
           imageStatusMode: imageStatusMode,
         );
       case MediaType.video:
+      case MediaType.gifv:
         if (imageStatusMode == ImageStatusMode.discover) continue image;
         if (kIsWeb || Platform.isAndroid || Platform.isIOS) {
           return _AttachVideoViewer(
@@ -47,7 +48,6 @@ class AttachmentViewer extends StatelessWidget {
           attachment: attachment,
           imageStatusMode: imageStatusMode,
         );
-      case MediaType.gifv:
       case MediaType.audio:
       case MediaType.unknown:
         if (imageStatusMode == ImageStatusMode.discover) continue image;
@@ -74,7 +74,7 @@ class _AttachVideoViewer extends StatefulWidget {
 
 class __AttachVideoViewerState extends State<_AttachVideoViewer> {
   late final VideoPlayerController _videoPlayerController;
-  ChewieController? _chewieController;
+  FlickManager? _flickManager;
 
   @override
   void initState() {
@@ -83,32 +83,34 @@ class __AttachVideoViewerState extends State<_AttachVideoViewer> {
         VideoPlayerController.network(widget.attachment.url.toString());
     _videoPlayerController.initialize().then((_) {
       setState(() {
-        _chewieController = ChewieController(
+        _flickManager = FlickManager(
           videoPlayerController: _videoPlayerController,
           autoPlay: !FluffyPix.of(context).displayThumbnailsOnly,
-          looping: true,
-        )..setVolume(0);
+        );
+        _flickManager!.flickControlManager!.mute();
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final chewie = _chewieController;
-    if (chewie == null) {
+    final flickManager = _flickManager;
+    if (flickManager == null) {
       return _AttachmentImageViewer(
-          attachment: widget.attachment,
-          imageStatusMode: widget.imageStatusMode);
+        attachment: widget.attachment,
+        imageStatusMode: widget.imageStatusMode,
+      );
     }
     final width = AppThemes.isColumnMode(context)
         ? AppThemes.columnWidth * 2
         : MediaQuery.of(context).size.width;
     return SizedBox(
-        width: width,
-        height: widget.attachment.videoMeta.small?.aspect == null
-            ? width
-            : width / widget.attachment.videoMeta.small!.aspect!,
-        child: Chewie(controller: chewie));
+      width: width,
+      height: widget.attachment.videoMeta.small?.aspect == null
+          ? width
+          : width / widget.attachment.videoMeta.small!.aspect!,
+      child: FlickVideoPlayer(flickManager: flickManager),
+    );
   }
 }
 
