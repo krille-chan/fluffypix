@@ -31,20 +31,6 @@
 <body>
   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js"></script>
-  <!-- Firebase Configuration -->
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyANl1-XYCY1B0_qcHrf1ZPN643ii1b5KYU",
-      authDomain: "fluffypix-11c3d.firebaseapp.com",
-      projectId: "fluffypix-11c3d",
-      storageBucket: "fluffypix-11c3d.appspot.com",
-      messagingSenderId: "248308891322",
-      appId: "1:248308891322:web:8bba27a245174f0d758c83"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-  </script>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
@@ -63,6 +49,10 @@
     }
 
     if ('serviceWorker' in navigator) {
+      window.addEventListener("load", function () {
+        // navigator.serviceWorker.register("/flutter_service_worker.js");
+        navigator.serviceWorker.register("/firebase-messaging-sw.js");
+      });
       // Service workers are supported. Use them.
       window.addEventListener('load', function () {
         // Wait for registration to finish before dropping the <script> tag.

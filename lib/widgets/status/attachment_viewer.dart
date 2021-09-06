@@ -136,7 +136,9 @@ class _AttachmentImageViewer extends StatelessWidget {
       imageUrl: thumbnailOnly
           ? attachment.previewUrl.toString()
           : attachment.url.toString(),
-      placeholder: (_, __) => const Center(child: CupertinoActivityIndicator()),
+      placeholder: imageStatusMode == ImageStatusMode.discover
+          ? null
+          : (_, __) => const Center(child: CupertinoActivityIndicator()),
       errorWidget: (_, __, [___]) =>
           BlurHash(hash: attachment.blurhash ?? AppConfigs.fallbackBlurHash),
       width:

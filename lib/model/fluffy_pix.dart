@@ -175,8 +175,11 @@ class FluffyPix {
       }
       jsonString = '{"chunk":$jsonString,"next":$next,"prev":$prev}';
     }
-    jsonResp = jsonDecode(jsonString)
-        as Map<String, dynamic>; // May throw FormatException
+    try {
+      jsonResp = jsonDecode(jsonString) as Map<String, dynamic>;
+    } catch (_) {
+      throw throw ServerErrorResponse(resp);
+    }
     if (resp.statusCode >= 400 && resp.statusCode < 500) {
       throw ServerErrorResponse(resp);
     }

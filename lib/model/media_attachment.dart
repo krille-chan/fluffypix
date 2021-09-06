@@ -46,8 +46,7 @@ class MediaAttachment {
         'remote_url': remoteUrl.toString(),
         'prewview_remote_url': previewRemoteUrl?.toString(),
         'text_url': textUrl?.toString(),
-        if (meta != null)
-          'meta': meta?.map((k, v) => MapEntry(k, (v as Map).toJson())),
+        if (meta != null) 'meta': meta,
         'description': description,
         'blurhash': blurhash,
       };
