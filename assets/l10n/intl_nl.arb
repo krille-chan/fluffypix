@@ -253,5 +253,19 @@
   "pickACommunity": "Kies een community",
   "@pickACommunity": {},
   "helloWorld": "Hallo wereld",
-  "@helloWorld": {}
+  "@helloWorld": {},
+  "noThanks": "Nee bedankt",
+  "@noThanks": {},
+  "recommendMobileApp": "FluffyPix werkt beter als mobiele app",
+  "@recommendMobileApp": {},
+  "forEndingPolls": "Voor polls die eindigen",
+  "@forEndingPolls": {},
+  "forNewMentions": "Voor nieuwe vermeldingen",
+  "@forNewMentions": {},
+  "forNewSharings": "Voor nieuwe deelacties",
+  "@forNewSharings": {},
+  "forNewFollowers": "Voor nieuwe volgers",
+  "@forNewFollowers": {},
+  "forNewLikes": "Voor nieuwe likes",
+  "@forNewLikes": {}
 }
