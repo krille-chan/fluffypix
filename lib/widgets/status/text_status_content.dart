@@ -98,7 +98,7 @@ class TextStatusContent extends StatelessWidget {
               ),
             ),
           ),
-          constraints: const BoxConstraints(minHeight: 256),
+          constraints: const BoxConstraints(minHeight: 200),
           alignment: Alignment.center,
           child: RichText(
             text: HTML.toTextSpan(context, status.content ?? '',

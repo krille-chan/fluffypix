@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:fluffypix/config/app_configs.dart';
+import 'package:fluffypix/config/app_themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -144,8 +146,46 @@ class LoginPageController extends State<LoginPage> {
     await Navigator.of(context).pushNamedAndRemoveUntil('/', (r) => false);
   }
 
+  void _recommendMobileAppDialog([_]) {
+    if (kIsWeb && !AppThemes.isColumnMode(context)) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(L10n.of(context)!.recommendMobileApp),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: AppConfigs.mobileApps
+                .map(
+                  (app) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: app.link == null ? null : () => launch(app.link!),
+                      child: Opacity(
+                        opacity: app.link == null ? 0.5 : 1,
+                        child: Image.asset(
+                          app.asset,
+                          width: 164,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+          actions: [
+            TextButton(
+              onPressed: Navigator.of(context).pop,
+              child: Text(L10n.of(context)!.noThanks),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance?.addPostFrameCallback(_recommendMobileAppDialog);
     publicInstancesFuture ??=
         FluffyPix.of(context).requestInstances(L10n.of(context)!.localeName);
     return LoginPageView(this);
