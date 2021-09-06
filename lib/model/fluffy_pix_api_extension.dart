@@ -1,6 +1,5 @@
 import 'package:fluffypix/model/push_subscription.dart';
 import 'package:fluffypix/model/read_markers.dart';
-
 import 'account.dart';
 import 'chunk.dart';
 import 'conversation.dart';

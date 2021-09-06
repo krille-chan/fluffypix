@@ -1,14 +1,16 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/model/public_instance.dart';
 import 'package:fluffypix/pages/login.dart';
 import 'package:fluffypix/utils/custom_about_dialog.dart';
 import 'package:fluffypix/widgets/instance_list_item.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class LoginPageView extends StatelessWidget {
   final LoginPageController controller;

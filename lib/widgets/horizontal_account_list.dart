@@ -1,6 +1,6 @@
-import 'package:fluffypix/model/account.dart';
 import 'package:flutter/material.dart';
 
+import 'package:fluffypix/model/account.dart';
 import 'avatar.dart';
 
 class HorizontalAccountList extends StatelessWidget {

@@ -1,18 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:fluffypix/config/app_configs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
+
+import 'package:fluffypix/config/app_configs.dart';
 import '../utils/convert_to_json.dart';
 import 'account.dart';
+import 'fluffy_pix_push_extension.dart';
+import 'notification.dart';
 import 'obtain_token_response.dart';
 import 'read_markers.dart';
-import 'notification.dart';
-import 'fluffy_pix_push_extension.dart';
 
 enum RequestType { get, post, put, delete }
 

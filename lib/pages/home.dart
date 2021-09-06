@@ -2,6 +2,14 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:receive_sharing_intent/receive_sharing_intent.dart';
+
 import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/model/account.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
@@ -9,12 +17,6 @@ import 'package:fluffypix/model/search_result.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/model/status_visibility.dart';
 import 'package:fluffypix/pages/views/home_view.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import '../model/fluffy_pix_api_extension.dart';
 import '../model/fluffy_pix_notification_count_extension.dart';
 

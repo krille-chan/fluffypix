@@ -1,5 +1,6 @@
-import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:flutter/material.dart';
+
+import 'package:fluffypix/widgets/nav_scaffold.dart';
 
 class PageNotFoundRouteView extends StatelessWidget {
   const PageNotFoundRouteView({Key? key}) : super(key: key);

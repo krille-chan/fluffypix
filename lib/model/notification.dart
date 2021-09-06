@@ -1,5 +1,4 @@
 import 'package:fluffypix/model/status.dart';
-
 import 'account.dart';
 
 enum NotificationType {

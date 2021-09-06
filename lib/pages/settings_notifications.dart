@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
+
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/fluffy_pix_api_extension.dart';
 import 'package:fluffypix/model/fluffy_pix_push_extension.dart';
 import 'package:fluffypix/model/push_subscription.dart';
-import 'package:flutter/material.dart';
-
 import 'views/settings_notifications_view.dart';
 
 class SettingsNotificationsPage extends StatefulWidget {

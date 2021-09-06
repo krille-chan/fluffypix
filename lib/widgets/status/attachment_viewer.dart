@@ -1,19 +1,21 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
+import 'package:flutter_blurhash/flutter_blurhash.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:video_player/video_player.dart';
+
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/media_attachment.dart';
 import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
-import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:video_player/video_player.dart';
 
 class AttachmentViewer extends StatelessWidget {
   final MediaAttachment attachment;

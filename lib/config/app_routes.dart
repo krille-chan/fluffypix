@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+
+import 'package:receive_sharing_intent/receive_sharing_intent.dart';
+
 import 'package:fluffypix/model/account.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/status.dart';
@@ -13,8 +17,6 @@ import 'package:fluffypix/pages/settings_notifications.dart';
 import 'package:fluffypix/pages/status.dart';
 import 'package:fluffypix/pages/user.dart';
 import 'package:fluffypix/pages/views/page_not_found_view.dart';
-import 'package:flutter/material.dart';
-import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
 class AppRoutes {
   final FluffyPix fluffyPix;

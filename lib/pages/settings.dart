@@ -1,16 +1,17 @@
 import 'dart:io';
 
-import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:fluffypix/config/app_configs.dart';
-import 'package:fluffypix/model/fluffy_pix.dart';
-import 'package:fluffypix/model/fluffy_pix_login_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_gen/gen_l10n/l10n.dart';
 
+import 'package:fluffypix/config/app_configs.dart';
+import 'package:fluffypix/model/fluffy_pix.dart';
+import 'package:fluffypix/model/fluffy_pix_login_extension.dart';
 import 'login.dart';
 import 'views/settings_view.dart';
 

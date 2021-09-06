@@ -1,8 +1,14 @@
 include: package:flutter_lints/flutter.yaml
 
 linter:
-  rules:
-    avoid_print: true
+    - camel_case_types
+    - avoid_print
+    - constant_identifier_names
+    - prefer_final_locals
+    - prefer_final_in_for_each
+    - prefer_relative_imports
 analyzer:
+  errors:
+    todo: ignore
   exclude:
     - "lib/generated_plugin_registrant.dart"

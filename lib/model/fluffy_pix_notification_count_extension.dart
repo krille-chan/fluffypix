@@ -1,6 +1,5 @@
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/fluffy_pix_api_extension.dart';
-
 import 'read_markers.dart';
 
 extension FluffyPixNotificationCountExtension on FluffyPix {

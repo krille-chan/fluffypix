@@ -1,19 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:fluffypix/config/app_configs.dart';
-import 'package:fluffypix/config/instances_api_token.dart';
 import 'package:flutter/foundation.dart';
+
 import 'package:http/http.dart';
 import 'package:webcrypto/webcrypto.dart';
-import 'fluffy_pix_notification_count_extension.dart';
 
+import 'package:fluffypix/config/app_configs.dart';
+import 'package:fluffypix/config/instances_api_token.dart';
+import '../utils/convert_to_json.dart';
 import 'create_application_response.dart';
 import 'fluffy_pix.dart';
-import 'public_instance.dart';
 import 'fluffy_pix_api_extension.dart';
+import 'fluffy_pix_notification_count_extension.dart';
 import 'fluffy_pix_push_extension.dart';
-import '../utils/convert_to_json.dart';
+import 'public_instance.dart';
 
 extension FluffyPixLoginExtension on FluffyPix {
   String get _redirectUri => !kIsWeb && (Platform.isAndroid || Platform.isIOS)

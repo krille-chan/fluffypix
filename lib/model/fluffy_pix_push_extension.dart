@@ -1,18 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:fluffypix/config/app_configs.dart';
-import 'package:fluffypix/model/push_subscription.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:webcrypto/webcrypto.dart';
+
+import 'package:fluffypix/config/app_configs.dart';
+import 'package:fluffypix/model/push_subscription.dart';
+import '../utils/convert_to_json.dart';
 import 'fluffy_pix.dart';
 import 'fluffy_pix_api_extension.dart';
 import 'fluffy_pix_notification_count_extension.dart';
-import '../utils/convert_to_json.dart';
 import 'push_credentials.dart';
 
 extension FluffyPixPushExtension on FluffyPix {

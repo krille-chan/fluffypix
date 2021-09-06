@@ -1,13 +1,15 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:simple_html_css/simple_html_css.dart';
+
 import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:simple_html_css/simple_html_css.dart';
 
 enum ImageType { image, avatar, missing }
 

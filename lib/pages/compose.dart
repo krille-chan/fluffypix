@@ -1,19 +1,20 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:fluffypix/model/account.dart';
-import 'package:fluffypix/model/fluffy_pix.dart';
-import 'package:fluffypix/model/status_visibility.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
+
+import 'package:fluffypix/model/account.dart';
+import 'package:fluffypix/model/fluffy_pix.dart';
+import 'package:fluffypix/model/status_visibility.dart';
 import '../model/fluffy_pix_api_extension.dart';
 import '../model/fluffy_pix_upload_extension.dart';
-
 import 'views/compose_view.dart';
 
 class ComposePage extends StatefulWidget {

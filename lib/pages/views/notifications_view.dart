@@ -1,16 +1,17 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:simple_html_css/simple_html_css.dart';
+
 import 'package:fluffypix/model/notification.dart';
 import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/avatar.dart';
 import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:simple_html_css/simple_html_css.dart';
-import 'package:flutter_gen/gen_l10n/l10n.dart';
-
-import '../notifications.dart';
 import '../../utils/date_time_extension.dart';
+import '../notifications.dart';
 
 class NotificationsPageView extends StatelessWidget {
   final NotificationsPageController controller;

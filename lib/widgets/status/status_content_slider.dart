@@ -1,9 +1,10 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/widgets/status/attachment_viewer.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class StatusContentSlider extends StatefulWidget {
   final ImageStatusMode imageStatusMode;

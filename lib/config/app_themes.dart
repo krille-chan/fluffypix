@@ -1,5 +1,6 @@
-import 'package:fluffypix/config/app_configs.dart';
 import 'package:flutter/material.dart';
+
+import 'package:fluffypix/config/app_configs.dart';
 
 abstract class AppThemes {
   static final ThemeData light = ThemeData.light().copyWith(

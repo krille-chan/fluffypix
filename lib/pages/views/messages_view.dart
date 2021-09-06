@@ -1,9 +1,10 @@
-import 'package:fluffypix/widgets/nav_scaffold.dart';
-import 'package:fluffypix/widgets/status/status.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'package:fluffypix/widgets/nav_scaffold.dart';
+import 'package:fluffypix/widgets/status/status.dart';
 import '../messages.dart';
 
 class MessagesPageView extends StatelessWidget {

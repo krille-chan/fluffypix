@@ -1,11 +1,12 @@
-import 'package:fluffypix/config/app_configs.dart';
-import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import '../../model/status_visibility.dart';
 
+import 'package:fluffypix/config/app_configs.dart';
+import 'package:fluffypix/widgets/nav_scaffold.dart';
+import '../../model/status_visibility.dart';
 import '../compose.dart';
 
 class ComposePageView extends StatelessWidget {

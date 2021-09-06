@@ -1,13 +1,14 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+
+import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/search_result.dart';
 import 'package:fluffypix/model/status.dart';
-import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:flutter_gen/gen_l10n/l10n.dart';
 import '../model/fluffy_pix_api_extension.dart';
-
 import 'views/search_view.dart';
 
 class SearchPage extends StatefulWidget {

@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:http/testing.dart';
-
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:flutter/material.dart';
+
 import 'package:http/http.dart';
+import 'package:http/testing.dart';
 
 /// A mock http client for testing purposes.
 class MockHttpClient extends MockClient {

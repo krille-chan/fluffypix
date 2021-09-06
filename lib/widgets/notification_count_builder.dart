@@ -1,6 +1,8 @@
-import 'package:badges/badges.dart';
-import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:flutter/material.dart';
+
+import 'package:badges/badges.dart';
+
+import 'package:fluffypix/model/fluffy_pix.dart';
 import '../utils/int_short_string_extension.dart';
 
 class NotificationCountBuilder extends StatelessWidget {

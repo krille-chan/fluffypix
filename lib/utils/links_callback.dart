@@ -1,6 +1,8 @@
-import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:flutter/material.dart';
+
 import 'package:url_launcher/url_launcher.dart';
+
+import 'package:fluffypix/model/fluffy_pix.dart';
 
 void linksCallback(String link, BuildContext context) {
   final uri = Uri.parse(link);

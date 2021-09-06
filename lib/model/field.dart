@@ -1,7 +1,9 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:fluffypix/utils/links_callback.dart';
 import 'package:flutter/material.dart';
+
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+
+import 'package:fluffypix/utils/links_callback.dart';
 
 class Field {
   final String name;

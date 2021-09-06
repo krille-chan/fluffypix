@@ -1,6 +1,5 @@
 import 'package:fluffypix/model/search_result.dart';
 import 'package:fluffypix/model/status_visibility.dart';
-
 import 'account.dart';
 import 'application.dart';
 import 'card.dart';

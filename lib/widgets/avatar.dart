@@ -1,8 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fluffypix/model/account.dart';
-import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
+
+import 'package:fluffypix/model/account.dart';
+import 'package:fluffypix/model/fluffy_pix.dart';
 
 class Avatar extends StatelessWidget {
   final Account account;

@@ -1,11 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fluffypix/config/app_configs.dart';
-import 'package:fluffypix/model/public_instance.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'package:fluffypix/config/app_configs.dart';
+import 'package:fluffypix/model/public_instance.dart';
 import '../../utils/date_time_extension.dart';
 
 class InstanceInfoScaffold extends StatelessWidget {
