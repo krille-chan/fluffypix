@@ -84,7 +84,7 @@
   },
   "pollEnded": "Un sondage auquel vous avez participé est terminé.",
   "@pollEnded": {},
-  "sendComment": "Envoyer le commentaire",
+  "sendComment": "Envoyer un commentaire",
   "@sendComment": {},
   "pickFromYourGallery": "Choisissez dans votre galerie",
   "@pickFromYourGallery": {},
@@ -263,5 +263,9 @@
   "forNewFollowers": "Pour les nouveaux suiveurs",
   "@forNewFollowers": {},
   "forNewLikes": "Pour les nouveaux j'aime",
-  "@forNewLikes": {}
+  "@forNewLikes": {},
+  "noThanks": "Non merci",
+  "@noThanks": {},
+  "recommendMobileApp": "FluffyPix fonctionne mieux en tant qu'application mobile",
+  "@recommendMobileApp": {}
 }
