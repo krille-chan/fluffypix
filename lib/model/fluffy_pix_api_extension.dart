@@ -345,4 +345,22 @@ extension FluffyPixApiExtension on FluffyPix {
         '/api/v1/markers',
         data: readMarkers.toJson(),
       ).then((json) => ReadMarkers.fromJson(json));
+
+  Future<List<Account>> statusFavouritedBy(String statusId) => request(
+        RequestType.get,
+        '/api/v1/statuses/$statusId/favourited_by',
+      ).then(
+        (json) => (json['chunk'] as List)
+            .map((json) => Account.fromJson(json))
+            .toList(),
+      );
+
+  Future<List<Account>> statusRebloggedBy(String statusId) => request(
+        RequestType.get,
+        '/api/v1/statuses/$statusId/reblogged_by',
+      ).then(
+        (json) => (json['chunk'] as List)
+            .map((json) => Account.fromJson(json))
+            .toList(),
+      );
 }

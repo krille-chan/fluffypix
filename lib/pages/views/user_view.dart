@@ -1,3 +1,4 @@
+import 'package:fluffypix/widgets/account_list_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -369,13 +370,8 @@ class UserPageView extends StatelessWidget {
                           parent: controller.scrollPhysics),
                       controller: controller.scrollController,
                       itemCount: controller.followers?.length,
-                      itemBuilder: (context, i) => ListTile(
-                        onTap: () =>
-                            controller.goToProfile(controller.followers![i].id),
-                        leading: Avatar(account: controller.followers![i]),
-                        title: Text(controller.followers![i].calcedDisplayname),
-                        subtitle: Text('@${controller.followers![i].acct}'),
-                        trailing: const Icon(CupertinoIcons.right_chevron),
+                      itemBuilder: (context, i) => AccountListTile(
+                        account: controller.followers![i],
                       ),
                     ),
                 },
@@ -402,13 +398,8 @@ class UserPageView extends StatelessWidget {
                           parent: controller.scrollPhysics),
                       controller: controller.scrollController,
                       itemCount: controller.following?.length,
-                      itemBuilder: (context, i) => ListTile(
-                        onTap: () =>
-                            controller.goToProfile(controller.following![i].id),
-                        leading: Avatar(account: controller.following![i]),
-                        title: Text(controller.following![i].calcedDisplayname),
-                        subtitle: Text('@${controller.following![i].acct}'),
-                        trailing: const Icon(CupertinoIcons.right_chevron),
+                      itemBuilder: (context, i) => AccountListTile(
+                        account: controller.following![i],
                       ),
                     ),
                 },

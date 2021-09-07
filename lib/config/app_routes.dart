@@ -1,3 +1,5 @@
+import 'package:fluffypix/pages/status_likes.dart';
+import 'package:fluffypix/pages/status_shares.dart';
 import 'package:flutter/material.dart';
 
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
@@ -73,6 +75,18 @@ class AppRoutes {
               status: argument,
             ),
           );
+        }
+        if (parts.length == 4) {
+          switch (parts[3]) {
+            case 'sharedby':
+              return _fadeRoute(
+                builder: (_) => StatusSharesPage(statusId: parts[2]),
+              );
+            case 'likedby':
+              return _fadeRoute(
+                builder: (_) => StatusLikesPage(statusId: parts[2]),
+              );
+          }
         }
         break;
     }

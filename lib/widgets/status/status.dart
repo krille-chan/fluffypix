@@ -145,6 +145,12 @@ class _StatusWidgetState extends State<StatusWidget> {
       case StatusAction.delete:
         deleteAction();
         break;
+      case StatusAction.sharedBy:
+        Navigator.of(context).pushNamed('/status/${contentStatus.id}/sharedby');
+        break;
+      case StatusAction.likedBy:
+        Navigator.of(context).pushNamed('/status/${contentStatus.id}/likedby');
+        break;
     }
   }
 
@@ -375,6 +381,16 @@ class _StatusWidgetState extends State<StatusWidget> {
                     value: StatusAction.shareLink,
                     child: Text(L10n.of(context)!.shareLink),
                   ),
+                  if (contentStatus.reblogsCount > 0)
+                    PopupMenuItem(
+                      value: StatusAction.sharedBy,
+                      child: Text(L10n.of(context)!.wasSharedBy),
+                    ),
+                  if (contentStatus.favouritesCount > 0)
+                    PopupMenuItem(
+                      value: StatusAction.likedBy,
+                      child: Text(L10n.of(context)!.wasLikedBy),
+                    ),
                   if (FluffyPix.of(context).ownAccount!.id ==
                       widget.status.account.id)
                     PopupMenuItem(
@@ -412,9 +428,4 @@ class _StatusWidgetState extends State<StatusWidget> {
   }
 }
 
-enum StatusAction {
-  open,
-  report,
-  delete,
-  shareLink,
-}
+enum StatusAction { open, report, delete, shareLink, sharedBy, likedBy }

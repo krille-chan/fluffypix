@@ -62,6 +62,8 @@
     "recommendMobileApp": "FluffyPix works better as mobile app",
     "noThanks": "No thanks",
     "logout": "Logout",
+    "wasLikedBy": "Was liked by",
+    "wasSharedBy": "Was shared by",
     "account": "Account",
     "members": "Members",
     "profile": "Profile",
