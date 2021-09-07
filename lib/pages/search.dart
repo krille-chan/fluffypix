@@ -130,11 +130,15 @@ class SearchPageController extends State<SearchPage> {
         mediaOnly: useDiscoverGridView,
         local: !usePublicTimeline,
       );
-      FluffyPix.of(context)
-          .storeCachedTimeline<Status>('discover', timeline, (t) => t.toJson());
       setState(() {});
+      await FluffyPix.of(context)
+          .storeCachedTimeline<Status>('discover', timeline, (t) => t.toJson());
       refreshController.refreshCompleted();
     } catch (_) {
+      timeline = FluffyPix.of(context).getCachedTimeline<Status>(
+              'discover', (j) => Status.fromJson(j)) ??
+          [];
+      setState(() {});
       refreshController.refreshFailed();
       if (timeline.isEmpty) {
         Timer(const Duration(seconds: 3), refreshController.requestRefresh);
@@ -165,9 +169,6 @@ class SearchPageController extends State<SearchPage> {
       refreshController.requestRefresh();
     });
     super.initState();
-    timeline = FluffyPix.of(context)
-            .getCachedTimeline<Status>('discover', (j) => Status.fromJson(j)) ??
-        [];
   }
 
   @override
