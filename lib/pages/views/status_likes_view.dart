@@ -1,10 +1,11 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import 'package:flutter_gen/gen_l10n/l10n.dart';
+
 import 'package:fluffypix/model/account.dart';
 import 'package:fluffypix/widgets/account_list_tile.dart';
 import 'package:fluffypix/widgets/nav_scaffold.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/l10n.dart';
-
 import '../status_likes.dart';
 
 class StatusLikesPageView extends StatelessWidget {

@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
+
 import 'package:fluffypix/model/account.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/fluffy_pix_api_extension.dart';
-import 'package:flutter/material.dart';
-
 import 'views/status_likes_view.dart';
 
 class StatusLikesPage extends StatefulWidget {

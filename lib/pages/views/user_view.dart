@@ -1,4 +1,3 @@
-import 'package:fluffypix/widgets/account_list_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +8,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
+import 'package:fluffypix/widgets/account_list_tile.dart';
 import 'package:fluffypix/widgets/avatar.dart';
 import 'package:fluffypix/widgets/nav_scaffold.dart';
 import 'package:fluffypix/widgets/status/status.dart';

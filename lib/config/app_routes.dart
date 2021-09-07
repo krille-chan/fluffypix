@@ -1,5 +1,3 @@
-import 'package:fluffypix/pages/status_likes.dart';
-import 'package:fluffypix/pages/status_shares.dart';
 import 'package:flutter/material.dart';
 
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
@@ -17,6 +15,8 @@ import 'package:fluffypix/pages/search.dart';
 import 'package:fluffypix/pages/settings.dart';
 import 'package:fluffypix/pages/settings_notifications.dart';
 import 'package:fluffypix/pages/status.dart';
+import 'package:fluffypix/pages/status_likes.dart';
+import 'package:fluffypix/pages/status_shares.dart';
 import 'package:fluffypix/pages/user.dart';
 import 'package:fluffypix/pages/views/page_not_found_view.dart';
 

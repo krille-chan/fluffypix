@@ -1,7 +1,7 @@
-import 'package:fluffypix/model/account.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:fluffypix/model/account.dart';
 import 'avatar.dart';
 
 class AccountListTile extends StatelessWidget {
