@@ -149,39 +149,55 @@ class NavScaffold extends StatelessWidget {
                 child: Column(
                   children: [
                     ListTile(
-                      leading: Image.asset(
-                        'assets/images/logo.png',
-                        width: 24,
-                        height: 24,
+                      leading: Material(
+                        clipBehavior: Clip.hardEdge,
+                        borderRadius: BorderRadius.circular(7),
+                        elevation: 2,
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          width: 28,
+                          height: 28,
+                        ),
                       ),
                     ),
                     ListTile(
                       leading: Icon(
-                          currentIndex == 0 ? Icons.home : Icons.home_outlined),
+                        currentIndex == 0 ? Icons.home : Icons.home_outlined,
+                        size: 28,
+                      ),
                       title: Text(L10n.of(context)!.home),
                       selected: currentIndex == 0,
                       onTap: () => onTap(0, context),
                     ),
                     ListTile(
-                      leading: const Icon(CupertinoIcons.search),
+                      leading: const Icon(
+                        CupertinoIcons.search,
+                        size: 28,
+                      ),
                       title: Text(L10n.of(context)!.search),
                       selected: currentIndex == 1,
                       onTap: () => onTap(1, context),
                     ),
                     ListTile(
                       leading: NotificationCountBuilder(
-                        builder: (_) => Icon(currentIndex == 3
-                            ? CupertinoIcons.heart_fill
-                            : CupertinoIcons.heart),
+                        builder: (_) => Icon(
+                          currentIndex == 3
+                              ? CupertinoIcons.heart_fill
+                              : CupertinoIcons.heart,
+                          size: 28,
+                        ),
                       ),
                       title: Text(L10n.of(context)!.notifications),
                       selected: currentIndex == 3,
                       onTap: () => onTap(3, context),
                     ),
                     ListTile(
-                      leading: Icon(currentIndex == 6
-                          ? CupertinoIcons.mail_solid
-                          : CupertinoIcons.mail),
+                      leading: Icon(
+                        currentIndex == 6
+                            ? CupertinoIcons.mail_solid
+                            : CupertinoIcons.mail,
+                        size: 28,
+                      ),
                       title: Text(L10n.of(context)!.messages),
                       onTap: () => onTap(6, context),
                       selected: currentIndex == 6,
@@ -191,24 +207,30 @@ class NavScaffold extends StatelessWidget {
                           ? null
                           : Avatar(
                               account: FluffyPix.of(context).ownAccount!,
-                              radius: 12,
+                              radius: 16,
                             ),
                       title: Text(L10n.of(context)!.account),
                       selected: currentIndex == 4,
                       onTap: () => onTap(4, context),
                     ),
                     ListTile(
-                      leading: Icon(currentIndex == 5
-                          ? CupertinoIcons.settings_solid
-                          : CupertinoIcons.settings),
+                      leading: Icon(
+                        currentIndex == 5
+                            ? CupertinoIcons.settings_solid
+                            : CupertinoIcons.settings,
+                        size: 28,
+                      ),
                       title: Text(L10n.of(context)!.settings),
                       onTap: () => onTap(5, context),
                       selected: currentIndex == 5,
                     ),
                     ListTile(
-                      leading: Icon(currentIndex == 2
-                          ? CupertinoIcons.add_circled_solid
-                          : CupertinoIcons.add_circled),
+                      leading: Icon(
+                        currentIndex == 2
+                            ? CupertinoIcons.add_circled_solid
+                            : CupertinoIcons.add_circled,
+                        size: 28,
+                      ),
                       title: Text(L10n.of(context)!.newStatus),
                       selected: currentIndex == 2,
                       onTap: () => onTap(2, context),
