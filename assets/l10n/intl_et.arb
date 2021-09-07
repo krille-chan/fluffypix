@@ -90,5 +90,120 @@
   "pickACommunity": "Vali kogukond",
   "@pickACommunity": {},
   "helloWorld": "Tere maailm",
-  "@helloWorld": {}
+  "@helloWorld": {},
+  "userShared": "{name} jagas",
+  "@userShared": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "sharedYourPost": "<b>{name}</b> jagas sinu postitust.",
+  "@sharedYourPost": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "externalProfile": "Väline profiil",
+  "@externalProfile": {},
+  "trendingHashtags": "Populaarsed teemaviited:",
+  "@trendingHashtags": {},
+  "discoverUsers": "Leia teisi kasutajaid",
+  "@discoverUsers": {},
+  "local": "Kohalik",
+  "@local": {},
+  "playInBrowser": "Esita brauseris",
+  "@playInBrowser": {},
+  "seeNewPosts": "Vaata uusi postitusi",
+  "@seeNewPosts": {},
+  "tryOutMobileApps": "Proovi ka mobiilirakendusi:",
+  "@tryOutMobileApps": {},
+  "hashtags": "Teemaviited",
+  "@hashtags": {},
+  "viewPost": "Vaata postitust",
+  "@viewPost": {},
+  "reportDescription": "Postitusest teatamisel saavad vastava sõnumi kogukonna haldurid.",
+  "@reportDescription": {},
+  "report": "Teata haldajale",
+  "@report": {},
+  "postHasBeenReported": "Postitusest on teatatud",
+  "@postHasBeenReported": {},
+  "nsfw": "Ebasobilik sisu",
+  "@nsfw": {},
+  "comment": "Kommenteeri",
+  "@comment": {},
+  "profile": "Profiil",
+  "@profile": {},
+  "members": "Liikmed",
+  "@members": {},
+  "noThanks": "Tänan, ei",
+  "@noThanks": {},
+  "recommendMobileApp": "FluffyPix töötab paremini mobiilirakendusena",
+  "@recommendMobileApp": {},
+  "addVideo": "Lisa video",
+  "@addVideo": {},
+  "addPhoto": "Lisa foto",
+  "@addPhoto": {},
+  "howDoYouFeel": "Kuidas sa end tunned?",
+  "@howDoYouFeel": {},
+  "post": "Postita",
+  "@post": {},
+  "newMessage": "Uus sõnum",
+  "@newMessage": {},
+  "newStatus": "Uus olek",
+  "@newStatus": {},
+  "mentionsOnly": "Vaid mainitud kasutajad",
+  "@mentionsOnly": {},
+  "followersOnly": "Ainult järgijatele",
+  "@followersOnly": {},
+  "notListed": "Ei ole kuvatud avalikul ajajoonel",
+  "@notListed": {},
+  "worldWide": "Kogu maailmas",
+  "@worldWide": {},
+  "visibility": "Nähtavus",
+  "@visibility": {},
+  "newPostPublished": "Uus postitus on avaldatud",
+  "@newPostPublished": {},
+  "dateWithYear": "{year}.{month}.{day}",
+  "@dateWithYear": {
+    "type": "text",
+    "placeholders": {
+      "year": {},
+      "month": {},
+      "day": {}
+    }
+  },
+  "dateWithoutYear": "{day}.{month}",
+  "@dateWithoutYear": {
+    "type": "text",
+    "placeholders": {
+      "month": {},
+      "day": {}
+    }
+  },
+  "dateAndTimeOfDay": "{date}, {timeOfDay}",
+  "@dateAndTimeOfDay": {
+    "type": "text",
+    "placeholders": {
+      "date": {},
+      "timeOfDay": {}
+    }
+  },
+  "openCamera": "Ava kaamera",
+  "@openCamera": {},
+  "notifications": "Teavitused",
+  "@notifications": {},
+  "privacy": "Privaatsus",
+  "@privacy": {},
+  "help": "Abiteave",
+  "@help": {},
+  "about": "Rakenduse teave",
+  "@about": {},
+  "reason": "Põhjus",
+  "@reason": {},
+  "account": "Kasutajakonto",
+  "@account": {},
+  "logout": "Logi välja",
+  "@logout": {}
 }
