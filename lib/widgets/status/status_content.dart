@@ -61,9 +61,7 @@ class _StatusContentState extends State<StatusContent> {
       mainAxisSize: MainAxisSize.min,
       children: [
         content,
-        if (contentStatus.mediaAttachments.isNotEmpty ||
-            contentStatus.card?.image != null ||
-            widget.imageStatusMode == ImageStatusMode.reply)
+        if (!hide)
           Container(
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.only(top: 16, left: 16, right: 16),

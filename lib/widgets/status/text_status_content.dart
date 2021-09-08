@@ -1,14 +1,12 @@
-import 'dart:ui';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:simple_html_css/simple_html_css.dart';
 
 import 'package:fluffypix/config/app_themes.dart';
 import 'package:fluffypix/model/status.dart';
-import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 
 enum ImageType { image, avatar, missing }
@@ -66,56 +64,23 @@ class TextStatusContent extends StatelessWidget {
       final width = AppThemes.isColumnMode(context)
           ? AppThemes.mainColumnWidth
           : MediaQuery.of(context).size.width;
-      final displayBigText = status.mediaAttachments.isEmpty &&
-          status.card?.image == null &&
-          imageStatusMode != ImageStatusMode.discover;
 
-      if (!displayBigText) {
-        return CachedNetworkImage(
-          imageUrl: _imageUrl(context),
-          width: double.infinity,
-          fit: BoxFit.cover,
-          placeholder: (_, __) => SizedBox(
-            height: imageStatusMode == ImageStatusMode.discover
-                ? null
-                : width * 2 / 3,
-            child: const Center(
-              child: CupertinoActivityIndicator(),
-            ),
+      return CachedNetworkImage(
+        imageUrl: _imageUrl(context),
+        width: double.infinity,
+        fit: BoxFit.cover,
+        height: imageStatusMode == ImageStatusMode.discover
+            ? null
+            : min(width * 1 / 2, 160),
+        placeholder: (_, __) => SizedBox(
+          height: imageStatusMode == ImageStatusMode.discover
+              ? null
+              : width * 1 / 2,
+          child: const Center(
+            child: CupertinoActivityIndicator(),
           ),
-        );
-      }
-      if (displayBigText) {
-        return Container(
-          padding: const EdgeInsets.all(12.0),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.15), BlendMode.dstATop),
-              image: CachedNetworkImageProvider(
-                _imageUrl(context),
-              ),
-            ),
-          ),
-          constraints: const BoxConstraints(minHeight: 200),
-          alignment: Alignment.center,
-          child: RichText(
-            text: HTML.toTextSpan(context, status.content ?? '',
-                linksCallback: (link) => linksCallback(link, context),
-                defaultTextStyle: TextStyle(
-                    fontSize: 21,
-                    color: Theme.of(context).textTheme.bodyText1?.color),
-                overrideStyle: {
-                  'a': TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    decoration: TextDecoration.none,
-                  ),
-                }),
-            textAlign: TextAlign.center,
-          ),
-        );
-      }
+        ),
+      );
     }
     return Container();
   }
