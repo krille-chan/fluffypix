@@ -3,22 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:fluffypix/config/app_configs.dart';
 
 abstract class AppThemes {
+  static const double radius = 12;
   static final ThemeData light = ThemeData.light().copyWith(
-    inputDecorationTheme: const InputDecorationTheme(
+    inputDecorationTheme: InputDecorationTheme(
       fillColor: Colors.white,
       filled: true,
       contentPadding: EdgeInsets.symmetric(horizontal: 12),
       border: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.grey, width: 1),
+        borderRadius: BorderRadius.circular(radius),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.black, width: 1),
+        borderRadius: BorderRadius.circular(radius),
       ),
     ),
     popupMenuTheme: PopupMenuThemeData(
       elevation: 4,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(radius),
       ),
     ),
     snackBarTheme: const SnackBarThemeData(
@@ -57,21 +60,23 @@ abstract class AppThemes {
   );
   static final ThemeData dark = ThemeData.dark().copyWith(
     dividerColor: Colors.grey[800],
-    inputDecorationTheme: const InputDecorationTheme(
+    inputDecorationTheme: InputDecorationTheme(
       fillColor: Colors.black,
       filled: true,
       contentPadding: EdgeInsets.symmetric(horizontal: 12),
       border: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.grey, width: 1),
+        borderRadius: BorderRadius.circular(radius),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.white, width: 1),
+        borderRadius: BorderRadius.circular(radius),
       ),
     ),
     popupMenuTheme: PopupMenuThemeData(
       elevation: 4,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(radius),
       ),
     ),
     snackBarTheme: const SnackBarThemeData(
