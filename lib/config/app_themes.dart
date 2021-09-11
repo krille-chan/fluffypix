@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:fluffypix/config/app_configs.dart';
+import 'package:flutter/services.dart';
 
 abstract class AppThemes {
   static const double radius = 12;
@@ -45,13 +46,11 @@ abstract class AppThemes {
         ),
     appBarTheme: const AppBarTheme(
       centerTitle: true,
-      brightness: Brightness.light,
+      systemOverlayStyle: SystemUiOverlayStyle.light,
       color: Colors.white,
-      textTheme: TextTheme(
-        headline6: TextStyle(
-          color: Colors.black,
-          fontSize: 20,
-        ),
+      titleTextStyle: TextStyle(
+        color: Colors.black,
+        fontSize: 20,
       ),
       iconTheme: IconThemeData(color: Colors.black),
       elevation: 1,
@@ -100,13 +99,11 @@ abstract class AppThemes {
         ),
     appBarTheme: ThemeData.dark().appBarTheme.copyWith(
           centerTitle: true,
-          brightness: Brightness.dark,
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
           color: Colors.grey[900],
-          textTheme: const TextTheme(
-            headline6: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-            ),
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
           ),
           iconTheme: const IconThemeData(color: Colors.white),
           elevation: 1,
