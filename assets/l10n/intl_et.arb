@@ -155,7 +155,7 @@
   "@newStatus": {},
   "mentionsOnly": "Vaid mainitud kasutajad",
   "@mentionsOnly": {},
-  "followersOnly": "Ainult järgijatele",
+  "followersOnly": "Ainult jälgijatele",
   "@followersOnly": {},
   "notListed": "Ei ole kuvatud avalikul ajajoonel",
   "@notListed": {},
@@ -205,5 +205,71 @@
   "account": "Kasutajakonto",
   "@account": {},
   "logout": "Logi välja",
-  "@logout": {}
+  "@logout": {},
+  "wouldLikeToFollowYou": "Kasutaja <b>{name}</b> soovib sind jälgida.",
+  "@wouldLikeToFollowYou": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "isFollowingYouNow": "Kasutaja <b>{name}</b> jälgib sind nüüd.",
+  "@isFollowingYouNow": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "likesYourPost": "Kasutajale <b>{name}</b> meeldib sinu postitus.",
+  "@likesYourPost": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "hasPosted": "<b> {name} </b> postitas.",
+  "@hasPosted": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "mentioned": "<b>{name}</b> mainis sind postituses:<br/>{content}",
+  "@mentioned": {
+    "type": "text",
+    "placeholders": {
+      "name": {},
+      "content": {}
+    }
+  },
+  "pollEnded": "Küsitlus, milles sa osalesid, on lõppenud.",
+  "@pollEnded": {},
+  "sendComment": "Kommenteeri",
+  "@sendComment": {},
+  "pickFromYourGallery": "Vali oma pildigaleriist",
+  "@pickFromYourGallery": {},
+  "unmuteUser": "Eemalda kasutajalt summutamine",
+  "@unmuteUser": {},
+  "muteUser": "Summuta kasutaja",
+  "@muteUser": {},
+  "unblockUser": "Eemalda kasutajalt blokeering",
+  "@unblockUser": {},
+  "blockUser": "Blokeeri kasutaja",
+  "@blockUser": {},
+  "dontNotifyOnNewPosts": "Ära teavita uutest postitustest",
+  "@dontNotifyOnNewPosts": {},
+  "notifyOnNewPosts": "Teavita uutest postitustest",
+  "@notifyOnNewPosts": {},
+  "displayThumbnailsOnly": "Kuva vaid pisipilte",
+  "@displayThumbnailsOnly": {},
+  "allowAnimatedAvatars": "Luba liikuvaid tunnuspilte",
+  "@allowAnimatedAvatars": {},
+  "home": "Avaleht",
+  "@home": {},
+  "openLinksInAppBrowser": "Ava lingid rakenduse-siseses brauseris",
+  "@openLinksInAppBrowser": {},
+  "wasSharedBy": "Seda jagas:",
+  "@wasSharedBy": {},
+  "wasLikedBy": "See meeldis:",
+  "@wasLikedBy": {}
 }

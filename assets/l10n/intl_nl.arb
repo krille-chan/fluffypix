@@ -267,5 +267,9 @@
   "forNewFollowers": "Voor nieuwe volgers",
   "@forNewFollowers": {},
   "forNewLikes": "Voor nieuwe likes",
-  "@forNewLikes": {}
+  "@forNewLikes": {},
+  "wasSharedBy": "Is gedeeld door",
+  "@wasSharedBy": {},
+  "wasLikedBy": "Is geliket door",
+  "@wasLikedBy": {}
 }
