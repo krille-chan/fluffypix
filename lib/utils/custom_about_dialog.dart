@@ -23,6 +23,11 @@ void showCustomAboutDialog(BuildContext context) async {
     ),
     children: [
       OutlinedButton(
+        onPressed: () => launch(AppConfigs.privacyUrl),
+        child: Text(L10n.of(context)!.privacy),
+      ),
+      SizedBox(height: 2),
+      OutlinedButton(
         onPressed: () => launch(AppConfigs.applicationWebsite),
         child: Text(L10n.of(context)!.website),
       ),
