@@ -48,6 +48,7 @@ abstract class AppThemes {
       centerTitle: true,
       systemOverlayStyle: SystemUiOverlayStyle.dark,
       color: Colors.white,
+      foregroundColor: Colors.black,
       titleTextStyle: TextStyle(
         color: Colors.black,
         fontSize: 20,
