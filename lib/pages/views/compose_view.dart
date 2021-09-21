@@ -66,8 +66,6 @@ class ComposePageView extends StatelessWidget {
                   minLines: 8,
                   maxLines: 8,
                   maxLength: 500,
-                  textAlign: TextAlign.center,
-                  textAlignVertical: TextAlignVertical.center,
                   controller: controller.statusController,
                   decoration: InputDecoration(
                     hintText: L10n.of(context)!.howDoYouFeel,
