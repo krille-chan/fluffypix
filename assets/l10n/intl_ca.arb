@@ -1,1 +1,26 @@
-{}
+{
+  "sunday": "Diumenge",
+  "@sunday": {},
+  "saturday": "Dissabte",
+  "@saturday": {},
+  "friday": "Divendres",
+  "@friday": {},
+  "thursday": "Dijous",
+  "@thursday": {},
+  "wednesday": "Dimecres",
+  "@wednesday": {},
+  "tuesday": "Dimarts",
+  "@tuesday": {},
+  "monday": "Dilluns",
+  "@monday": {},
+  "search": "Cercar",
+  "@search": {},
+  "oopsSomethingWentWrong": "Vaja... alguna cosa ha anat malament!",
+  "@oopsSomethingWentWrong": {},
+  "pickACommunityDescription": "Benvinguts a la nostra xarxa social descentralitzada. Simplement tria una comunitat per divertir-te.",
+  "@pickACommunityDescription": {},
+  "pickACommunity": "Tria una comunitat",
+  "@pickACommunity": {},
+  "helloWorld": "Hola món",
+  "@helloWorld": {}
+}
