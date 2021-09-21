@@ -64,8 +64,7 @@ class HomePageController extends State<HomePage> {
           trends = await FluffyPix.of(context).getTrends();
           setState(() {});
         }
-      } on FormatException catch (_) {
-      } catch (e, s) {
+      } on FormatException catch (_) {} catch (e, s) {
         log('Unable to load trends', error: e, stackTrace: s);
       }
       FluffyPix.of(context)
