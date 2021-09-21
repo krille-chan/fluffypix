@@ -40,7 +40,7 @@
   "@home": {},
   "notifications": "Benachrichtigungen",
   "@notifications": {},
-  "trendingHashtags": "Trendige Schlagwörter:",
+  "trendingHashtags": "Angesagte Hashtags:",
   "@trendingHashtags": {},
   "help": "Hilfe",
   "@help": {},
@@ -48,7 +48,7 @@
   "@playInBrowser": {},
   "about": "Über",
   "@about": {},
-  "hashtags": "Schlagwörter",
+  "hashtags": "Hashtags",
   "@hashtags": {},
   "reason": "Grund",
   "@reason": {},
@@ -176,5 +176,100 @@
   "discoverUsers": "Benutzer entdecken",
   "@discoverUsers": {},
   "privacy": "Privatsphäre",
-  "@privacy": {}
+  "@privacy": {},
+  "sharedYourPost": "<b>{name}</b> hat deinen Beitrag geteilt.",
+  "@sharedYourPost": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "wouldLikeToFollowYou": "<b>{name}</b> würde dir gerne folgen.",
+  "@wouldLikeToFollowYou": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "isFollowingYouNow": "<b>{name}</b> folgt dir jetzt.",
+  "@isFollowingYouNow": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "likesYourPost": "<b>{name}</b> gefällt dein Beitrag.",
+  "@likesYourPost": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "hasPosted": "<b>{name}</b> hat geposted.",
+  "@hasPosted": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "mentioned": "<b>{name}</b> hat dich in einem Beitrag erwähnt:<br/>{content}",
+  "@mentioned": {
+    "type": "text",
+    "placeholders": {
+      "name": {},
+      "content": {}
+    }
+  },
+  "unmuteUser": "Nicht mehr stummschalten",
+  "@unmuteUser": {},
+  "muteUser": "Mitglied stummschalten",
+  "@muteUser": {},
+  "dontNotifyOnNewPosts": "Nicht bei neuen Beiträgen benachrichtigen",
+  "@dontNotifyOnNewPosts": {},
+  "notifyOnNewPosts": "Bei neuen Beiträgen benachrichtigen",
+  "@notifyOnNewPosts": {},
+  "local": "Lokal",
+  "@local": {},
+  "seeNewPosts": "Neue Beiträge ansehen",
+  "@seeNewPosts": {},
+  "viewPost": "Beitrag ansehen",
+  "@viewPost": {},
+  "postHasBeenReported": "Beitrag wurde gemeldet",
+  "@postHasBeenReported": {},
+  "wasSharedBy": "Wurde geteilt von",
+  "@wasSharedBy": {},
+  "wasLikedBy": "Wurde geliked von",
+  "@wasLikedBy": {},
+  "post": "Posten",
+  "@post": {},
+  "newStatus": "Neuer Beitrag",
+  "@newStatus": {},
+  "mentionsOnly": "Nur erwähnte Mitglieder",
+  "@mentionsOnly": {},
+  "followersOnly": "Nur Follower",
+  "@followersOnly": {},
+  "newPostPublished": "Neuer Beitrag wurde veröffentlicht",
+  "@newPostPublished": {},
+  "nsfw": "NSFW",
+  "@nsfw": {},
+  "postHasBeenDeleted": "Beitrag wurde gelöscht",
+  "@postHasBeenDeleted": {},
+  "pick": "Auswählen",
+  "@pick": {},
+  "statuses": "Beiträge",
+  "@statuses": {},
+  "deletePost": "Beitrag löschen",
+  "@deletePost": {},
+  "followers": "Followers",
+  "@followers": {},
+  "forEndingPolls": "Für beendete Umfragen",
+  "@forEndingPolls": {},
+  "forNewMentions": "Für neue Erwähnungen",
+  "@forNewMentions": {},
+  "forNewSharings": "Für neue Geteilt-Meldungen",
+  "@forNewSharings": {},
+  "forNewFollowers": "Für neue Follower",
+  "@forNewFollowers": {},
+  "forNewLikes": "Für neue Likes",
+  "@forNewLikes": {}
 }
