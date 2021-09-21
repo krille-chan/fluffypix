@@ -30,6 +30,7 @@
 		<key>CFBundleURLSchemes</key>
 		<array>
 			<string>fluffypix</string>
+			<string>ShareMedia</string>
 		</array>
 		</dict>
 	</array>

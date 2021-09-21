@@ -47,8 +47,14 @@ abstract class AppThemes {
     appBarTheme: const AppBarTheme(
       centerTitle: true,
       systemOverlayStyle: SystemUiOverlayStyle.dark,
-      color: Colors.white,
       brightness: Brightness.light,
+      color: Colors.white,
+      textTheme: TextTheme(
+        headline6: TextStyle(
+          color: Colors.black,
+          fontSize: 20,
+        ),
+      ),
       titleTextStyle: TextStyle(
         color: Colors.black,
         fontSize: 20,
