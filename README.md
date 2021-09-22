@@ -14,7 +14,7 @@ https://hosted.weblate.org/projects/fluffychat/fluffpix/
 
 ## Develop
 
-Setup [Flutter](https://flutter.dev) and execute:
+Setup [Flutter](https://flutter.dev), downgrade to Flutter 2.2.X and execute:
 
 ```
 flutter run
