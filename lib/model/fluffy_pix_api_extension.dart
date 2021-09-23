@@ -308,7 +308,7 @@ extension FluffyPixApiExtension on FluffyPix {
           : PushSubscription.fromJson(json));
 
   Future<PushSubscription> setPushSubcription(
-          String endpoint, String publicKey, String pushToken,
+          String endpoint, String p256dh, String auth,
           {PushSubscriptionAlerts? alerts}) =>
       request(
         RequestType.post,
@@ -317,8 +317,8 @@ extension FluffyPixApiExtension on FluffyPix {
           'subscription': {
             'endpoint': endpoint,
             'keys': {
-              'p256dh': publicKey,
-              'auth': pushToken,
+              'p256dh': p256dh,
+              'auth': auth,
             },
           },
           if (alerts != null) 'data': {'alerts': alerts.toJson()},

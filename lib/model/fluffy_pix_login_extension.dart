@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
+import 'package:crypto/crypto.dart';
 import 'package:http/http.dart';
-import 'package:webcrypto/webcrypto.dart';
 
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/config/instances_api_token.dart';
@@ -47,13 +47,7 @@ extension FluffyPixLoginExtension on FluffyPix {
     debugPrint('Create Application on $instance...');
     if (!kDebugMode &&
         ipv6.contains(
-          String.fromCharCodes(
-            await Hash.sha256.digestBytes(
-              utf8.encode(
-                instance.toString(),
-              ),
-            ),
-          ),
+          sha256.convert(instance.toString().codeUnits).toString(),
         )) {
       throw const SocketException('Server is not compatible with IPv6');
     }

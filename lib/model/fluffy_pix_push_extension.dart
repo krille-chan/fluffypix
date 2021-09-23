@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'package:elliptic/elliptic.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:webcrypto/webcrypto.dart';
 
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/push_subscription.dart';
@@ -19,6 +20,35 @@ import 'fluffy_pix_notification_count_extension.dart';
 import 'push_credentials.dart';
 
 extension FluffyPixPushExtension on FluffyPix {
+  static hex(int c) {
+    if (c >= '0'.codeUnitAt(0) && c <= '9'.codeUnitAt(0)) {
+      return c - '0'.codeUnitAt(0);
+    }
+    if (c >= 'A'.codeUnitAt(0) && c <= 'F'.codeUnitAt(0)) {
+      return (c - 'A'.codeUnitAt(0)) + 10;
+    }
+  }
+
+  static Uint8List toUnitList(String str) {
+    int length = str.length;
+    if (length % 2 != 0) {
+      str = "0" + str;
+      length++;
+    }
+    List<int> s = str.toUpperCase().codeUnits;
+    Uint8List bArr = Uint8List(length >> 1);
+    for (int i = 0; i < length; i += 2) {
+      bArr[i >> 1] = ((hex(s[i]) << 4) | hex(s[i + 1]));
+    }
+    return bArr;
+  }
+
+  String getRandString(int len) {
+    var random = Random.secure();
+    var values = List<int>.generate(len, (i) => random.nextInt(255));
+    return base64UrlEncode(values);
+  }
+
   Future<void> initPush() async {
     await Firebase.initializeApp();
     final messaging = FirebaseMessaging.instance;
@@ -55,17 +85,14 @@ extension FluffyPixPushExtension on FluffyPix {
       return;
     }
 
-    final keyPair = await EcdhPrivateKey.generateKey(EllipticCurve.p256);
-
-    final publicKey = const Base64Encoder().convert(
-      await keyPair.publicKey.exportRawKey(),
-    );
+    final newKey = getP256().generatePrivateKey();
     final privateKey = const Base64Encoder().convert(
-      await keyPair.privateKey.exportPkcs8Key(),
+      await toUnitList(newKey.toString()),
     );
-    final bytes = Uint8List(16);
-    fillRandomBytes(bytes);
-    final auth = base64.encode(bytes);
+    final publicKey = const Base64Encoder().convert(
+      await toUnitList(newKey.publicKey.toString()),
+    );
+    final auth = getRandString(16);
 
     final platform = kIsWeb
         ? 'web'
@@ -78,7 +105,7 @@ extension FluffyPixPushExtension on FluffyPix {
     final endpoint = '${AppConfigs.pushGatewayUrl}/$platform/$token';
 
     await setPushSubcription(
-      endpoint.toString(),
+      endpoint,
       publicKey,
       auth,
       alerts: PushSubscriptionAlerts(
@@ -102,7 +129,7 @@ extension FluffyPixPushExtension on FluffyPix {
 
   _handleForegroundRemoteMessage(RemoteMessage message) {
     print('Got remote message');
-    print(message);
+    print(message.data);
     unreadNotifications = null;
     updateNotificationCount();
   }
