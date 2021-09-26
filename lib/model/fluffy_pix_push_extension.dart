@@ -13,6 +13,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/push_subscription.dart';
+import 'package:unifiedpush/unifiedpush.dart';
 import '../utils/convert_to_json.dart';
 import 'fluffy_pix.dart';
 import 'fluffy_pix_api_extension.dart';
@@ -50,37 +51,65 @@ extension FluffyPixPushExtension on FluffyPix {
   }
 
   Future<void> initPush() async {
-    await Firebase.initializeApp();
-    final messaging = FirebaseMessaging.instance;
-    FirebaseMessaging.onMessage.listen(_handleForegroundRemoteMessage);
+    final distributors = await UnifiedPush.getDistributors();
+    late final endpoint;
+    if (distributors.isNotEmpty) {
+      await UnifiedPush.registerAppWithDialog();
+      UnifiedPush.initializeWithCallback(
+        (url) {
+          endpoint = url;
+        },
+        () => null,
+        _handleForegroundRemoteMessage,
+        () => null,
+        (_) => null,
+        (_) => null,
+        (_) => null,
+        (_) => null,
+      );
+    } else {
+      debugPrint(
+          'No UnifiedPush distributors found. Fallback to Firebase Cloud Messaging...');
+      await Firebase.initializeApp();
+      final messaging = FirebaseMessaging.instance;
+      FirebaseMessaging.onMessage.listen(_handleForegroundRemoteMessage);
 
-    final settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-    if (settings.authorizationStatus != AuthorizationStatus.authorized) {
-      debugPrint('Notification permissions have been declined. Stop initPush!');
-      return;
-    }
+      final settings = await messaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
+      if (settings.authorizationStatus != AuthorizationStatus.authorized) {
+        debugPrint(
+            'Notification permissions have been declined. Stop initPush!');
+        return;
+      }
 
-    late final String? token;
-    try {
-      token = await messaging.getToken();
-      if (token == null) throw 'Token is NULL';
-    } catch (e, s) {
-      debugPrint('Unable to get Firebase Messaging token!$e $s');
-      rethrow;
+      late final String? token;
+      try {
+        token = await messaging.getToken();
+        if (token == null) throw 'Token is NULL';
+      } catch (e, s) {
+        debugPrint('Unable to get Firebase Messaging token!$e $s');
+        rethrow;
+      }
+      final platform = kIsWeb
+          ? 'web'
+          : Platform.isIOS
+              ? 'ios'
+              : Platform.isAndroid
+                  ? 'android'
+                  : 'unknown';
+      endpoint = '${AppConfigs.pushGatewayUrl}/$platform/$token';
     }
 
     final pushCredentials = await loadCredentials(box);
     if (pushCredentials != null &&
-        pushCredentials.endpoint == AppConfigs.pushGatewayUrl &&
-        pushCredentials.token == token) {
+        pushCredentials.endpoint == AppConfigs.pushGatewayUrl) {
       debugPrint('Push notifications already initialized!');
       return;
     }
@@ -93,16 +122,6 @@ extension FluffyPixPushExtension on FluffyPix {
       await toUnitList(newKey.publicKey.toString()),
     );
     final auth = getRandString(16);
-
-    final platform = kIsWeb
-        ? 'web'
-        : Platform.isIOS
-            ? 'ios'
-            : Platform.isAndroid
-                ? 'android'
-                : 'unknown';
-
-    final endpoint = '${AppConfigs.pushGatewayUrl}/$platform/$token';
 
     await setPushSubcription(
       endpoint,
@@ -118,18 +137,16 @@ extension FluffyPixPushExtension on FluffyPix {
     );
 
     await _saveCredentials(PushCredentials(
-      token: token,
       publickey: publicKey,
       privatekey: privateKey,
       auth: auth,
-      endpoint: AppConfigs.pushGatewayUrl,
+      endpoint: endpoint,
     ));
     debugPrint('Push notifications initialized!');
   }
 
-  _handleForegroundRemoteMessage(RemoteMessage message) {
+  _handleForegroundRemoteMessage([RemoteMessage? message]) {
     print('Got remote message');
-    print(message.data);
     unreadNotifications = null;
     updateNotificationCount();
   }
