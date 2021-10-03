@@ -6,7 +6,7 @@
       "name": {}
     }
   },
-  "isFollowingYouNow": "<b>thumbnails</b> يتابعك.",
+  "isFollowingYouNow": "<b>{name}</b> يتابعك.",
   "@isFollowingYouNow": {
     "type": "text",
     "placeholders": {
@@ -27,7 +27,7 @@
   "@recommendMobileApp": {},
   "notListed": "غير مدرج في خط المشاركات",
   "@notListed": {},
-  "worldWide": "العالمي",
+  "worldWide": "عالمي",
   "@worldWide": {},
   "visibility": "الظهور",
   "@visibility": {},
@@ -142,7 +142,7 @@
   "@discoverUsers": {},
   "privacy": "الخصوصية",
   "@privacy": {},
-  "local": "المحلي",
+  "local": "محلي",
   "@local": {},
   "help": "المساعدة",
   "@help": {},
@@ -216,7 +216,7 @@
   "@sendMessage": {},
   "unsubscribe": "ألغِ الاشتراك",
   "@unsubscribe": {},
-  "following": "تتابعه",
+  "following": "متابَع",
   "@following": {},
   "follow": "تابِع",
   "@follow": {},
