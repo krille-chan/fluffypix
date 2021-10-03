@@ -66,5 +66,210 @@
   "pickACommunity": "Odaberi zajednicu",
   "@pickACommunity": {},
   "helloWorld": "Zdravo svijete",
-  "@helloWorld": {}
+  "@helloWorld": {},
+  "wasLikedBy": "Sviđalo se",
+  "@wasLikedBy": {},
+  "wasSharedBy": "Dijeli",
+  "@wasSharedBy": {},
+  "account": "Račun",
+  "@account": {},
+  "settings": "Postavke",
+  "@settings": {},
+  "followers": "Sljedbenici",
+  "@followers": {},
+  "suchEmpty": "Opa … tako prazno …",
+  "@suchEmpty": {},
+  "serverVersion": "Verzija poslužitelja",
+  "@serverVersion": {},
+  "deletePost": "Izbriši objavu",
+  "@deletePost": {},
+  "close": "Zatvori",
+  "@close": {},
+  "delete": "Izbriši",
+  "@delete": {},
+  "pick": "Odaberi",
+  "@pick": {},
+  "deleting": "Brisanje …",
+  "@deleting": {},
+  "postHasBeenDeleted": "Objava je izbrisana",
+  "@postHasBeenDeleted": {},
+  "loading": "Učitavanje …",
+  "@loading": {},
+  "nsfw": "NSFW",
+  "@nsfw": {},
+  "newPostPublished": "Nova objava je objavljena",
+  "@newPostPublished": {},
+  "visibility": "Vidljivost",
+  "@visibility": {},
+  "worldWide": "Širom svijeta",
+  "@worldWide": {},
+  "notListed": "Nije navedeno na javnoj vremenskoj traci",
+  "@notListed": {},
+  "followersOnly": "Samo sljedbenici",
+  "@followersOnly": {},
+  "mentionsOnly": "Samo spomenuti korisnici",
+  "@mentionsOnly": {},
+  "newStatus": "Novo stanje",
+  "@newStatus": {},
+  "newMessage": "Nova poruka",
+  "@newMessage": {},
+  "post": "Objava",
+  "@post": {},
+  "howDoYouFeel": "Kako se osjećaš?",
+  "@howDoYouFeel": {},
+  "addPhoto": "Dodaj sliku",
+  "@addPhoto": {},
+  "addVideo": "Dodaj video",
+  "@addVideo": {},
+  "statuses": "Stanja",
+  "@statuses": {},
+  "noThanks": "Ne hvala",
+  "@noThanks": {},
+  "logout": "Odjava",
+  "@logout": {},
+  "members": "Članovi",
+  "@members": {},
+  "profile": "Profil",
+  "@profile": {},
+  "comment": "Komentar",
+  "@comment": {},
+  "postHasBeenReported": "Objava je prijavljena",
+  "@postHasBeenReported": {},
+  "report": "Izvještaj",
+  "@report": {},
+  "reportDescription": "Izvještaj će biti proslijeđeno svim povezanim administratorima zajednice.",
+  "@reportDescription": {},
+  "reason": "Razlog",
+  "@reason": {},
+  "viewPost": "Pogledaj objavu",
+  "@viewPost": {},
+  "hashtags": "Hashtagovi",
+  "@hashtags": {},
+  "about": "Informacije",
+  "@about": {},
+  "tryOutMobileApps": "Isprobaj i mobilne programe:",
+  "@tryOutMobileApps": {},
+  "seeNewPosts": "Pogledaj nove objave",
+  "@seeNewPosts": {},
+  "playInBrowser": "Reproduciraj u pregledniku",
+  "@playInBrowser": {},
+  "externalProfile": "Externi profil",
+  "@externalProfile": {},
+  "privacy": "Privatnost",
+  "@privacy": {},
+  "discoverUsers": "Otkrij korisnike",
+  "@discoverUsers": {},
+  "trendingHashtags": "Hashtagovi u trendu:",
+  "@trendingHashtags": {},
+  "notifications": "Obavijesti",
+  "@notifications": {},
+  "openLinksInAppBrowser": "Otvori poveznice u pregledniku programa",
+  "@openLinksInAppBrowser": {},
+  "home": "Početna",
+  "@home": {},
+  "allowAnimatedAvatars": "Dozvoli animirane avatare",
+  "@allowAnimatedAvatars": {},
+  "displayThumbnailsOnly": "Prikaži samo minijature",
+  "@displayThumbnailsOnly": {},
+  "openCamera": "Otvori kameru",
+  "@openCamera": {},
+  "notifyOnNewPosts": "Obavijesti o novim objavama",
+  "@notifyOnNewPosts": {},
+  "dontNotifyOnNewPosts": "Ne obavještavaj o novim objavama",
+  "@dontNotifyOnNewPosts": {},
+  "blockUser": "Blokiraj korisnika",
+  "@blockUser": {},
+  "unblockUser": "Deblokiraj korisnika",
+  "@unblockUser": {},
+  "muteUser": "Isključi zvuk korisnika",
+  "@muteUser": {},
+  "unmuteUser": "Uključi zvuk korisnika",
+  "@unmuteUser": {},
+  "pickFromYourGallery": "Odaberi iz svoje galerije",
+  "@pickFromYourGallery": {},
+  "sendComment": "Pošalji komentar",
+  "@sendComment": {},
+  "pollEnded": "Anketa u kojoj si sudjelovao/la je završena.",
+  "@pollEnded": {},
+  "mentioned": "<b>{name}</b> te je spomenuo/la u objavi:<br/>{content}",
+  "@mentioned": {
+    "type": "text",
+    "placeholders": {
+      "name": {},
+      "content": {}
+    }
+  },
+  "likesYourPost": "Korisniku <b>{name}</b> se sviđa tvoja objava.",
+  "@likesYourPost": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "isFollowingYouNow": "<b>{name}</b> te sada slijedi.",
+  "@isFollowingYouNow": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "wouldLikeToFollowYou": "<b>{name}</b> te želi slijediti.",
+  "@wouldLikeToFollowYou": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "userShared": "{name} dijeljeno",
+  "@userShared": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "sharedYourPost": "<b>{name}</b> je dijelio/la tvoju objavu.",
+  "@sharedYourPost": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "dateAndTimeOfDay": "{date}, {timeOfDay}",
+  "@dateAndTimeOfDay": {
+    "type": "text",
+    "placeholders": {
+      "date": {},
+      "timeOfDay": {}
+    }
+  },
+  "dateWithYear": "{day}. {month}. {year}.",
+  "@dateWithYear": {
+    "type": "text",
+    "placeholders": {
+      "year": {},
+      "month": {},
+      "day": {}
+    }
+  },
+  "recommendMobileApp": "FluffyPix bolje radi kao mobilni program",
+  "@recommendMobileApp": {},
+  "hasPosted": "<b>{name}</b> je poslao/la objavu.",
+  "@hasPosted": {
+    "type": "text",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "help": "Pomoć",
+  "@help": {},
+  "local": "Lokalno",
+  "@local": {},
+  "dateWithoutYear": "{day}. {month}.",
+  "@dateWithoutYear": {
+    "type": "text",
+    "placeholders": {
+      "month": {},
+      "day": {}
+    }
+  }
 }
