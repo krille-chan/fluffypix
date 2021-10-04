@@ -1,1 +1,22 @@
-{}
+{
+  "monday": "Понедельник",
+  "@monday": {},
+  "pickACommunityDescription": "Добро пожаловать в нашу децентрализованную социальную сеть. Просто выберите сообщество, чтобы присоединиться к веселью.",
+  "@pickACommunityDescription": {},
+  "helloWorld": "Привет, мир",
+  "@helloWorld": {},
+  "oopsSomethingWentWrong": "Упс... что-то пошло не так!",
+  "@oopsSomethingWentWrong": {},
+  "search": "Поиск",
+  "@search": {},
+  "pickACommunity": "Выберите сообщество",
+  "@pickACommunity": {},
+  "tuesday": "Вторник",
+  "@tuesday": {},
+  "wednesday": "Среда",
+  "@wednesday": {},
+  "thursday": "Четверг",
+  "@thursday": {},
+  "friday": "Пятница",
+  "@friday": {}
+}
