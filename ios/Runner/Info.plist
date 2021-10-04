@@ -18,33 +18,44 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-		<key>CFBundleTypeRole</key>
-		<string>Editor</string>
-		<key>CFBundleURLName</key>
-		<string>fluffypix</string>
-		<key>CFBundleURLSchemes</key>
-		<array>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
 			<string>fluffypix</string>
-			<string>ShareMedia</string>
-		</array>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fluffypix</string>
+				<string>ShareMedia</string>
+			</array>
 		</dict>
 	</array>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Open the camera and take a picture to share them with your friends on FluffyPix</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Open the camera and take a videos with sound to share them with your friends on FluffyPix</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Open photos from your gallery and share them with your friends on FluffyPix</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -60,11 +71,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Open the camera and take a videos with sound to share them with your friends on FluffyPix</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Open the camera and take a picture to share them with your friends on FluffyPix</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Open photos from your gallery and share them with your friends on FluffyPix</string>
 </dict>
 </plist>

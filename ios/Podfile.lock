@@ -96,8 +96,6 @@ PODS:
     - Flutter
   - wakelock (0.0.1):
     - Flutter
-  - webcrypto (0.1.1):
-    - Flutter
 
 DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
@@ -115,7 +113,6 @@ DEPENDENCIES:
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
   - wakelock (from `.symlinks/plugins/wakelock/ios`)
-  - webcrypto (from `.symlinks/plugins/webcrypto/ios`)
 
 SPEC REPOS:
   trunk:
@@ -162,8 +159,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/video_player/ios"
   wakelock:
     :path: ".symlinks/plugins/wakelock/ios"
-  webcrypto:
-    :path: ".symlinks/plugins/webcrypto/ios"
 
 SPEC CHECKSUMS:
   Firebase: 21ac9f28b09a8bdfc005f34c984fca84e7e8786d
@@ -173,7 +168,7 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: 3721920bde3a9a6d5aa093c1d25e9d3e47f694af
   FirebaseInstallations: 0ede6ffcd215b8f93c19d9b06c1c54e2d4107e98
   FirebaseMessaging: ce0a5ee974f7bfe83b6cc5acce88c2d969e37c41
-  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_inappwebview: bfd58618f49dc62f2676de690fc6dcda1d6c3721
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -192,8 +187,7 @@ SPEC CHECKSUMS:
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
-  webcrypto: ac37b97f415c7114abb8af22d58048b5cbcb23d3
 
 PODFILE CHECKSUM: fe0e1ee7f3d1f7d00b11b474b62dd62134535aea
 
-COCOAPODS: 1.11.0
+COCOAPODS: 1.11.2
