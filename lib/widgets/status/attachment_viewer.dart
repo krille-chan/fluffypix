@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:html' as html;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -138,6 +139,10 @@ class _AttachmentImageViewer extends StatelessWidget {
         ? attachment.imageMeta.small ?? attachment.imageMeta.original
         : attachment.imageMeta.original;
     return CachedNetworkImage(
+      httpHeaders: {
+        if (kIsWeb)
+          'Origin': Uri.https(html.window.location.host, '').toString(),
+      },
       imageUrl: thumbnailOnly
           ? attachment.previewUrl.toString()
           : attachment.url.toString(),
