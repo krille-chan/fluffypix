@@ -18,7 +18,7 @@ abstract class AppConfigs {
   static const String pushGatewayUrl = 'https://janian.de/push/notify';
   static const List<MobileApp> mobileApps = [
     MobileApp(
-      null,
+      'https://play.google.com/store/apps/details?id=io.fluffypix.app',
       'assets/images/google-play-badge.png',
     ),
     MobileApp(
