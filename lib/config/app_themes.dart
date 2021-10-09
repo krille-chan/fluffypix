@@ -102,7 +102,7 @@ abstract class AppThemes {
           systemOverlayStyle: SystemUiOverlayStyle.light,
           color: Colors.grey[900],
           titleTextStyle: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontSize: 20,
           ),
           iconTheme: const IconThemeData(color: Colors.white),
