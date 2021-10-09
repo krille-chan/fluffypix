@@ -22,8 +22,8 @@ abstract class AppConfigs {
       'assets/images/google-play-badge.png',
     ),
     MobileApp(
-      null,
-      'assets/images/fdroid-badge.png',
+      'https://gitlab.com/krillefear/fluffypix/-/jobs/artifacts/main/browse?job=build_apk',
+      'assets/images/android-download-button.png',
     ),
     MobileApp(
       null,
