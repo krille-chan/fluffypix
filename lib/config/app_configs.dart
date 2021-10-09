@@ -26,7 +26,7 @@ abstract class AppConfigs {
       'assets/images/android-download-button.png',
     ),
     MobileApp(
-      null,
+      'https://testflight.apple.com/join/SuyYaKTn',
       'assets/images/appstore-badge.png',
     ),
   ];
