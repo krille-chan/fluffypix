@@ -22,5 +22,7 @@
   "pickACommunity": "Tria una comunitat",
   "@pickACommunity": {},
   "helloWorld": "Hola món",
-  "@helloWorld": {}
+  "@helloWorld": {},
+  "about": "Quant a",
+  "@about": {}
 }
