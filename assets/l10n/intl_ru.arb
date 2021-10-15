@@ -101,7 +101,7 @@
   "@admin": {},
   "forEndingPolls": "Для завершения опросов",
   "@forEndingPolls": {},
-  "users": "Пользователей",
+  "users": "Пользователи",
   "@users": {},
   "areYouSure": "Вы уверены?",
   "@areYouSure": {},
@@ -257,5 +257,19 @@
     "placeholders": {
       "name": {}
     }
-  }
+  },
+  "notListed": "Не показано на общедоступной временной шкале",
+  "@notListed": {},
+  "local": "Локально",
+  "@local": {},
+  "externalProfile": "Внешний профиль",
+  "@externalProfile": {},
+  "muteUser": "Заглушить пользователя",
+  "@muteUser": {},
+  "following": "Отслеживаемые",
+  "@following": {},
+  "unmuteUser": "Включить звук пользователя",
+  "@unmuteUser": {},
+  "forNewSharings": "Для новых распространений",
+  "@forNewSharings": {}
 }
