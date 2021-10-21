@@ -1,5 +1,5 @@
 {
-  "forNewLikes": "Untuk menyukaian postingan baru",
+  "forNewLikes": "Untuk suka postingan baru",
   "@forNewLikes": {},
   "dateWithYear": "{day}-{month}-{year}",
   "@dateWithYear": {
@@ -264,11 +264,11 @@
   "@monday": {},
   "search": "Cari",
   "@search": {},
-  "oopsSomethingWentWrong": "Ups... ada kesalahan!",
+  "oopsSomethingWentWrong": "Ups... ada yang salah!",
   "@oopsSomethingWentWrong": {},
   "pickACommunityDescription": "Selamat datang ke jaringan sosial terdesentralisasi kami. Pilihlah komunitas untuk bergabung keseruannya.",
   "@pickACommunityDescription": {},
-  "pickACommunity": "Pilih komunitas",
+  "pickACommunity": "Pilih sebuah komunitas",
   "@pickACommunity": {},
   "helloWorld": "Halo dunia",
   "@helloWorld": {}
