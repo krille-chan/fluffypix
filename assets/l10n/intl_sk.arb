@@ -1,1 +1,6 @@
-{}
+{
+  "helloWorld": "Zdravím svet",
+  "@helloWorld": {},
+  "pickACommunity": "Vyberte si komunitu",
+  "@pickACommunity": {}
+}
