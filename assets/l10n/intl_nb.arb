@@ -71,7 +71,7 @@
       "day": {}
     }
   },
-  "dateWithoutYear": "{day}, {month}",
+  "dateWithoutYear": "{day} {month}",
   "@dateWithoutYear": {
     "type": "text",
     "placeholders": {
@@ -194,7 +194,7 @@
   "@serverVersion": {},
   "followers": "Følgere",
   "@followers": {},
-  "settings": "Innstillinger",
+  "settings": "Innstilinger",
   "@settings": {},
   "sendMessage": "Send melding",
   "@sendMessage": {},
