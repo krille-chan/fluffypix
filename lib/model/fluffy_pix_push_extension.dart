@@ -4,7 +4,6 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 import 'package:elliptic/elliptic.dart';
 import 'package:firebase_core/firebase_core.dart';
