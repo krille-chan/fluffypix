@@ -44,5 +44,17 @@
   "shareLink": "Sdílet odkaz",
   "@shareLink": {},
   "forNewLikes": "Pro nové lajky",
-  "@forNewLikes": {}
+  "@forNewLikes": {},
+  "users": "Uživatelé",
+  "@users": {},
+  "copiedToClipboard": "Zkopírováno do schránky",
+  "@copiedToClipboard": {},
+  "reset": "Obnovit",
+  "@reset": {},
+  "areYouSure": "Jste si jistý?",
+  "@areYouSure": {},
+  "addedAt": "Přidáno v",
+  "@addedAt": {},
+  "messages": "Zprávy",
+  "@messages": {}
 }
