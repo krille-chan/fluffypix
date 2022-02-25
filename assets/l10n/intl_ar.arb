@@ -1,5 +1,5 @@
 {
-  "wouldLikeToFollowYou": "يريد <b>thumbnails</b> متابعتك.",
+  "wouldLikeToFollowYou": "يريد <b>{name}</b> متابعتك.",
   "@wouldLikeToFollowYou": {
     "type": "text",
     "placeholders": {
@@ -25,7 +25,7 @@
   "@noThanks": {},
   "recommendMobileApp": "فلافي-بيكس أحسن على الهاتف",
   "@recommendMobileApp": {},
-  "notListed": "غير مدرج في خط المشاركات",
+  "notListed": "غير مدرج في الجدول الزمني العام",
   "@notListed": {},
   "worldWide": "عالمي",
   "@worldWide": {},
@@ -262,7 +262,7 @@
   "@wednesday": {},
   "search": "ابحث",
   "@search": {},
-  "oopsSomethingWentWrong": "عذرًا… حدث خطأ ما!",
+  "oopsSomethingWentWrong": "عذراً… حدث خطأ ما!",
   "@oopsSomethingWentWrong": {},
   "pickACommunityDescription": "مرحبًا بك في الشبكة الاجتماعية الموزّعة. اختر مجتمعًا لتبدأ المرح.",
   "@pickACommunityDescription": {},
