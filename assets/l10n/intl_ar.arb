@@ -269,5 +269,7 @@
   "pickACommunity": "اختر مجتمعًا",
   "@pickACommunity": {},
   "helloWorld": "مرحبًا يا عالم",
-  "@helloWorld": {}
+  "@helloWorld": {},
+  "externalProfile": "ملف خارجي",
+  "@externalProfile": {}
 }
