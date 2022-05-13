@@ -1,1 +1,24 @@
-{}
+{
+  "admin": "Admin",
+  "@admin": {},
+  "copiedToClipboard": "Nukopijuota į iškarpinę",
+  "@copiedToClipboard": {},
+  "login": "Prisijungti",
+  "@login": {},
+  "saturday": "Šeštdienis",
+  "@saturday": {},
+  "search": "Ieškoti",
+  "@search": {},
+  "areYouSure": "Ar esate tikras?",
+  "@areYouSure": {},
+  "delete": "Panaikinti",
+  "@delete": {},
+  "reason": "Priežastis",
+  "@reason": {},
+  "help": "Pagalba",
+  "@help": {},
+  "notifications": "Pranešimai",
+  "@notifications": {},
+  "privacy": "Privatumas",
+  "@privacy": {}
+}
