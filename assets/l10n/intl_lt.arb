@@ -20,5 +20,9 @@
   "notifications": "Pranešimai",
   "@notifications": {},
   "privacy": "Privatumas",
-  "@privacy": {}
+  "@privacy": {},
+  "wednesday": "Trečiadienis",
+  "@wednesday": {},
+  "account": "Paskyra",
+  "@account": {}
 }
