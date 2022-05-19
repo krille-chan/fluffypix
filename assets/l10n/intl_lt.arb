@@ -24,5 +24,32 @@
   "wednesday": "Trečiadienis",
   "@wednesday": {},
   "account": "Paskyra",
-  "@account": {}
+  "@account": {},
+  "openCamera": "Atidarykite kamerą",
+  "@openCamera": {},
+  "dateAndTimeOfDay": "{date}, {timeOfDay}",
+  "@dateAndTimeOfDay": {
+    "type": "text",
+    "placeholders": {
+      "date": {},
+      "timeOfDay": {}
+    }
+  },
+  "dateWithoutYear": "{month}-{day}",
+  "@dateWithoutYear": {
+    "type": "text",
+    "placeholders": {
+      "month": {},
+      "day": {}
+    }
+  },
+  "dateWithYear": "{year}-{month}-{day}",
+  "@dateWithYear": {
+    "type": "text",
+    "placeholders": {
+      "year": {},
+      "month": {},
+      "day": {}
+    }
+  }
 }
