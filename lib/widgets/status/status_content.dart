@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:simple_html_css/simple_html_css.dart';
-
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/status/sensitive_content.dart';
 import 'package:fluffypix/widgets/status/status_content_slider.dart';
 import 'package:fluffypix/widgets/status/text_status_content.dart';
+import 'package:flutter_matrix_html/flutter_html.dart';
 
 enum ImageStatusMode { timeline, reply, discover }
 
@@ -56,6 +55,7 @@ class _StatusContentState extends State<StatusContent> {
               Navigator.of(context).pushNamed('/status/${widget.status.id}'),
           child: content);
     }
+    print(contentStatus.content);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -64,19 +64,17 @@ class _StatusContentState extends State<StatusContent> {
           Container(
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-            child: RichText(
-              text: HTML.toTextSpan(context, (contentStatus.content ?? ''),
-                  linksCallback: (link) => linksCallback(link, context),
-                  defaultTextStyle: TextStyle(
-                    color: Theme.of(context).textTheme.bodyText1?.color,
-                    fontSize: 15,
-                  ),
-                  overrideStyle: {
-                    'a': TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      decoration: TextDecoration.none,
-                    ),
-                  }),
+            child: Html(
+              data: contentStatus.content ?? '',
+              onLinkTap: (link) => linksCallback(link, context),
+              defaultTextStyle: TextStyle(
+                color: Theme.of(context).textTheme.bodyText1?.color,
+                fontSize: 15,
+              ),
+              linkStyle: TextStyle(
+                color: Theme.of(context).primaryColor,
+                decoration: TextDecoration.none,
+              ),
             ),
           ),
       ],

@@ -112,7 +112,7 @@ class StatusPageController extends State<StatusPage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       refreshController.requestRefresh();
     });
     super.initState();

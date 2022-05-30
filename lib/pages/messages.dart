@@ -80,7 +80,7 @@ class MessagesPageController extends State<MessagesPage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       refreshController.requestRefresh();
     });
     super.initState();

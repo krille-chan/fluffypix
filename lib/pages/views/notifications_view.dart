@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:flutter_matrix_html/flutter_html.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:simple_html_css/simple_html_css.dart';
 
 import 'package:fluffypix/model/notification.dart';
 import 'package:fluffypix/utils/links_callback.dart';
@@ -42,19 +42,16 @@ class NotificationsPageView extends StatelessWidget {
                         .goToProfile(controller.timeline[i].account.id),
                     child: Avatar(account: controller.timeline[i].account),
                   ),
-                  title: RichText(
-                    text: HTML.toTextSpan(context,
-                        controller.timeline[i].toLocalizedString(context),
-                        linksCallback: (link) => linksCallback(link, context),
-                        defaultTextStyle: TextStyle(
-                          color: Theme.of(context).textTheme.bodyText1?.color,
-                        ),
-                        overrideStyle: {
-                          'a': TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            decoration: TextDecoration.none,
-                          ),
-                        }),
+                  title: Html(
+                    data: controller.timeline[i].toLocalizedString(context),
+                    onLinkTap: (link) => linksCallback(link, context),
+                    defaultTextStyle: TextStyle(
+                      color: Theme.of(context).textTheme.bodyText1?.color,
+                    ),
+                    linkStyle: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      decoration: TextDecoration.none,
+                    ),
                   ),
                   subtitle: Row(
                     children: [

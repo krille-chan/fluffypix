@@ -28,6 +28,10 @@ class SearchPageView extends StatelessWidget {
             onChanged: controller.searchQueryWithCooldown,
             onSubmitted: controller.searchQuery,
             decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 4,
+              ),
               prefixIcon: controller.loading
                   ? const CupertinoActivityIndicator()
                   : const Icon(CupertinoIcons.search),
@@ -36,8 +40,6 @@ class SearchPageView extends StatelessWidget {
                 onPressed: controller.cancelSearch,
               ),
               hintText: L10n.of(context)!.search,
-              filled: true,
-              fillColor: Theme.of(context).secondaryHeaderColor,
             ),
           ),
         ),
@@ -53,12 +55,17 @@ class SearchPageView extends StatelessWidget {
                   children: [
                     if (controller.searchResult!.accounts.isNotEmpty) ...[
                       Material(
-                        color: Theme.of(context).secondaryHeaderColor,
+                        color: Theme.of(context).colorScheme.secondaryContainer,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             L10n.of(context)!.users,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondaryContainer,
+                            ),
                           ),
                         ),
                       ),
@@ -71,12 +78,17 @@ class SearchPageView extends StatelessWidget {
                     ],
                     if (controller.searchResult!.hashtags.isNotEmpty) ...[
                       Material(
-                        color: Theme.of(context).secondaryHeaderColor,
+                        color: Theme.of(context).colorScheme.secondaryContainer,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             L10n.of(context)!.hashtags,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondaryContainer,
+                            ),
                           ),
                         ),
                       ),
@@ -93,8 +105,8 @@ class SearchPageView extends StatelessWidget {
                             child: Center(
                               child: Material(
                                 color: Theme.of(context)
-                                    .appBarTheme
-                                    .backgroundColor,
+                                    .colorScheme
+                                    .surfaceVariant,
                                 borderRadius: BorderRadius.circular(64),
                                 elevation: 1,
                                 child: InkWell(
@@ -109,7 +121,9 @@ class SearchPageView extends StatelessWidget {
                                     child: Text(
                                       '#${controller.searchResult!.hashtags[i].name}',
                                       style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurfaceVariant,
                                         fontWeight: FontWeight.w500,
                                         fontSize: 16,
                                       ),
@@ -125,12 +139,17 @@ class SearchPageView extends StatelessWidget {
                     ],
                     if (controller.searchResult!.statuses.isNotEmpty) ...[
                       Material(
-                        color: Theme.of(context).secondaryHeaderColor,
+                        color: Theme.of(context).colorScheme.secondaryContainer,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             L10n.of(context)!.statuses,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondaryContainer,
+                            ),
                           ),
                         ),
                       ),

@@ -19,7 +19,7 @@ class Avatar extends StatelessWidget {
       color: Theme.of(context).textTheme.bodyText1?.color,
     );
     return CircleAvatar(
-      backgroundColor: Theme.of(context).secondaryHeaderColor,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(radius ?? 64),
         child: CachedNetworkImage(

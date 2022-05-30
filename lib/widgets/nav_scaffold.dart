@@ -86,6 +86,15 @@ class NavScaffold extends StatelessWidget {
         bottomNavigationBar: AppThemes.isColumnMode(context)
             ? null
             : BottomNavigationBar(
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                type: BottomNavigationBarType.fixed,
+                selectedIconTheme: IconThemeData(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                unselectedIconTheme: IconThemeData(
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
                 currentIndex: (!AppThemes.isColumnMode(context) &&
                         currentIndex != null &&
                         currentIndex! > 4)
@@ -258,7 +267,6 @@ class NavScaffold extends StatelessWidget {
               const Spacer(),
             ],
           ),
-          backgroundColor: Theme.of(context).secondaryHeaderColor.withAlpha(64),
         ),
       );
     });

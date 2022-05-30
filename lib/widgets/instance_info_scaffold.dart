@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/public_instance.dart';
@@ -25,7 +25,7 @@ class InstanceInfoScaffold extends StatelessWidget {
             padding: const EdgeInsets.only(right: 12.0),
             child: TextButton(
               child: Text(L10n.of(context)!.website),
-              onPressed: () => launch('https://${instance.name}'),
+              onPressed: () => launchUrlString('https://${instance.name}'),
             ),
           ),
         ],

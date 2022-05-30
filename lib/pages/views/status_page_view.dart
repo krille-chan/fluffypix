@@ -47,7 +47,7 @@ class StatusPageView extends StatelessWidget {
                 child: TextField(
                   controller: controller.textEditingController,
                   focusNode: controller.focusNode,
-                  minLines: 5,
+                  minLines: 4,
                   maxLines: 8,
                   maxLength: 500,
                   readOnly: controller.commentLoading,

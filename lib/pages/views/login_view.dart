@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/config/app_themes.dart';
@@ -142,8 +142,9 @@ class LoginPageView extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: InkWell(
-                          onTap:
-                              app.link == null ? null : () => launch(app.link!),
+                          onTap: app.link == null
+                              ? null
+                              : () => launchUrlString(app.link!),
                           child: Opacity(
                             opacity: app.link == null ? 0.5 : 1,
                             child: Image.asset(

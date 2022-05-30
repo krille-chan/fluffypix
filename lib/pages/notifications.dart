@@ -60,7 +60,7 @@ class NotificationsPageController extends State<NotificationsPage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       refreshController.requestRefresh();
     });
     super.initState();

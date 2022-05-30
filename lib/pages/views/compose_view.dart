@@ -63,7 +63,7 @@ class ComposePageView extends StatelessWidget {
                   const SizedBox(height: 12),
                 ],
                 TextField(
-                  minLines: 8,
+                  minLines: 4,
                   maxLines: 8,
                   maxLength: 500,
                   controller: controller.statusController,
@@ -84,7 +84,7 @@ class ComposePageView extends StatelessWidget {
                         children: [
                           Expanded(
                             child: SizedBox(
-                              height: 64,
+                              height: 56,
                               child: OutlinedButton.icon(
                                 onPressed: controller.addMedia,
                                 icon: const Icon(CupertinoIcons.photo),
@@ -95,7 +95,7 @@ class ComposePageView extends StatelessWidget {
                           const SizedBox(width: 12),
                           Expanded(
                             child: SizedBox(
-                              height: 64,
+                              height: 56,
                               child: OutlinedButton.icon(
                                 onPressed: () =>
                                     controller.addMedia(video: true),

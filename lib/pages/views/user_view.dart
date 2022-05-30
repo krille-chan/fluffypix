@@ -215,11 +215,11 @@ class UserPageView extends StatelessWidget {
                                     child: CircleAvatar(
                                       radius: 24,
                                       backgroundColor: Theme.of(context)
-                                          .secondaryHeaderColor,
+                                          .colorScheme
+                                          .primaryContainer,
                                       foregroundColor: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          ?.color,
+                                          .colorScheme
+                                          .onPrimaryContainer,
                                       child: Text(
                                         field.name
                                             .trim()
@@ -433,7 +433,7 @@ class _CountButton extends StatelessWidget {
     return Material(
       borderRadius: BorderRadius.circular(8),
       color: selected
-          ? Theme.of(context).secondaryHeaderColor
+          ? Theme.of(context).colorScheme.primaryContainer
           : Theme.of(context).scaffoldBackgroundColor,
       child: InkWell(
         onTap: onTap,

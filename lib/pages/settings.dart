@@ -7,6 +7,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
@@ -30,13 +31,8 @@ class SettingsPageController extends State<SettingsPage> {
       );
       return;
     }
-    launch(
-      FluffyPix.of(context)
-          .instance!
-          .resolveUri(Uri(path: '/settings'))
-          .toString(),
-      forceSafariVC: true,
-      forceWebView: true,
+    launchUrl(
+      FluffyPix.of(context).instance!.resolveUri(Uri(path: '/settings')),
     );
   }
 
@@ -68,8 +64,8 @@ class SettingsPageController extends State<SettingsPage> {
     }
   }
 
-  void helpAction() => launch(AppConfigs.issueUrl);
-  void privacyAction() => launch(AppConfigs.privacyUrl);
+  void helpAction() => launchUrlString(AppConfigs.issueUrl);
+  void privacyAction() => launchUrlString(AppConfigs.privacyUrl);
 
   void goToNotificationSettings() =>
       Navigator.of(context).pushNamed('/settings/notifications');

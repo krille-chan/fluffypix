@@ -18,6 +18,7 @@ import '../model/fluffy_pix_api_extension.dart';
 import 'views/user_view.dart';
 
 enum UserViewColumn { statuses, followers, following }
+
 enum UserStatusesView { grid, timeline }
 
 class UserPage extends StatefulWidget {
@@ -267,7 +268,7 @@ class UserPageController extends State<UserPage> {
     if (isOwnUser) {
       account = FluffyPix.of(context).ownAccount;
     }
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       refreshController.requestRefresh();
     });
   }

@@ -64,7 +64,7 @@ class FluffyPix {
   }
 
   Widget builder(BuildContext context, Widget? child) {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,

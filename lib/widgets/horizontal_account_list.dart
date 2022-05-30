@@ -15,7 +15,7 @@ class HorizontalAccountList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100,
+      height: 105,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: accounts.length,
@@ -26,7 +26,7 @@ class HorizontalAccountList extends StatelessWidget {
             onTap: () => onTap(accounts[i].id),
             child: SizedBox(
               width: 90,
-              height: 100,
+              height: 105,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,

@@ -163,7 +163,7 @@ class HomePageController extends State<HomePage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       refreshController.requestRefresh();
     });
     if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
@@ -176,6 +176,7 @@ class HomePageController extends State<HomePage> {
         FluffyPix.of(context).unreadNotifications = null;
         FluffyPix.of(context).updateNotificationCount();
       }
+      return msg;
     });
     checkUpdatesTimer = Timer.periodic(
       const Duration(seconds: 15),

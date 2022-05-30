@@ -8,8 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:flutter_matrix_html/flutter_html.dart';
 import 'package:share/share.dart';
-import 'package:simple_html_css/simple_html_css.dart';
 
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/status.dart';
@@ -411,13 +411,11 @@ class _StatusWidgetState extends State<StatusWidget> {
               '/status/${reply.id}',
               arguments: reply,
             ),
-            title: RichText(
-              text: HTML.toTextSpan(
-                context,
-                '<b>${reply.account.displayName.isNotEmpty ? reply.account.displayName : reply.account.username}</b>: ${reply.content}',
-                defaultTextStyle: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText1?.color,
-                ),
+            title: Html(
+              data:
+                  '<b>${reply.account.displayName.isNotEmpty ? reply.account.displayName : reply.account.username}</b>: ${reply.content}',
+              defaultTextStyle: TextStyle(
+                color: Theme.of(context).textTheme.bodyText1?.color,
               ),
             ),
           ),

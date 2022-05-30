@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:package_info/package_info.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:fluffypix/config/app_configs.dart';
 
@@ -23,12 +23,12 @@ void showCustomAboutDialog(BuildContext context) async {
     ),
     children: [
       OutlinedButton(
-        onPressed: () => launch(AppConfigs.privacyUrl),
+        onPressed: () => launchUrlString(AppConfigs.privacyUrl),
         child: Text(L10n.of(context)!.privacy),
       ),
       SizedBox(height: 2),
       OutlinedButton(
-        onPressed: () => launch(AppConfigs.applicationWebsite),
+        onPressed: () => launchUrlString(AppConfigs.applicationWebsite),
         child: Text(L10n.of(context)!.website),
       ),
     ],

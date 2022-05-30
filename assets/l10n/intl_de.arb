@@ -212,7 +212,7 @@
       "name": {}
     }
   },
-  "mentioned": "<b>{name}</b> hat dich in einem Beitrag erwähnt:<br/>{content}",
+  "mentioned": "<b>{name}</b> hat dich in einem Beitrag erwähnt: {content}",
   "@mentioned": {
     "type": "text",
     "placeholders": {

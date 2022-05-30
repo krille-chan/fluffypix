@@ -14,7 +14,7 @@ class SensitiveContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 256,
-      color: Theme.of(context).secondaryHeaderColor,
+      color: Theme.of(context).colorScheme.primaryContainer,
       child: Stack(
         children: [
           BlurHash(hash: blurHash),

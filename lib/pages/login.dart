@@ -9,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/config/app_themes.dart';
@@ -100,7 +101,7 @@ class LoginPageController extends State<LoginPage> {
           browser ??= ChromeSafariBrowser();
           browser!.open(url: url);
         } else {
-          launch(url.toString());
+          launchUrl(url);
           final code = await showTextInputDialog(
             context: context,
             title: L10n.of(context)!.enterCode,
@@ -158,7 +159,9 @@ class LoginPageController extends State<LoginPage> {
                   (app) => Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
-                      onTap: app.link == null ? null : () => launch(app.link!),
+                      onTap: app.link == null
+                          ? null
+                          : () => launchUrlString(app.link!),
                       child: Opacity(
                         opacity: app.link == null ? 0.5 : 1,
                         child: Image.asset(
@@ -184,7 +187,7 @@ class LoginPageController extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance?.addPostFrameCallback(_recommendMobileAppDialog);
+    WidgetsBinding.instance.addPostFrameCallback(_recommendMobileAppDialog);
     publicInstancesFuture ??=
         FluffyPix.of(context).requestInstances(L10n.of(context)!.localeName);
     return LoginPageView(this);

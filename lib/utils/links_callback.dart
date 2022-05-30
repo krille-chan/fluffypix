@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:url_launcher/url_launcher.dart';
-
-import 'package:fluffypix/model/fluffy_pix.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 void linksCallback(String link, BuildContext context) {
   final uri = Uri.parse(link);
@@ -11,9 +9,5 @@ void linksCallback(String link, BuildContext context) {
     Navigator.of(context).pushNamed('/tags/${uri.pathSegments.last}');
     return;
   }
-  launch(
-    link,
-    forceSafariVC: FluffyPix.of(context).useInAppBrowser,
-    forceWebView: FluffyPix.of(context).useInAppBrowser,
-  );
+  launchUrlString(link);
 }

@@ -99,7 +99,7 @@
     "pickFromYourGallery": "Pick from your gallery",
     "sendComment": "Send comment",
     "pollEnded": "A poll you took part in has ended.",
-    "mentioned": "<b>{name}</b> mentioned you in a post:<br/>{content}",
+    "mentioned": "<b>{name}</b> mentioned you in a post: {content}",
     "@mentioned": {
         "type": "text",
         "placeholders": {
