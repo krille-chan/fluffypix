@@ -68,7 +68,7 @@
       "name": {}
     }
   },
-  "mentioned": "<b>{name}</b> menyebutkan Anda dalam postingan:<br/>{content}",
+  "mentioned": "<b>{name}</b> menyebutkan Anda dalam postingan: {content}",
   "@mentioned": {
     "type": "text",
     "placeholders": {
