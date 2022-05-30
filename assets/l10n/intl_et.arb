@@ -234,7 +234,7 @@
       "name": {}
     }
   },
-  "mentioned": "<b>{name}</b> mainis sind postituses:<br/>{content}",
+  "mentioned": "<b>{name}</b> mainis sind postituses: {content}",
   "@mentioned": {
     "type": "text",
     "placeholders": {
