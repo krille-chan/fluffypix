@@ -264,7 +264,7 @@
   },
   "pollEnded": "Опитування, в якому ви брали участь, завершилося.",
   "@pollEnded": {},
-  "mentioned": "<b>{name}</b> згадує вас у дописі:<br/>{content}",
+  "mentioned": "<b>{name}</b> згадує вас у дописі: {content}",
   "@mentioned": {
     "type": "text",
     "placeholders": {
