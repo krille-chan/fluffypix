@@ -68,7 +68,7 @@
       "name": {}
     }
   },
-  "mentioned": "<b>{name}</b> bir gönderide sizden bahsetti:<br/>{content}",
+  "mentioned": "<b>{name}</b> bir gönderide sizden bahsetti: {content}",
   "@mentioned": {
     "type": "text",
     "placeholders": {
