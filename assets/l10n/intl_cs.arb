@@ -56,5 +56,52 @@
   "addedAt": "Přidáno v",
   "@addedAt": {},
   "messages": "Zprávy",
-  "@messages": {}
+  "@messages": {},
+  "close": "Zavřít",
+  "@close": {},
+  "delete": "Smazat",
+  "@delete": {},
+  "settings": "Nastavení",
+  "@settings": {},
+  "about": "O aplikaci",
+  "@about": {},
+  "account": "Účet",
+  "@account": {},
+  "logout": "Odhlásit",
+  "@logout": {},
+  "reason": "Důvod",
+  "@reason": {},
+  "help": "Pomoc",
+  "@help": {},
+  "notifications": "Oznámení",
+  "@notifications": {},
+  "openCamera": "Otevřít fotoaparát",
+  "@openCamera": {},
+  "privacy": "Soukromí",
+  "@privacy": {},
+  "dateAndTimeOfDay": "{date}, {timeOfDay}",
+  "@dateAndTimeOfDay": {
+    "type": "text",
+    "placeholders": {
+      "date": {},
+      "timeOfDay": {}
+    }
+  },
+  "dateWithoutYear": "{day}.{month}",
+  "@dateWithoutYear": {
+    "type": "text",
+    "placeholders": {
+      "month": {},
+      "day": {}
+    }
+  },
+  "dateWithYear": "{day}. {month}. {year}",
+  "@dateWithYear": {
+    "type": "text",
+    "placeholders": {
+      "year": {},
+      "month": {},
+      "day": {}
+    }
+  }
 }
