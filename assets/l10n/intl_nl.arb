@@ -66,7 +66,7 @@
       "name": {}
     }
   },
-  "mentioned": "<b>{name}</b> vermelde je in een post:<br/>{content}",
+  "mentioned": "<b>{name}</b> vermelde je in een post: {content}",
   "@mentioned": {
     "type": "text",
     "placeholders": {
