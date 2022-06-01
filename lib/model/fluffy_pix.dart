@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
@@ -62,8 +63,21 @@ class FluffyPix {
         json.containsKey('instance') ? Uri.parse(json['instance']) : null;
   }
 
-  Widget builder(BuildContext context, Widget? child) =>
-      Provider(create: (_) => this, child: child ?? Container());
+  Widget builder(BuildContext context, Widget? child) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Theme.of(context).colorScheme.background,
+          systemNavigationBarIconBrightness:
+              Theme.of(context).brightness == Brightness.light
+                  ? Brightness.dark
+                  : Brightness.light,
+        ),
+      );
+    });
+    return Provider(create: (_) => this, child: child ?? Container());
+  }
 
   Map<String, dynamic> toJson() => {
         'access_token_credentials': accessTokenCredentials?.toJson(),
