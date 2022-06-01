@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_matrix_html/flutter_html.dart';
+
 import 'package:fluffypix/config/app_configs.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/status/sensitive_content.dart';
 import 'package:fluffypix/widgets/status/status_content_slider.dart';
 import 'package:fluffypix/widgets/status/text_status_content.dart';
-import 'package:flutter_matrix_html/flutter_html.dart';
 
 enum ImageStatusMode { timeline, reply, discover }
 

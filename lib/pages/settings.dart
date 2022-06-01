@@ -64,8 +64,18 @@ class SettingsPageController extends State<SettingsPage> {
     }
   }
 
-  void helpAction() => launchUrlString(AppConfigs.issueUrl);
-  void privacyAction() => launchUrlString(AppConfigs.privacyUrl);
+  void helpAction() => launchUrlString(
+        AppConfigs.issueUrl,
+        mode: FluffyPix.of(context).useInAppBrowser
+            ? LaunchMode.inAppWebView
+            : LaunchMode.externalApplication,
+      );
+  void privacyAction() => launchUrlString(
+        AppConfigs.privacyUrl,
+        mode: FluffyPix.of(context).useInAppBrowser
+            ? LaunchMode.inAppWebView
+            : LaunchMode.externalApplication,
+      );
 
   void goToNotificationSettings() =>
       Navigator.of(context).pushNamed('/settings/notifications');

@@ -5,6 +5,7 @@ import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:fluffypix/config/app_configs.dart';
+import 'package:fluffypix/model/fluffy_pix.dart';
 
 void showCustomAboutDialog(BuildContext context) async {
   var version = L10n.of(context)!.unknown;
@@ -23,12 +24,22 @@ void showCustomAboutDialog(BuildContext context) async {
     ),
     children: [
       OutlinedButton(
-        onPressed: () => launchUrlString(AppConfigs.privacyUrl),
+        onPressed: () => launchUrlString(
+          AppConfigs.privacyUrl,
+          mode: FluffyPix.of(context).useInAppBrowser
+              ? LaunchMode.inAppWebView
+              : LaunchMode.externalApplication,
+        ),
         child: Text(L10n.of(context)!.privacy),
       ),
       SizedBox(height: 2),
       OutlinedButton(
-        onPressed: () => launchUrlString(AppConfigs.applicationWebsite),
+        onPressed: () => launchUrlString(
+          AppConfigs.applicationWebsite,
+          mode: FluffyPix.of(context).useInAppBrowser
+              ? LaunchMode.inAppWebView
+              : LaunchMode.externalApplication,
+        ),
         child: Text(L10n.of(context)!.website),
       ),
     ],

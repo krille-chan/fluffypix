@@ -40,7 +40,7 @@ class HomePageController extends State<HomePage> {
       .toList();
   List<Status> localReplies(String statusId) =>
       timeline.where((status) => status.inReplyToId == statusId).toList();
-  List<Hashtag> trends = [];
+  List<Hashtag> trends = [Hashtag(name: 'TEST', url: 'https')];
   List<Account> trendAccounts = [];
   bool seeNewStatuses = false;
 

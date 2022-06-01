@@ -112,10 +112,9 @@ class HomePageView extends StatelessWidget {
                                 ),
                                 child: Material(
                                   color: Theme.of(context)
-                                      .appBarTheme
-                                      .backgroundColor,
+                                      .colorScheme
+                                      .primaryContainer,
                                   borderRadius: BorderRadius.circular(64),
-                                  elevation: 1,
                                   child: InkWell(
                                     borderRadius: BorderRadius.circular(64),
                                     onTap: () =>
@@ -128,7 +127,9 @@ class HomePageView extends StatelessWidget {
                                       child: Text(
                                         '#${hashtag.name}',
                                         style: TextStyle(
-                                          color: Theme.of(context).primaryColor,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryContainer,
                                           fontWeight: FontWeight.w500,
                                           fontSize: 16,
                                         ),
