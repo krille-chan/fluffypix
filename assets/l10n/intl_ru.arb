@@ -5,7 +5,7 @@
   "@pickACommunityDescription": {},
   "helloWorld": "Привет, мир",
   "@helloWorld": {},
-  "oopsSomethingWentWrong": "Упс... что-то пошло не так!",
+  "oopsSomethingWentWrong": "Упс… Что-то пошло не так!",
   "@oopsSomethingWentWrong": {},
   "search": "Поиск",
   "@search": {},
@@ -157,7 +157,7 @@
   "@unblockUser": {},
   "pollEnded": "Опрос, в котором вы принимали участие, завершился.",
   "@pollEnded": {},
-  "mentioned": "<b>{name}</b> упомянул вас в записе:<br/>{content}",
+  "mentioned": "<b>{name}</b> упомянул вас в записе: {content}",
   "@mentioned": {
     "type": "text",
     "placeholders": {
