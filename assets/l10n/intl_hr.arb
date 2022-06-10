@@ -191,7 +191,7 @@
   "@sendComment": {},
   "pollEnded": "Anketa u kojoj si sudjelovao/la je završena.",
   "@pollEnded": {},
-  "mentioned": "<b>{name}</b> te je spomenuo/la u objavi:<br/>{content}",
+  "mentioned": "<b>{name}</b> te je spomenuo/la u objavi: {content}",
   "@mentioned": {
     "type": "text",
     "placeholders": {
