@@ -150,5 +150,30 @@
   "noThanks": "No, gràcies",
   "@noThanks": {},
   "unblockUser": "Desbloca l’usuari",
-  "@unblockUser": {}
+  "@unblockUser": {},
+  "dateAndTimeOfDay": "{date}, {timeOfDay}",
+  "@dateAndTimeOfDay": {
+    "type": "text",
+    "placeholders": {
+      "date": {},
+      "timeOfDay": {}
+    }
+  },
+  "dateWithoutYear": "{day}-{month}",
+  "@dateWithoutYear": {
+    "type": "text",
+    "placeholders": {
+      "month": {},
+      "day": {}
+    }
+  },
+  "dateWithYear": "{day}-{month}-{year}",
+  "@dateWithYear": {
+    "type": "text",
+    "placeholders": {
+      "year": {},
+      "month": {},
+      "day": {}
+    }
+  }
 }
