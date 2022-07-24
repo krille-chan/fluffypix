@@ -23,5 +23,7 @@
       "month": {},
       "day": {}
     }
-  }
+  },
+  "users": "Käyttäjät",
+  "@users": {}
 }
