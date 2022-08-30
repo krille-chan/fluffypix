@@ -271,5 +271,15 @@
   "pickACommunity": "Bir topluluk seçin",
   "@pickACommunity": {},
   "helloWorld": "Merhaba Dünya",
-  "@helloWorld": {}
+  "@helloWorld": {},
+  "color": "Renk",
+  "@color": {},
+  "light": "Açık",
+  "@light": {},
+  "dark": "Koyu",
+  "@dark": {},
+  "style": "Tarz",
+  "@style": {},
+  "system": "Sistem",
+  "@system": {}
 }
