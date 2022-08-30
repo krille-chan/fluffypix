@@ -173,5 +173,10 @@
         "month": {},
         "day": {}
         }
-    }
+    },
+    "color": "Color",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "style": "Style"
 }

@@ -36,7 +36,6 @@ class MessagesPageView extends StatelessWidget {
               ),
       ),
       scrollController: controller.scrollController,
-      currentIndex: 6,
     );
   }
 }

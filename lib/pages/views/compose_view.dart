@@ -23,7 +23,7 @@ class ComposePageView extends StatelessWidget {
         automaticallyImplyLeading: false,
         leadingWidth: 64,
         leading: TextButton(
-          child: Text(L10n.of(context)!.reset),
+          child: Text(L10n.of(context)!.reset, maxLines: 1),
           onPressed: controller.loading || controller.loadingPhoto
               ? null
               : controller.resetAction,
@@ -69,6 +69,7 @@ class ComposePageView extends StatelessWidget {
                   controller: controller.statusController,
                   decoration: InputDecoration(
                     hintText: L10n.of(context)!.howDoYouFeel,
+                    filled: true,
                     contentPadding: const EdgeInsets.all(12),
                   ),
                 ),
@@ -83,25 +84,18 @@ class ComposePageView extends StatelessWidget {
                     : Row(
                         children: [
                           Expanded(
-                            child: SizedBox(
-                              height: 56,
-                              child: OutlinedButton.icon(
-                                onPressed: controller.addMedia,
-                                icon: const Icon(CupertinoIcons.photo),
-                                label: Text(L10n.of(context)!.addPhoto),
-                              ),
+                            child: OutlinedButton.icon(
+                              onPressed: controller.addMedia,
+                              icon: const Icon(CupertinoIcons.photo),
+                              label: Text(L10n.of(context)!.addPhoto),
                             ),
                           ),
                           const SizedBox(width: 12),
                           Expanded(
-                            child: SizedBox(
-                              height: 56,
-                              child: OutlinedButton.icon(
-                                onPressed: () =>
-                                    controller.addMedia(video: true),
-                                icon: const Icon(CupertinoIcons.video_camera),
-                                label: Text(L10n.of(context)!.addVideo),
-                              ),
+                            child: OutlinedButton.icon(
+                              onPressed: () => controller.addMedia(video: true),
+                              icon: const Icon(CupertinoIcons.video_camera),
+                              label: Text(L10n.of(context)!.addVideo),
                             ),
                           ),
                         ],
@@ -117,7 +111,7 @@ class ComposePageView extends StatelessWidget {
                       Text(controller.visibility.toLocalizedString(context)),
                 ),
                 const SizedBox(height: 12),
-                SwitchListTile(
+                SwitchListTile.adaptive(
                   controlAffinity: ListTileControlAffinity.trailing,
                   value: controller.sensitive,
                   onChanged: controller.toggleSensitive,

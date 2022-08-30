@@ -1,58 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:fluffypix/config/app_configs.dart';
 
 abstract class AppThemes {
   static const double radius = 12;
 
-  static ThemeData get light => ThemeData(
-        visualDensity: VisualDensity.standard,
+  static ThemeData buildTheme(
+          ColorScheme? scheme, Color? primaryColor, bool isLight) =>
+      ThemeData(
+        brightness: isLight ? Brightness.light : Brightness.dark,
         useMaterial3: true,
-        brightness: Brightness.light,
-        colorSchemeSeed: AppConfigs.primaryColor,
-        snackBarTheme:
-            const SnackBarThemeData(behavior: SnackBarBehavior.floating),
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: {
-            TargetPlatform.fuchsia: ZoomPageTransitionsBuilder(),
-            TargetPlatform.android: ZoomPageTransitionsBuilder(),
-            TargetPlatform.linux: CupertinoPageTransitionsBuilder(),
-            TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
-            TargetPlatform.windows: CupertinoPageTransitionsBuilder(),
-            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-          },
+        colorScheme: primaryColor != null ? null : scheme,
+        appBarTheme: AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness:
+                isLight ? Brightness.dark : Brightness.light,
+            statusBarBrightness: !isLight ? Brightness.dark : Brightness.light,
+          ),
         ),
-        inputDecorationTheme: InputDecorationTheme(
-          border: const UnderlineInputBorder(borderSide: BorderSide(width: 1)),
-          filled: true,
-        ),
-        appBarTheme: const AppBarTheme(centerTitle: true),
-        dividerColor: Colors.grey.shade100,
-      );
-
-  static ThemeData get dark => ThemeData(
-        visualDensity: VisualDensity.standard,
-        useMaterial3: true,
-        brightness: Brightness.dark,
-        colorSchemeSeed: AppConfigs.primaryColor,
-        snackBarTheme:
-            const SnackBarThemeData(behavior: SnackBarBehavior.floating),
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: {
-            TargetPlatform.fuchsia: ZoomPageTransitionsBuilder(),
-            TargetPlatform.android: ZoomPageTransitionsBuilder(),
-            TargetPlatform.linux: CupertinoPageTransitionsBuilder(),
-            TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
-            TargetPlatform.windows: CupertinoPageTransitionsBuilder(),
-            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-          },
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          border: const UnderlineInputBorder(borderSide: BorderSide(width: 1)),
-          filled: true,
-        ),
-        appBarTheme: const AppBarTheme(centerTitle: true),
-        dividerColor: Colors.grey.shade700,
+        dividerColor: isLight ? Colors.grey.shade200 : Colors.grey.shade700,
+        colorSchemeSeed:
+            primaryColor ?? (scheme == null ? AppConfigs.primaryColor : null),
       );
 
   static const double columnWidth = 300;

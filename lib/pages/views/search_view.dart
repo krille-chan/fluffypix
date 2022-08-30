@@ -28,6 +28,7 @@ class SearchPageView extends StatelessWidget {
             onChanged: controller.searchQueryWithCooldown,
             onSubmitted: controller.searchQuery,
             decoration: InputDecoration(
+              filled: true,
               contentPadding: EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 4,

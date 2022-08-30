@@ -271,5 +271,10 @@
   "forNewFollowers": "Für neue Follower",
   "@forNewFollowers": {},
   "forNewLikes": "Für neue Likes",
-  "@forNewLikes": {}
+  "@forNewLikes": {},
+  "color": "Farbe",
+  "light": "Hell",
+  "dark": "Dunkel",
+  "system": "System",
+  "style": "Style"
 }

@@ -85,58 +85,56 @@ class NavScaffold extends StatelessWidget {
         floatingActionButtonLocation: floatingActionButtonLocation,
         bottomNavigationBar: AppThemes.isColumnMode(context)
             ? null
-            : BottomNavigationBar(
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                type: BottomNavigationBarType.fixed,
-                selectedIconTheme: IconThemeData(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                unselectedIconTheme: IconThemeData(
-                  color: Theme.of(context).colorScheme.onBackground,
-                ),
-                currentIndex: (!AppThemes.isColumnMode(context) &&
-                        currentIndex != null &&
-                        currentIndex! > 4)
-                    ? 4
-                    : currentIndex ?? 4,
-                onTap: (i) => onTap(i, context),
-                items: [
-                  BottomNavigationBarItem(
+            : NavigationBar(
+                labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+                onDestinationSelected: (i) => onTap(i, context),
+                selectedIndex: currentIndex ?? 0,
+                destinations: [
+                  NavigationDestination(
                     icon: Icon(
-                      currentIndex == 0 ? Icons.home : Icons.home_outlined,
+                      Icons.home_outlined,
+                      size: 28,
+                    ),
+                    selectedIcon: Icon(
+                      Icons.home,
                       size: 28,
                     ),
                     label: L10n.of(context)!.home,
                   ),
-                  BottomNavigationBarItem(
+                  NavigationDestination(
                     icon: const Icon(
                       CupertinoIcons.search,
                       size: 28,
                     ),
                     label: L10n.of(context)!.account,
                   ),
-                  BottomNavigationBarItem(
+                  NavigationDestination(
                     icon: Icon(
-                      currentIndex == 2
-                          ? CupertinoIcons.add_circled_solid
-                          : CupertinoIcons.add_circled,
+                      CupertinoIcons.add_circled,
+                      size: 28,
+                    ),
+                    selectedIcon: Icon(
+                      CupertinoIcons.add_circled_solid,
                       size: 28,
                     ),
                     label: L10n.of(context)!.newStatus,
                   ),
-                  BottomNavigationBarItem(
+                  NavigationDestination(
                     icon: NotificationCountBuilder(
                       builder: (_) => Icon(
-                        currentIndex == 3
-                            ? CupertinoIcons.heart_fill
-                            : CupertinoIcons.heart,
+                        CupertinoIcons.heart,
+                        size: 28,
+                      ),
+                    ),
+                    selectedIcon: NotificationCountBuilder(
+                      builder: (_) => Icon(
+                        CupertinoIcons.heart_fill,
                         size: 28,
                       ),
                     ),
                     label: L10n.of(context)!.notifications,
                   ),
-                  BottomNavigationBarItem(
+                  NavigationDestination(
                     icon: Avatar(
                       account: FluffyPix.of(context).ownAccount!,
                       radius: 16,

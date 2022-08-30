@@ -37,27 +37,27 @@ class SettingsNotificationsPageView extends StatelessWidget {
             final loading = snapshot.connectionState != ConnectionState.done;
             return ListView(
               children: [
-                SwitchListTile(
+                SwitchListTile.adaptive(
                   value: alerts.favourite ?? false,
                   onChanged: loading ? null : controller.toggleFavourite,
                   title: Text(L10n.of(context)!.forNewLikes),
                 ),
-                SwitchListTile(
+                SwitchListTile.adaptive(
                   value: alerts.follow ?? false,
                   onChanged: loading ? null : controller.toggleFollow,
                   title: Text(L10n.of(context)!.forNewFollowers),
                 ),
-                SwitchListTile(
+                SwitchListTile.adaptive(
                   value: alerts.mention ?? false,
                   onChanged: loading ? null : controller.toggleMention,
                   title: Text(L10n.of(context)!.forNewMentions),
                 ),
-                SwitchListTile(
+                SwitchListTile.adaptive(
                   value: alerts.reblog ?? false,
                   onChanged: loading ? null : controller.toggleReblog,
                   title: Text(L10n.of(context)!.forNewSharings),
                 ),
-                SwitchListTile(
+                SwitchListTile.adaptive(
                   value: alerts.poll ?? false,
                   onChanged: loading ? null : controller.togglePoll,
                   title: Text(L10n.of(context)!.forEndingPolls),
