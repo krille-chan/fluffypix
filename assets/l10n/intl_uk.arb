@@ -271,5 +271,15 @@
       "name": {},
       "content": {}
     }
-  }
+  },
+  "color": "Колір",
+  "@color": {},
+  "light": "Світлий",
+  "@light": {},
+  "dark": "Темний",
+  "@dark": {},
+  "system": "Системи",
+  "@system": {},
+  "style": "Стиль",
+  "@style": {}
 }
