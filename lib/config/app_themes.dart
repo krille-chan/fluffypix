@@ -13,6 +13,7 @@ abstract class AppThemes {
         useMaterial3: true,
         colorScheme: primaryColor != null ? null : scheme,
         appBarTheme: AppBarTheme(
+          centerTitle: true,
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
             statusBarIconBrightness:
