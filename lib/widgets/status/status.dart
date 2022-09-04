@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fluffypix/utils/links_callback.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -411,11 +412,16 @@ class _StatusWidgetState extends State<StatusWidget> {
               '/status/${reply.id}',
               arguments: reply,
             ),
-            title: Html(
+            subtitle: Html(
               data:
                   '<b>${reply.account.displayName.isNotEmpty ? reply.account.displayName : reply.account.username}</b>: ${reply.content}',
+              onLinkTap: (link) => linksCallback(link, context),
               defaultTextStyle: TextStyle(
                 color: Theme.of(context).textTheme.bodyText1?.color,
+              ),
+              linkStyle: TextStyle(
+                color: Theme.of(context).primaryColor,
+                decoration: TextDecoration.none,
               ),
             ),
           ),
