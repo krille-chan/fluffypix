@@ -271,5 +271,15 @@
   "wasSharedBy": "Seda jagas:",
   "@wasSharedBy": {},
   "wasLikedBy": "See meeldis:",
-  "@wasLikedBy": {}
+  "@wasLikedBy": {},
+  "system": "Süsteemikohane",
+  "@system": {},
+  "dark": "Tume",
+  "@dark": {},
+  "color": "Välimuse värv",
+  "@color": {},
+  "style": "Stiil",
+  "@style": {},
+  "light": "Hele",
+  "@light": {}
 }
