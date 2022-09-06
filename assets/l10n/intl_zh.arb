@@ -271,5 +271,15 @@
   "forNewMentions": "对于新的提及",
   "@forNewMentions": {},
   "oopsSomethingWentWrong": "哎呀......出了点差错！",
-  "@oopsSomethingWentWrong": {}
+  "@oopsSomethingWentWrong": {},
+  "color": "颜色",
+  "@color": {},
+  "light": "浅色",
+  "@light": {},
+  "dark": "深色",
+  "@dark": {},
+  "system": "系统",
+  "@system": {},
+  "style": "样式",
+  "@style": {}
 }
