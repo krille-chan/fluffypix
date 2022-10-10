@@ -271,5 +271,15 @@
   "pickACommunity": "Pilih sebuah komunitas",
   "@pickACommunity": {},
   "helloWorld": "Halo dunia",
-  "@helloWorld": {}
+  "@helloWorld": {},
+  "dark": "Gelap",
+  "@dark": {},
+  "light": "Terang",
+  "@light": {},
+  "color": "Warna",
+  "@color": {},
+  "system": "Sistem",
+  "@system": {},
+  "style": "Gaya",
+  "@style": {}
 }
