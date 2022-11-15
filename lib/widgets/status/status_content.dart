@@ -56,7 +56,6 @@ class _StatusContentState extends State<StatusContent> {
               Navigator.of(context).pushNamed('/status/${widget.status.id}'),
           child: content);
     }
-    print(contentStatus.content);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -73,7 +72,7 @@ class _StatusContentState extends State<StatusContent> {
                 fontSize: 15,
               ),
               linkStyle: TextStyle(
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).colorScheme.primary,
                 decoration: TextDecoration.none,
               ),
             ),

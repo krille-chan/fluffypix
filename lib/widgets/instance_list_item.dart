@@ -66,15 +66,23 @@ class _InstanceListItemState extends State<InstanceListItem> {
                 child: ListTile(
                   title: Text(
                     widget.instance.name,
-                    style: const TextStyle(
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onBackground,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   subtitle: Text(
                     '${L10n.of(context)!.members}: ${widget.instance.users ?? L10n.of(context)!.unknown}\n$description',
                     maxLines: 3,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
                   ),
                   trailing: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                    ),
                     onPressed: _loginLoading ? null : _loginAction,
                     child: _loginLoading
                         ? const CupertinoActivityIndicator()

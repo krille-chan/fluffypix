@@ -126,8 +126,6 @@ extension FluffyPixPushExtension on FluffyPix {
   }
 
   _handleForegroundRemoteMessage(RemoteMessage message) {
-    print('Got remote message');
-    print(message.data);
     unreadNotifications = null;
     updateNotificationCount();
   }

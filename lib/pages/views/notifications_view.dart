@@ -47,7 +47,7 @@ class NotificationsPageView extends StatelessWidget {
                     onLinkTap: (link) => linksCallback(link, context),
                     defaultTextStyle: TextStyle(fontWeight: FontWeight.normal),
                     linkStyle: TextStyle(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).colorScheme.primary,
                       decoration: TextDecoration.none,
                     ),
                   ),

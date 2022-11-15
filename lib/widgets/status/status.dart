@@ -420,7 +420,7 @@ class _StatusWidgetState extends State<StatusWidget> {
                 color: Theme.of(context).textTheme.bodyText1?.color,
               ),
               linkStyle: TextStyle(
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).colorScheme.primary,
                 decoration: TextDecoration.none,
               ),
             ),

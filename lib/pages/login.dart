@@ -53,6 +53,7 @@ class LoginPageController extends State<LoginPage> {
           .requestInstances(L10n.of(context)!.localeName, query);
     } finally {
       if (query.isNotEmpty &&
+          query.contains('.') &&
           !instances.any((instance) => instance.name == query)) {
         instances.add(
           PublicInstance(
