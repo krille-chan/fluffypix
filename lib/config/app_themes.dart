@@ -7,7 +7,10 @@ abstract class AppThemes {
   static const double radius = 12;
 
   static ThemeData buildTheme(
-          ColorScheme? scheme, Color? primaryColor, bool isLight) =>
+    ColorScheme? scheme,
+    Color? primaryColor,
+    bool isLight,
+  ) =>
       ThemeData(
         brightness: isLight ? Brightness.light : Brightness.dark,
         useMaterial3: true,
@@ -20,6 +23,10 @@ abstract class AppThemes {
                 isLight ? Brightness.dark : Brightness.light,
             statusBarBrightness: !isLight ? Brightness.dark : Brightness.light,
           ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: UnderlineInputBorder(),
+          filled: true,
         ),
         dividerColor: isLight ? Colors.grey.shade200 : Colors.grey.shade700,
         colorSchemeSeed:

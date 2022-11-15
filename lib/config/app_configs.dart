@@ -11,7 +11,7 @@ abstract class AppConfigs {
   static const Duration defaultTimeout = Duration(seconds: 30);
   static const String privacyUrl = '$applicationWebsite/-/blob/main/PRIVACY.md';
   static const String issueUrl = '$applicationWebsite/issues';
-  static const Color primaryColor = Color(0xFF5625BA);
+  static const Color primaryColor = Color.fromARGB(255, 135, 103, 172);
   static const String fallbackBlurHash = 'L5H2EC=PM+yV0g-mq.wG9c010J}I';
   static const String pushGatewayUrl = 'https://janian.de/push/notify';
   static const List<MobileApp> mobileApps = [

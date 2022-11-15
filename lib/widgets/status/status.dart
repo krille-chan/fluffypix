@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:fluffypix/utils/links_callback.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +14,7 @@ import 'package:share/share.dart';
 import 'package:fluffypix/model/fluffy_pix.dart';
 import 'package:fluffypix/model/status.dart';
 import 'package:fluffypix/model/status_visibility.dart';
+import 'package:fluffypix/utils/links_callback.dart';
 import 'package:fluffypix/widgets/avatar.dart';
 import 'package:fluffypix/widgets/status/status_content.dart';
 import '../../model/fluffy_pix_api_extension.dart';
