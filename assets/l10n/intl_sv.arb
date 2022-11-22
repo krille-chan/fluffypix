@@ -257,7 +257,7 @@
       "timeOfDay": {}
     }
   },
-  "mentioned": "<b>{name}</b> omnämnde dig i ett inlägg:<br/>{content}",
+  "mentioned": "<b>{name}</b> omnämnde dig i ett inlägg: {content}",
   "@mentioned": {
     "type": "text",
     "placeholders": {
@@ -271,5 +271,15 @@
     "placeholders": {
       "name": {}
     }
-  }
+  },
+  "color": "Färg",
+  "@color": {},
+  "light": "Ljust",
+  "@light": {},
+  "dark": "Mörkt",
+  "@dark": {},
+  "system": "System",
+  "@system": {},
+  "style": "Stil",
+  "@style": {}
 }
