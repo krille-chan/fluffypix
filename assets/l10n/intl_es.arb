@@ -3,7 +3,7 @@
   "@helloWorld": {},
   "pickACommunity": "Elige una comunidad",
   "@pickACommunity": {},
-  "oopsSomethingWentWrong": "¡Huy! algo salió mal!",
+  "oopsSomethingWentWrong": "Vaya... ¡algo salió mal!",
   "@oopsSomethingWentWrong": {},
   "search": "Buscar",
   "@search": {},
@@ -133,7 +133,7 @@
   "@local": {},
   "discoverUsers": "Descubrir usuario",
   "@discoverUsers": {},
-  "mentioned": "<b>{name}</b> te menciono en una publicación:<br/>{content}",
+  "mentioned": "<b>{name}</b> te mencionó en una publicación: {content}",
   "@mentioned": {
     "type": "text",
     "placeholders": {
@@ -271,5 +271,15 @@
   "sendComment": "Enviar comentario",
   "@sendComment": {},
   "pickFromYourGallery": "Elige de tu galería",
-  "@pickFromYourGallery": {}
+  "@pickFromYourGallery": {},
+  "light": "Claro",
+  "@light": {},
+  "dark": "Negro",
+  "@dark": {},
+  "system": "Sistema",
+  "@system": {},
+  "color": "color",
+  "@color": {},
+  "style": "Estilo",
+  "@style": {}
 }
