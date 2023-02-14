@@ -271,5 +271,15 @@
   "wasSharedBy": "Is gedeeld door",
   "@wasSharedBy": {},
   "wasLikedBy": "Is geliket door",
-  "@wasLikedBy": {}
+  "@wasLikedBy": {},
+  "system": "Systeem",
+  "@system": {},
+  "style": "Stijl",
+  "@style": {},
+  "color": "Kleur",
+  "@color": {},
+  "light": "Licht",
+  "@light": {},
+  "dark": "Donker",
+  "@dark": {}
 }
