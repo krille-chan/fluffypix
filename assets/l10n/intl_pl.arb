@@ -27,7 +27,7 @@
   "@saturday": {},
   "sunday": "Niedziela",
   "@sunday": {},
-  "oopsSomethingWentWrong": "Ups… coś poszło nie tak!",
+  "oopsSomethingWentWrong": "Ups! Coś poszło nie tak…",
   "@oopsSomethingWentWrong": {},
   "search": "Szukaj",
   "@search": {},
@@ -133,7 +133,7 @@
   "@pickACommunity": {},
   "local": "Lokalnie",
   "@local": {},
-  "dateWithYear": "{year}-{month}-{day}",
+  "dateWithYear": "{day}.{month}.{year}",
   "@dateWithYear": {
     "type": "text",
     "placeholders": {
