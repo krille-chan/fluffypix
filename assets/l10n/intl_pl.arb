@@ -27,7 +27,7 @@
   "@saturday": {},
   "sunday": "Niedziela",
   "@sunday": {},
-  "oopsSomethingWentWrong": "Ups! Coś poszło nie tak…",
+  "oopsSomethingWentWrong": "Ups… Coś poszło nie tak!",
   "@oopsSomethingWentWrong": {},
   "search": "Szukaj",
   "@search": {},
@@ -204,7 +204,7 @@
   "@unmuteUser": {},
   "pickFromYourGallery": "Wybierz ze swojej galerii",
   "@pickFromYourGallery": {},
-  "mentioned": "<b>{name}</b> wspomniał o tobie we wpisie:<br/>{content}",
+  "mentioned": "<b>{name}</b> wspomniał(a) o tobie we wpisie:{content}",
   "@mentioned": {
     "type": "text",
     "placeholders": {
@@ -271,5 +271,15 @@
     "placeholders": {
       "name": {}
     }
-  }
+  },
+  "color": "Kolor",
+  "@color": {},
+  "style": "Styl",
+  "@style": {},
+  "light": "Jasny",
+  "@light": {},
+  "dark": "Ciemny",
+  "@dark": {},
+  "system": "Ustawienia systemu",
+  "@system": {}
 }
