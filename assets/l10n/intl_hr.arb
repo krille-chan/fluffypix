@@ -271,5 +271,15 @@
       "month": {},
       "day": {}
     }
-  }
+  },
+  "light": "Svijetla",
+  "@light": {},
+  "dark": "Tamna",
+  "@dark": {},
+  "system": "Sustav",
+  "@system": {},
+  "color": "Boja",
+  "@color": {},
+  "style": "Stil",
+  "@style": {}
 }
