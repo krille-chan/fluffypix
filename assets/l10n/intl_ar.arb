@@ -73,7 +73,7 @@
       "name": {}
     }
   },
-  "mentioned": "ذكرك <b>{name}</b> في المشاركة: <br/>{content}",
+  "mentioned": "<b> {name} </b> ذكرك في منشور: {content}",
   "@mentioned": {
     "type": "text",
     "placeholders": {
@@ -158,7 +158,7 @@
   "@viewPost": {},
   "reason": "السبب",
   "@reason": {},
-  "report": "أبلغ",
+  "report": "تقرير",
   "@report": {},
   "postHasBeenReported": "أُبلغ عن المشاركة",
   "@postHasBeenReported": {},
@@ -271,5 +271,15 @@
   "helloWorld": "مرحبًا يا عالم",
   "@helloWorld": {},
   "externalProfile": "ملف خارجي",
-  "@externalProfile": {}
+  "@externalProfile": {},
+  "dark": "مظلم",
+  "@dark": {},
+  "light": "مظيء",
+  "@light": {},
+  "system": "النظام",
+  "@system": {},
+  "style": "أسلوب",
+  "@style": {},
+  "color": "اللون",
+  "@color": {}
 }
