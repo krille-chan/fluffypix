@@ -50,7 +50,7 @@
       "name": {}
     }
   },
-  "forNewSharings": "لإعادة نشر مشاركات",
+  "forNewSharings": "للمشاركات الجديدة",
   "@forNewSharings": {},
   "sharedYourPost": "شارك <b>{name}</b> مشاركتك.",
   "@sharedYourPost": {
